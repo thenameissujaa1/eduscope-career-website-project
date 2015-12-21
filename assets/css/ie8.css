@@ -1,52 +1,47 @@
 /*
-	Prologue by HTML5 UP
+	Dopetrope by HTML5 UP
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-/* Section/Article */
+/* Basic */
 
-	section > .last-child, section.last-child, article > .last-child, article.last-child {
-		margin-bottom: 0;
-	}
-
-/* Form */
-
-	form input[type="text"],
-	form input[type="email"],
-	form input[type="password"],
+	form input[type=text],
+	form input[type=password],
 	form select,
 	form textarea {
+		position: relative;
 		-ms-behavior: url("assets/js/ie/PIE.htc");
 	}
-
-/* Button */
 
 	input[type="button"],
 	input[type="submit"],
 	input[type="reset"],
 	button,
-	.button {
+	.button,
+	ul.social li a,
+	.icon.featured,
+	#copyright .links,
+	#nav > ul > li > a {
+		position: relative;
 		-ms-behavior: url("assets/js/ie/PIE.htc");
 	}
 
-/* Header */
+/* Nav */
 
-	#nav ul li a {
-		color: #888;
+	.dropotron {
+		position: relative;
+		-ms-behavior: url("assets/js/ie/PIE.htc");
 	}
 
-		#nav ul li a.active {
-			background: #1C2022;
+		.dropotron.level-0 {
+			box-shadow: none !important;
 		}
 
-	#headerToggle .toggle {
-		background-color: #888;
-	}
+/* Banner */
 
-/* Main */
-
-	#main > section.cover {
+	#banner {
 		background-position: auto;
+		background-size: contain;
 		-ms-behavior: url("assets/js/ie/backgroundsize.min.htc");
 	}
