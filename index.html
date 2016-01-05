@@ -15,6 +15,7 @@
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -38,231 +39,107 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" href="index.html"><img src="images/logo.svg" height="50" alt="logo"></a>
                 </div>
 				
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class="scroll active"><a href="#home">Home</a></li>
-                        <li class="scroll active"><a href="login.html">Login</a></li>
-                        <li class="scroll"><a href="#features">Features</a></li>
                         <li class="scroll"><a href="#services">Services</a></li>
                         <li class="scroll"><a href="#about">About</a></li> 
-                        <li class="scroll"><a href="#get-in-touch">Contact</a></li> 
-                                               
+                        <li class="scroll"><a href="#get-in-touch">Contact</a></li>
+                        <li class="scroll"><a href="login.html"><b>Login</b></a></li>
                     </ul>
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->
     </header><!--/header-->
-<body>
 
-    <section id="main-slider">
-        <div class="owl-carousel">
-            <div class="item" style="background-image: url(images/slider/11.jpg);">
-                <div class="slider-inner">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="carousel-content">
-                                    <h1>Together in shaping the future </h1>
-                                    <a class="btn btn-primary btn-lg" href="#about">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/.item-->
-             <div class="item" style="background-image: url(images/slider/bg2.jpg);">
-                <div class="slider-inner">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="carousel-content">
-                                    <h1><span>Beautifully designed</span></h1>
-                                    
-                                    <a class="btn btn-primary btn-lg" href="#features">Read More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--/.item-->
-        </div><!--/.owl-carousel-->
-    </section><!--/#main-slider-->
-
-    
-
-    <section id="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Awesome Features</h2>
-                <p class="text-center wow fadeInDown">We are providing a set of features that are exclusively on our website </p>
-            </div>
+<main>
+    <!--Jumbotron-->
+    <div class="jumbotron parallax-window" data-parallax="scroll" data-image-src="img/bg-alt.png">
+        <!--All custom-??? classess are in custom.css-->
+        <div class="container custom-jumbotron-container wow fadeInLeft">
             <div class="row">
-                <div class="col-sm-6 wow fadeInLeft">
-                    <img class="img-responsive" src="images/main-feature.png" alt="">
-                </div>
-                <div class="col-sm-6">
-                    <div class="media service-box wow fadeInRight">
-                        <div class="pull-left">
-                            <i class="fa fa-line-chart"></i>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">24/7 SUPPORT</h4>
-                            <p>Backed by some of the biggest names</p>
-                        </div>
-                    </div>
-
-                    <div class="media service-box wow fadeInRight">
-                        <div class="pull-left">
-                            <i class="fa fa-cubes"></i>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">PROCESS WALKTHROUGH</h4>
-                            <p>For user profile to be more appealing</p>
-                        </div>
-                    </div>
-
-                    <div class="media service-box wow fadeInRight">
-                        <div class="pull-left">
-                            <i class="fa fa-pie-chart"></i>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">HOSTING & STORAGE</h4>
-                            <p>Non stop</p>
-                        </div>
-                    </div>
-
-                    
-    </section>
-
-    
-
-    <section id="services" >
-        <div class="container">
-
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Our Services</h2>
-                <p class="text-center wow fadeInDown">What we offer</p>
-            </div>
-
-            <div class="row">
-                <div class="features">
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-line-chart"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Provide Future Pathways</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="100ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-cubes"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Suggest Training Requirements</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-pie-chart"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">Mentoring</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-                
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="300ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-bar-chart"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">GREEN</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="400ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-language"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">CERTIFIED</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="500ms">
-                        <div class="media service-box">
-                            <div class="pull-left">
-                                <i class="fa fa-bullseye"></i>
-                            </div>
-                            <div class="media-body">
-                                <h4 class="media-heading">SUPPORT</h4>
-                                
-                            </div>
-                        </div>
-                    </div><!--/.col-md-4-->
-                </div>
-            </div><!--/.row-->    
-        </div><!--/.container-->
-    </section><!--/#services-->
-
-    <section id="about">
-        <div class="container">
-            
-
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">About Us</h2>
-                <p class="text-center wow fadeInDown">Eduscope is an online career pathway finder that iterates over different job vacancies on the website to provide the user with the best match job based on their qualifications.</p>
-            </div>
-      
-            <div class="row">
-                <div class="col-sm-6 wow fadeInLeft">
-                    <p class="text-center wow fadeInDown"> <p><strong>Our Values</strong></p><br>
-      <p><strong>PURPOSE:</strong>
-To enable users to fully examine career options and to help them make career decisions.
-Give advice required and information on options across a variety of factors such as; previous earnings and jobs, potential routes to obtain necessary qualifications, training involved and other opportunities that may arise.
-</p><br>
-      <p><strong>AIMS:</strong>
-To make the process of finding a career easy without requiring a knowledge in computer literate.
-To provide a secure system that is trustworthy and reliable.
-</p>
-
-<p><strong> OBJECTIVES:</strong>
-Make a user-friendly website.
-Provide a good visual appeal along with the content.
-Rich sector knowledge to make a faster search time and accurate results.
-</p></p>
- <img src="images/" alt="about" width="60%" height="60%" >
-
+                <div class="col-md-8">
+                    <h2>Weclome to <i>EDUSCOPE</i></h2>
+                    <p>We enable users to fully examine education and career options and help them make future decisions. Give advice required and information on options across a variety of factors such as; previous earnings and jobs, potential routes to obtain necessary qualifications, training involved and other opportunities that may arise. </p>
+                    <p><a class="btn btn-primary btn-lg">Sign up</a></p>
                 </div>
             </div>
         </div>
-    </section><!--/#about-->
+    </div>
+    <!--./Jumbotron-->
+    
+    <!-- Our Services-->
+    <section id="services" style="background: white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title text-center wow fadeInDown">Our Services</h2>
+                <p class="text-center wow fadeInDown">We want to make the process of finding a career easy without requiring a knowledge in computer literate.
+By provide a secure system that is trustworthy and reliable.</p>
+            </div>
+            <hr/>
+            <!--one-->
+            <div class="row">
+                <div class="col-md-8 col-sm-8 custom-mobile-support-display-university">
+                    <h3>Educational Decision Making</h3>
+                    <blockquote>
+                        <p>
+                        Our service computes your records, by matching them with the database entries that we have aquired from majority of the Universities in <b>Scotland</b>. Giving you an accurate estimate and a well informed educational plan that will support your career.
+                        </p>
+                        <br>
+                        <p>
+                        Our Database is filled with information on educational requirements, prospects, job recruitments and many more statistics, making our suggestion engine reliable. 
+                        </p>
+                    </blockquote>
+                </div>
+                <div class="col-md-4 col-sm-4 custom-service-image text-center">
+                    <img style="margin-top: 60px" class="custom-mobile-support-display-off" alt="Sample of Supported Scottish Unviersities" src="img/scotland-university.jpg" height="220" width="280">
+                </div>
+            </div>
+            <!--./one-->
+            <hr>
+            <!--two-->
+            <div class="row">
+                <div class="col-md-4 col-sm-4 custom-service-image text-center">
+                    <img style="margin-top: 60px" class="custom-mobile-support-display-off" alt="Graph Example 1" height="200" width="380" src="img/graph-example-1.png">
+                </div>
+                <div class="col-md-8 col-sm-8 custom-mobile-support-display-graph-example-1 text-right">
+                    <h3>Prerequisite Information</h3>
+                    <blockquote class="blockquote-reverse">
+                        <p>
+                        Our system gives a complete guide for your chosen path along with all the preequisites that you might need for choosing a career.
+                        </p> 
+                    </blockquote>
+                </div>
+            </div>
+            <!--./two-->
+            <hr>
+            <!--three-->
+            <div class="row">
+                <div class="col-md-8 col-sm-8 custom-mobile-support-display-case-study">
+                    <h3>Case studies</h3>
+                    <blockquote>
+                        <p>
+                        View through the stored case studies that will support your decision making for your career
+                        </p> 
+                    </blockquote>
+                </div>
+                <div class="col-md-4 col-sm-4 custom-service-image text-center">
+                    <img style="margin-top: 60px" class="custom-mobile-support-display-off" alt="Case study" src="img/case-study.png">
+                </div>
+            </div>
+            <!--./three-->
+            </div><!--./row-_>
+        </div><!--/.container-->
+    </section><!--/#services-->
 
     <section id="work-process">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Our Process</h2>
-                <p class="text-center wow fadeInDown">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
+                <h2 class="section-title text-center wow fadeInDown">Process</h2>
+                <p class="text-center wow fadeInDown">With in a few steps, users </p>
             </div>
 
             <div class="row text-center">
@@ -324,193 +201,12 @@ Rich sector knowledge to make a faster search time and accurate results.
         </div>
     </section><!--/#work-process-->
 
-    <section id="meet-team">
-        <div class="container">
-            
-<div class="divider"></div>
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <h3 class="column-title">Our Skills</h3>
-                    <strong>GRAPHIC DESIGN</strong>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" data-width="85">85%</div>
-                    </div>
-                    <strong>WEB DESIGN</strong>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" data-width="90">70%</div>
-                    </div>
-                    <strong>SUPPORT STAFF</strong>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" data-width="80">90%</div>
-                    </div>
-                    <strong>WEB DEVELOPMENT</strong>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" data-width="65">65%</div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <h3 class="column-title">Our History</h3>
-                    <div role="tabpanel">
-                        <ul class="nav main-tab nav-justified" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#tab1" role="tab" data-toggle="tab" aria-controls="tab1" aria-expanded="true">2010</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab2" role="tab" data-toggle="tab" aria-controls="tab2" aria-expanded="false">2011</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab3" role="tab" data-toggle="tab" aria-controls="tab3" aria-expanded="false">2013</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab4" role="tab" data-toggle="tab" aria-controls="tab4" aria-expanded="false">2014</a>
-                            </li>
-                        </ul>
-                        <div id="tab-content" class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade active in" id="tab1" aria-labelledby="tab1">
-                                <p>The thought of implementing the website was on our heads, we just did not know yet.</p>
-                                
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="tab2">
-                                <p>LAUNCH WILL BE IN 4 YEARS!</p>
-                                <p>better get started on the implementation and design.</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="tab3">
-                                <p>The team was introduced to the company and they were becoming friends.</p>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab4" aria-labelledby="tab3">
-                                <p>Web development training is completed</p>
-                                <p>It is now or never..</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <h3 class="column-title">Faqs</h3>
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingOne">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        How do i contact a specific employer?
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    After log-in, the user is advised to search for the role/ name of the company and our databases will produce the result. Then User can contact the employer by going on their public profile.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        How do i know that search is secure?
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body">
-                                    This website uses the best up-to-date technology to keep searches safe and secure. you can contact us in a private message and we will tell you what are these technologies with tranparency.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="headingThree">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Why is this website of limited functionality?
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                <div class="panel-body">
-                                    It was aimed for a specific purpose, which is to provide young users the pathways to possible career choices or training requirements.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section><!--/#meet-team-->
-
-    <section id="animated-number">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title text-center wow fadeInDown">Fun Facts</h2>
-                
-            </div>
-
-            <div class="row text-center">
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                        <div class="animated-number" data-digit="2305" data-duration="1000"></div>
-                        <strong>CUPS OF COFFEE CONSUMED</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
-                        <div class="animated-number" data-digit="1231" data-duration="1000"></div>
-                        <strong>CLIENTS WORKED WITH</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="200ms">
-                        <div class="animated-number" data-digit="3025" data-duration="1000"></div>
-                        <strong>SEARCHES COMPLETED</strong>
-                    </div>
-                </div>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="wow fadeInUp" data-wow-duration="400ms" data-wow-delay="300ms">
-                        <div class="animated-number" data-digit="1199" data-duration="1000"></div>
-                        <strong>STUDENTS WORKED</strong>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section><!--/#animated-number-->
-
-
-
+<!-- What users say-->
     <section id="testimonial">
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
 
-                    <div id="carousel-testimonial" class="carousel slide text-center" data-ride="carousel">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <p><img class="img-circle img-thumbnail" src="images/testimonial/01.jpg" alt=""></p>
-                                <h4>Louise S. Morgan</h4>
-                                <small>Treatment, storage, and disposal (TSD) worker</small>
-                                <p>This company is the best. I am so happy with the result!</p>
-                            </div>
-                            <div class="item">
-                                <p><img class="img-circle img-thumbnail" src="images/face.jpg" alt=""></p>
-                                <h4>John Doe</h4>
-                                <small>Salesman, Rep Inc</small>
-                                <p>One word... WOW!!</p>
-                            </div>
-                        </div>
-
-                        <!-- Controls -->
-                        <div class="btns">
-                            <a class="btn btn-primary btn-sm" href="#carousel-testimonial" role="button" data-slide="prev">
-                                <span class="fa fa-angle-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="btn btn-primary btn-sm" href="#carousel-testimonial" role="button" data-slide="next">
-                                <span class="fa fa-angle-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -567,8 +263,7 @@ Rich sector knowledge to make a faster search time and accurate results.
             </div>
         </div>
     </section><!--/#bottom-->
-</body>
-
+</main>
     <footer id="footer">
         <div class="container">
             <div class="row">
@@ -604,5 +299,6 @@ Rich sector knowledge to make a faster search time and accurate results.
     <script src="js/jquery.inview.min.js"></script>
     <script src="js/wow.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/parallax.js"></script>
 </body>
 </html>
