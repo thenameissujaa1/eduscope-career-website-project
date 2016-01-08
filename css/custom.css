@@ -5,10 +5,6 @@
 
 }
 
-.parallax-window{
-    background: transparent;
-}
-
 .custom-jumbotron-container{
     padding-top: 40px;
     color: white;
@@ -17,6 +13,29 @@
 .custom-jumbotron-container h2{
     color: white;
     
+}
+
+.custom-process-icon{
+    background: rgba(0,0,0,0.5); 
+    padding-top: 50px; 
+    height: 225px;
+}
+
+.custom-process-description{
+    height: 225px; 
+    background: rgba(255,255,255,0.0);
+    padding-left: 75px;
+}
+
+.custom-triangle-style{
+    width: 0;
+	height: 0;
+	border-top: 112.5px solid transparent;
+	border-left: 40px solid rgba(0,0,0,0.5);
+	border-bottom: 112.5px solid transparent;
+    position: absolute;
+    left: 33.33%;
+    z-index: 0;
 }
 
 /* CSS for devices small width */
@@ -64,6 +83,11 @@
             background-size: 60%;
         }
         
+        
+        .custom-process-icon h3{
+        font-size: 6pt;
+        }
+        
         /*update for very small screens*/
          @media (max-width: 370px){
             .custom-mobile-support-display-university{
@@ -77,4 +101,15 @@
         /*--update-end--*/
     }
     /*update-end*/
+}
+
+
+.custom-hr {
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.8), rgba(0,0,0,0));
+  border: 0;
+  margin-bottom: 100px;
 }
