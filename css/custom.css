@@ -1,4 +1,9 @@
 /* All custom styles go here , overiding the bootstrap.css */
+.custom-col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 .custom-jumbotron{
     background-image: url("../img/bg-alt.png");
     background-position: center;
