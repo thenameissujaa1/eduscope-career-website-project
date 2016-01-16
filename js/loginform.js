@@ -4,7 +4,7 @@
 // Validation (Makes use of validate.js)
 // If it's a login form
 var login_validator = new FormValidator('login_form', [{
-    name: 'login_username',
+    name: 'login_user',
     display: 'Username/Email',
     rules: 'required'
 }, {
