@@ -22,7 +22,7 @@ for further Git guide, check the [Google Document](https://docs.google.com/docum
 
 
 #### Backend Setup (Please wait until the backend changes are made to the repo)
-1.(How to Setup PHP with OrientDB?)[https://medium.com/@polltery/setting-up-php-driver-with-orientdb-5e49037e661b#.kvj5mia80]
+1. [How to Setup PHP with OrientDB?](https://medium.com/@polltery/setting-up-php-driver-with-orientdb-5e49037e661b#.kvj5mia80)
 2. [Orient DB Installation guide](http://orientdb.com/docs/last/Tutorial-Installation.html)
 3. [PhpOrient, a php driver for orientDB](https://github.com/orientechnologies/PhpOrient)
 
