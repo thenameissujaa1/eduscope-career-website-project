@@ -19,10 +19,14 @@ for further Git guide, check the [Google Document](https://docs.google.com/docum
 1. [Bootstrap](http://getbootstrap.com/components/)
 2. [jQuery](https://jquery.com/)
 
+
+
 #### Backend Setup (Please wait until the backend changes are made to the repo)
-1. [Orient DB Installation guide](http://orientdb.com/docs/last/Tutorial-Installation.html)
-2. [PhpOrient, a php driver for orientDB](https://github.com/orientechnologies/PhpOrient)
+1.(How to Setup PHP with OrientDB?)[https://medium.com/@polltery/setting-up-php-driver-with-orientdb-5e49037e661b#.kvj5mia80]
+2. [Orient DB Installation guide](http://orientdb.com/docs/last/Tutorial-Installation.html)
+3. [PhpOrient, a php driver for orientDB](https://github.com/orientechnologies/PhpOrient)
 
 ##Contributions made so far by
 Balraj
+
 Habiba
