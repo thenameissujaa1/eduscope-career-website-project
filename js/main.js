@@ -1,3 +1,4 @@
+$(window).load(function(){
 jQuery(function($) {'use strict';
 
 	// Navigation Scroll
@@ -229,5 +230,7 @@ jQuery(function($) {'use strict';
 		});
 	}
 	google.maps.event.addDomListener(window, 'load', initialize_map);
+
+});
 
 });
