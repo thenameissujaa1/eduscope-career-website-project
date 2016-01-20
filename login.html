@@ -38,45 +38,35 @@
             <h1><span id="formHeading">Login or </span><a id="formOption" onclick="formToggle()" href="#">Sign Up</a></h1>
             
             <!--Login form-->
-            <form id="login_form" name="login_form" method="post" action="login()">
-                
+            <form id="login_form" name="login_form" method="POST" action="partials/validate.php">
+                <!--Display validation errors in this class-->
                 <p hidden class="well" id="login_validation_errors"></p>
-                
-                <input id="login_user" type="text" name="login_user" value="" placeholder="Username or Email">
-                
+                <input id="login_user" type="text" name="login_user" value="" placeholder="Username or Email">            
                 <input id="login_password" type="password" name="login_password" value="" placeholder="Password">
-
                 <label>
                     <input type="checkbox" name="login_remember_checkbox" id="login_remember_checkbox"> Remember me on this computer
                 </label>
-            
                 <input id="login_submit" type="submit" name="login_submit" value="Login">
-                
             </form>
             
             <!--Signup form-->
-            <form hidden name="signup_form" id="signup_form" mehtod="post" action="login()">
-                
+            <form hidden name="signup_form" id="signup_form" method="POST" action="partials/functions/validate_signup.php">
+                <!--Display validation errors in this class-->
                 <p hidden class="well" id="signup_validation_errors"></p>
-               
                 <input id="signup_email" type="text" name="signup_email" value="" placeholder="Email">
-                
                 <input id="signup_username" type="text" name="signup_username" value="" placeholder="Username or Email">
-                
                 <input id="signup_password" type="password" name="signup_password" value="" placeholder="Password">
-           
                 <input id="signup_password_confirm" type="password" name="signup_password_confirm" value="" placeholder="Confirm Password">
-                
                 <label>
                     <input type="checkbox" name="signup_terms_checkbox" id="signup_terms_checkbox"> I Agree to <a>terms and conditions</a>
                 </label>
-                 
                 <input  id="signup_submit" type="submit" name="signup_submit" value="Sign up">
-                
             </form>
             <!--./signup form-->
+            
             <hr>
             
+            <!--link to forget password-->
             <p class="text-center">Forgot your password?<br> <a href="forgot.html">Click here to reset it</a>.</p>
         
         </div>
@@ -100,6 +90,5 @@
     <!--unique JS-->
     <script type="text/javascript" src="js/validate.js"></script>
     <script type="text/javascript" src="js/loginform.js"></script>
-
 </body>
 </html>

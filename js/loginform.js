@@ -41,7 +41,7 @@ var signup_validator = new FormValidator('signup_form', [{
 }, {
     name: 'signup_password_confirm',
     display: 'password confirmation',
-    rules: 'required|matches[password]'
+    rules: 'required|matches[signup_password]'
 }], function(errors, event) {
     if (errors.length > 0) {
         // Show the errors
@@ -103,8 +103,7 @@ function formToggle() {
         // Show Login elements
         $('#login_form').slideDown(250);
     }
-
-};
+}
 
 
 
