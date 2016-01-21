@@ -26,7 +26,33 @@ var login_validator = new FormValidator('login_form', [{
     }else{
     
         // If the login is a success
-    
+        // Prevent default action
+        event.preventDefault();
+        
+        // serialize array into JSON format
+        var postData = $('#login_form').serializeArray();
+        
+        // Show a message     
+        $('#login_validation_errors').show(250);
+        $('#login_validation_errors').html('Processing...');
+         
+        // use jQuery post shorthand to post data
+        $.post('partials/functions/login.php', postData, function(data){
+
+            // If ajax success
+            if(data == "success"){
+                window.location.href = 'profile.html';
+            }else{
+                $('#login_validation_errors').html(data);
+            }
+
+        }).fail(function(data){
+            
+            // If ajax fails
+            $('#signup_validation_errors').html('Error while contacting the server, Please try again');
+        
+        }); // end post
+
     }
 });
 
@@ -74,25 +100,13 @@ var signup_validator = new FormValidator('signup_form', [{
         // Show a message     
         $('#signup_validation_errors').show(250);
         $('#signup_validation_errors').html('Processing...');
-        /*
-        Doing the AJAX way..
-        $.ajax({
-            type: 'POST',
-            url: 'partials/functions/validate_signup.php',
-            data: postData,
-            success: function(data){
-                console.log(data);  
-            }
-        })
-        */
+
         // use jQuery post shorthand to post data
-        $.post('partials/functions/validate_signup.php', postData, function(data){
+        $.post('partials/functions/signup.php', postData, function(data){
             
             // If ajax success
-            console.log(data);
             if(data == "success"){
                 window.location.href = 'validate.html';
-                console.log('data is success');
             }else{
                 $('#signup_validation_errors').html(data);
             }
