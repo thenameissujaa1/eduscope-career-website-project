@@ -15,13 +15,14 @@
 */
 
 include_once 'config.php';
+include_once 'functions.php';
 
 // Check if POST variables exists
 if( array_key_exists('signup_email',$_POST) 
     && array_key_exists('signup_username',$_POST)
     && array_key_exists('signup_password',$_POST)
     && array_key_exists('signup_password_confirm',$_POST)
-    && array_key_exisits('signup_terms_checkbox',$_POST)
+    && array_key_exists('signup_terms_checkbox',$_POST)
 ){
     
     // Assign post variables to variables
@@ -29,49 +30,37 @@ if( array_key_exists('signup_email',$_POST)
     $username = $_POST['signup_username'];
     $password = $_POST['signup_password'];
     $password_c = $_POST['signup_password_confirm'];
+    
+    // Set variables
+    $response;        // Our response to the user
+    $stmt_sql;        // SQL for the statement
+    $stmt_query;      // Prepared statements
+    $stmt_result;     // Statement results
 
     // Check terms and validations
     if($_POST['signup_terms_checkbox'] === 'on'){
         
         // Validate E-Mail
-        if(filter_var($email, FILTER_VALIDATE_EMAIL) === false){
+        if(filter_var($email, FILTER_VALIDATE_EMAIL) == false){
             
             $response = "Invalid email address";
 
         }else{
             
             // SQL for selecting our user
-            $sql = "SELECT * FROM userDB WHERE user_email = ?";
+            $stmt_sql = "SELECT * FROM userDB WHERE user_email = ?";
             
-            // Prepare statement
-            $stmt = $mysqli->prepare($sql);
-            
-            // Bind parameters
-            $stmt->bind_param("s",$email);
-            
-            // Execute statement
-            $stmt->execute();
-            
-            // Get the results
-            $result = $stmt->get_result();
+            // Get the result set for the query
+            $stmt_result = execute_single_variable_prepared_stmt($mysqli,$stmt_sql,$email,'s');
             
             // SQL for selecting our user
-            $sql = "SELECT * FROM userDB WHERE user_username = ?";
+            $stmt_sql = "SELECT * FROM userDB WHERE user_username = ?";
             
-            // Prepare statement
-            $stmt = $mysqli->prepare($sql);
-            
-            // Bind parameters
-            $stmt->bind_param("s",$username);
-            
-            // Execute statement
-            $stmt->execute();
-            
-            // Get the results
-            $result_user_valid = $stmt->get_result();
+            // Get the result set for the query
+            $stmt_result_2 = execute_single_variable_prepared_stmt($mysqli,$stmt_sql,$username,'s');
             
             // Check number of results we got, If there is no such user, then we should get 0
-            if($result->num_rows === 0 && $result_user_valid->num_rows === 0){
+            if($stmt_result->num_rows === 0 && $stmt_result_2->num_rows === 0){
                 
                 // Check other inputs, starting with username
                 if(!preg_match("/^([a-zA-Z0-9_]){4,50}/", $username, $match)){
@@ -98,17 +87,17 @@ if( array_key_exists('signup_email',$_POST)
                             // Hash the password
                             $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-                            // The query
-                            $sql = 'INSERT INTO userDB (user_email, user_username, user_password) VALUES (?,?,?)';
+                            // The query, we won't use the functions here becuse there are 3 variables
+                            $stmt_sql = 'INSERT INTO userDB (user_email, user_username, user_password) VALUES (?,?,?)';
 
                             // Prepare the statement to sanetize the sql data
-                            $stmt = $mysqli->prepare($sql);
+                            $stmt_query = $mysqli->prepare($stmt_sql);
 
                             // bind the parameters
-                            $stmt->bind_param('sss', $email, $username, $password_hash);
+                            $stmt_query->bind_param('sss', $email, $username, $password_hash);
 
                             // Execute statement
-                            $stmt->execute();
+                            $stmt_query->execute();
                                                 
                             $response = "success";
                             
@@ -122,7 +111,7 @@ if( array_key_exists('signup_email',$_POST)
             }else{
                 
                 // If Unsuccessful
-                if($result->num_rows === 0){
+                if($stmt_result->num_rows === 0){
                     $response = "Username is already taken";
                 }else{
                     $response = "Email Already Exists, Please Login";
