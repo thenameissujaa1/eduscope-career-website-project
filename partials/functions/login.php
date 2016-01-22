@@ -61,8 +61,13 @@ if( array_key_exists('login_user',$_POST)
         // Verify the password
         if(password_verify($password,$password_hash)){
             
-            $_SESSION['loggedin'] = true; 
+            // Start the session
+            session_start();
+            
+            // Save session variable
             $_SESSION['loggedin_user'] = $user_id;
+            
+            // Set response
             $response = "success";
             
         }else{

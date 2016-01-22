@@ -41,7 +41,7 @@ var login_validator = new FormValidator('login_form', [{
 
             // If ajax success
             if(data == "success"){
-                window.location.href = 'profile.html';
+                window.location.href = 'application.html';
             }else{
                 $('#login_validation_errors').html(data);
             }
