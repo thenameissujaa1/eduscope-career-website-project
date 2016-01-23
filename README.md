@@ -4,7 +4,6 @@
 #### What you need to get started,
 1. [XAMPP](https://www.apachefriends.org/index.html) (Apache server, MySQL) 
 2. Git (for [Windows](https://git-scm.com/)) (Git is already installed on mac)
-3. [Orient DB](http://orientdb.com/download/)
 
 #### How to get the Project files? Clone the repo.
 Once you have git, go to `XAMPP/htdocs/` and clone this repository by typing the command below 
@@ -20,13 +19,8 @@ for further Git guide, check the [Google Document](https://docs.google.com/docum
 2. [jQuery](https://jquery.com/)
 
 
-
 #### Backend Setup (Please wait until the backend changes are made to the repo)
-1. [How to Setup PHP with OrientDB?](https://medium.com/@polltery/setting-up-php-driver-with-orientdb-5e49037e661b#.kvj5mia80)
-2. [Orient DB Installation guide](http://orientdb.com/docs/last/Tutorial-Installation.html)
-3. [PhpOrient, a php driver for orientDB](https://github.com/orientechnologies/PhpOrient)
+1. Once you have your MySQL and apache server running, in your web browser go to "localhost/eduscope/mysql_db_setup/db_initialize.php", this will create the database and all the tables
 
-##Contributions made so far by
-Balraj
-
-Habiba
+####Pending Tasks:
+Visit [here](https://docs.google.com/spreadsheets/d/1Hrt0fGZgkDPiXamk6dQVy9HYFATJuRLJXBcWMy8kaJ4/edit#gid=1626178758) for a complete list of tasks
