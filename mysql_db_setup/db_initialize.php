@@ -39,9 +39,12 @@ if(mysqli_select_db($mysqli, $db)){
     }else{     
           
         // Import
-        $source = file_get_contents('db.sql');
-        mysqli_multi_query($mysqli, $source);
-        echo '... DB setup success';
+        $source = file_get_contents($file);
+        if(mysqli_multi_query($mysqli, $source)){
+            echo '... DB setup success';
+        }else{
+            echo '... DB setup failed';
+        }
    
     }
 
