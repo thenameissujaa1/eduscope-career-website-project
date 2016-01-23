@@ -125,3 +125,11 @@
   border: 0;
   margin-bottom: 100px;
 }
+
+.custom-well-success {
+    background-color: #dff0d8;
+}
+
+.custom-well-failure {
+    background-color: #f2dede;
+}

@@ -21,6 +21,7 @@ var login_validator = new FormValidator('login_form', [{
         }
         
         $('#login_validation_errors').show(250);
+        $('#login_validation_errors').addClass('custom-well-failure');
         $('#login_validation_errors').html(errorString);
         
     }else{
@@ -34,8 +35,10 @@ var login_validator = new FormValidator('login_form', [{
         
         // Show a message     
         $('#login_validation_errors').show(250);
+        $('#login_validation_errors').removeClass('custom-well-failure');
         $('#login_validation_errors').html('Processing...');
-         
+        
+
         // use jQuery post shorthand to post data
         $.post('partials/functions/login.php', postData, function(data){
 
@@ -44,6 +47,7 @@ var login_validator = new FormValidator('login_form', [{
                 window.location.href = 'application.html';
             }else{
                 $('#login_validation_errors').html(data);
+                $('#signup_validation_errors').addClass('custom-well-failure');
             }
 
         }).fail(function(data){
@@ -86,6 +90,7 @@ var signup_validator = new FormValidator('signup_form', [{
         }
         
         $('#signup_validation_errors').show(250);
+        $('#signup_validation_errors').addClass('custom-well-failure');
         $('#signup_validation_errors').html(errorString);
         
     }else{
@@ -99,6 +104,7 @@ var signup_validator = new FormValidator('signup_form', [{
         
         // Show a message     
         $('#signup_validation_errors').show(250);
+        $('#signup_validation_errors').removeClass('custom-well-failure');
         $('#signup_validation_errors').html('Processing...');
 
         // use jQuery post shorthand to post data
@@ -106,9 +112,11 @@ var signup_validator = new FormValidator('signup_form', [{
             
             // If ajax success
             if(data == "success"){
-                window.location.href = 'validate.html';
+                $('#signup_validation_errors').html('<b>Signup successful!</b><br>We have sent a verification email, please find the verification link to validate your account');
+                $('#signup_validation_errors').addClass('custom-well-success');
             }else{
                 $('#signup_validation_errors').html(data);
+                $('#signup_validation_errors').addClass('custom-well-failure');
             }
 
         }).fail(function(data){
