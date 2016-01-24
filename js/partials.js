@@ -2,7 +2,17 @@
 var currentTitle = $(document).find("title").text();
 
 // Check if the partial is appropriate to load for this page, we do this by checking the title
-$('#header').load("partials/views/navbar.html");  
+$('#header').load("partials/views/navbar.html");
+$('#profile').load("partials/views/navbar-profile.html");
+/* 
+$('#overview').load("partials/views/overview.html"); 
+$('#education').load("partials/views/education.html");
+$('#contact').load("partials/views/contact.html");
+$('#pathways').load("partials/views/pathways.html");
+$('#mentoring').load("partials/views/mentoring.html");
+$('#resources').load("partials/views/resources.html");
+$('#settings').load("partials/views/settings.html");
+*/
 $('#contact-us').load("partials/views/contactus.html");
 $('#footer').load("partials/views/footer.html");
 $('#about').load("partials/views/aboutus.html");
