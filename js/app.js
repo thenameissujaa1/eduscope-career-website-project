@@ -11,8 +11,8 @@
 
 // When the page load, perform given actions
 $(window).load(function(){
+    updateView('profile');
     $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
-        $('#content').load('partials/views/profile.html');
         injectData(data, 'user');
     }, 'json');  
     $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
@@ -35,11 +35,7 @@ $(document).ajaxStop(function(){
 // Onclick functions for the views
 $('#change_view_editProfile').click(function(){
    // Get user and user detail info
-   $.get('partials/functions/loadProfileForm.php',function(data){
-        updateView(data.html);
-        injectData(data, 'user');
-        injectData(data, 'userDetail');
-   }, 'json');
+
 });
 
          /* ~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
@@ -83,6 +79,7 @@ function inject_userDetail(data){
 }
 
 function inject_user(data){
+    console.log('injecting..')  
     injectToID('user_username', data.user_username);
     injectToID('user_email', data.user_email);
 }
@@ -127,7 +124,7 @@ function checkID(element){
     data : 
 */
 function injectToID(element, data){
-    if($('#'+element).length > 0){
+    if($('#'+element).length != 0){
         $('#'+element).html(data);
     }
 }
@@ -136,7 +133,7 @@ function injectToID(element, data){
     data : the html content to be displayed
     NOTE: Always update the view first and then inject the data
 */
-function updateView(data){
-    $('#content').html(data);
+function updateView(view){
+    $('#content').load('partials/views/'+view+'.html');
 }
 
