@@ -2053,3 +2053,59 @@ h4.author {
   min-height: 569px;
 }
 }
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.horz-bars {
+    border: 0px solid #888;
+    width: 435px;
+    margin-bottom: 30px;
+}
+.horz-bars ul {
+    list-style-type: none;
+    padding: 0;
+}
+/* Chart title and x-axis title */
+.horz-bars h2, .horz-bars p {
+    text-align: center;
+}
+.horz-bars .labels, .horz-bars .data {
+    float: left;
+    margin-bottom: -12px;
+}
+.horz-bars .labels li, .horz-bars .data li {
+    font-size: 10pt;
+    height: 50px;
+    margin: 15px 0;
+}
+/* Category labels */
+.horz-bars .labels {
+    text-align: right;
+    padding: 20px 30px 0 0;
+    width: 70px;
+}
+/* Graph area */
+.horz-bars .data {
+    background: linear-gradient(to right, transparent 29px, #aaa 1px);
+    background-size: 30px 100%;
+    border-left: 1px solid #aaa;
+    width: 300px;
+}
+.horz-bars .bar {
+    background: #f20;
+    float: left;
+    height: 45px;
+    width: 0;
+}
+.horz-bars .value {
+    float: left;
+    padding: 13px 5px;
+}
+/* X-axis line labels */
+.horz-bars .line-labels {
+    clear: left;
+    font-size: 9pt;
+    margin: 0 0 10px 70px;
+}
+.horz-bars .line-labels span {
+    margin-right: 13px;
+}
