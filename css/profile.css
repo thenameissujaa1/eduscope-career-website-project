@@ -39,6 +39,9 @@ body a{
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
 }
+.wrapper{
+    margin-top: 100px;
+}
 .header-top{
 	display:none;
 }
@@ -542,7 +545,7 @@ ul.feature-grid li i{
 }
 .about-top p span{
 	padding:2em 0 0;
-	display: block;
+	display: inline;
 }
 .staff {
   padding: 1em 0;

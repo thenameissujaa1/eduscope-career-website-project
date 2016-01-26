@@ -63,7 +63,7 @@ if( array_key_exists('signup_email',$_POST)
             if($stmt_result->num_rows === 0 && $stmt_result_2->num_rows === 0){
                 
                 // Check other inputs, starting with username
-                if(!preg_match("/^([a-zA-Z0-9_]){4,50}/", $username, $match)){
+                if(!preg_match("/^([a-zA-Z0-9_]){4,50}$/", $username, $match)){
                 
                     $response = "Username Doesn't Match the criteria: Alphanumeric and minimum 4 characters";
                     
