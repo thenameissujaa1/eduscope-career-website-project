@@ -1,7 +1,7 @@
 <!--User info form, the from name is called form_editProfile, therefore every variable is set to editProfile_<varable-name>-->
 <h3 class="profile-m-b-20">Hi, <span id="user_username"></span></h3>
 <div hidden id="editProfile_validation_errors" class="well"></div>
-<form id="form_editProfile" name="form_editProfile" enctype="multipart/form-data">
+<form id="editProfile_form" name="editProfile_form" enctype="multipart/form-data">
     <fieldset class="form-inline">
         <!--Users display picture-->
         <label class="profile-display-frame" for="editProfile_profilePicture">
@@ -23,21 +23,21 @@
             <label class="sr-only" for="editProfile_firstName">First Name </label>
             <input type="text" class="form-control input-lg profile-m-t-10" id="editProfile_firstName" name="editProfile_firstName" placeholder="Firstname">
             <label class="sr-only profile-m-l-25" for="editProfile_lastName"> Last Name </label>
-            <input type="text" class="form-control input-lg profile-m-t-10" id="editProfile_lastName" name="editProfile_firstName" placeholder="Lastname">
+            <input type="text" class="form-control input-lg profile-m-t-10" id="editProfile_lastName" name="editProfile_lastName" placeholder="Lastname">
         </div>
     </fieldset>
     <!--./firstname and lastname-->
     <hr class="profile-small-hr">
     <!--user occupation-->
-    <label class="profile-m-t-10" for="editProfile_occupation">
+    <label class="profile-m-t-10" for="editProfile_status">
         <h3>Occupation</h3></label>
     <fieldset class="form-inline">
-        <select class="" id="editProfile_occupation" name="editProfile_occupation" multiple class="form-control">
+        <select class="" id="editProfile_status" name="editProfile_status" multiple class="form-control">
             <option value="1">High School Student</option>
-            <option value="2">Graduate Student</option>
+            <option value="2">Under Graduate Student</option>
             <option value="3">Post Graduate Student</option>
-            <option value="4">Employed</option>
-            <option value="5">Unemployed</option>
+            <option value="4">Unemployed</option>
+            <option value="5">Employed</option>
         </select>
     </fieldset>
     <!--./user occupation-->
@@ -244,7 +244,7 @@
         <label for="editProfile_dob">Date of birth</label>
         <div class="input-group profile-m-l-10">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            <input class="form-control" id="editProfile_dob" name="editProfile_birthDate" type="date">
+            <input class="form-control" id="editProfile_dob" name="editProfile_dob" type="date">
         </div>
     </fieldset>
     <!--./user DOB and nationality-->

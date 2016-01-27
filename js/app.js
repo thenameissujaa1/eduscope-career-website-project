@@ -29,43 +29,75 @@ $(window).load(function(){
 // Onclick functions for the views
 $(document).on('click','#change_view_editProfile',function(){
     if($('#editIcon').hasClass('glyphicon-edit')){
-        $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');  
-        $('#profile_view').slideUp(250);
-        $('#profile_view').load('partials/views/editProfile.html');
-        $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
-            injectData(data, 'user');
-        }, 'json');
-        $('#profile_view').slideDown(250);
-        $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default');        
-    }else{
-        $('#change_view_editProfile').toggleClass('btn-default').toggleClass('btn-danger'); 
-        $('#editIcon').toggleClass('glyphicon-edit').toggleClass('glyphicon-remove');
-        $('#profile_view').slideUp(250);
-        $('#profile_view').load('partials/views/profile.html #profile_view');
-        $('#profile_view').slideDown(250);
-        $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
-            injectData(data, 'user');
-        }, 'json');
-        $.get('partials/functions/getInfo.php', { type: 'userDetail' }, function (data) {
-            injectData(data, 'userDetail');
-        }, 'json');
+        $('#profile_view').slideUp(250, function(){
+            $('#profile_view').load('partials/views/editProfile.html', function(){
+                $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
+                    injectData(data, 'user');
+                }, 'json');
+                $.get('partials/functions/getInfo.php', { type: 'userDetail' }, function (data) {
+                    if(data.userDetail !== null){
+                        $('#editProfile_firstName').val(data.userDetail.userDetail_firstName);
+                        $('#editProfile_lastName').val(data.userDetail.userDetail_lastName);
+                        i = 0;
+                        switch(data.userDetail.userDetail_status){
+                            case 'High School Student':
+                                i = 1;
+                                break;
+                            case 'Under Graduate Student':
+                                i = 2;
+                                break;                                
+                            case 'Post Graduate Student':
+                                i = 3;
+                                break;  
+                            case 'Unemployed':
+                                i = 4;
+                                break;
+                            case 'Employed':
+                                i = 5;
+                                break;  
+                        }
+                        $('#editProfile_status').val(i);
+                        $('#editProfile_nationality').val(data.userDetail.userDetail_nationality);
+                        $('#editProfile_dob').val(data.userDetail.userDetail_dob);
+                    }
+                }, 'json');
+                $('#profile_view').slideDown(250, function(){
+                    $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');  
+                    $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
+                });
+            });
+        });
+    }else{        
+        $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
+        $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
+        $('#profile_view').slideUp(250, function(){
+            $('#profile_view').load('partials/views/profile.html #profile_view', function(){
+                $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
+                    injectData(data, 'user');
+                }, 'json');
+                $.get('partials/functions/getInfo.php', { type: 'userDetail' }, function (data) {
+                    injectData(data, 'userDetail');
+                }, 'json');
+                $('#profile_view').slideDown(250);
+            });
+        });
     }
 })
 
         /*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
         
 function initalize_editProfileValidator(){
-    var editProfile_validator = new FormValidator('form_editProfile', [{
+    var editProfile_validator = new FormValidator('editProfile_form', [{
         name: 'editProfile_firstName',
         display: 'First Name',
-        rules: 'required|min_length[40]'
+        rules: 'required|min_length[3]|max_length[25]'
     }, {
         name: 'editProfile_lastName',
         display: 'Last Name',
-        rules: 'required|min_length[40]'
+        rules: 'required|min_length[3]|max_length[25]'
     }, {
-        name: 'editProfile_occupation',
-        display: 'Occupation',
+        name: 'editProfile_status',
+        display: 'Status',
         rules: 'required'
     }, {
         name: 'editProfile_dob',
@@ -84,9 +116,28 @@ function initalize_editProfileValidator(){
             $('#editProfile_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
         }else{
             event.preventDefault();
-            console.log('submit');
-            $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
-            $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
+            var postData = $('#editProfile_form').serializeArray();
+            $.post('partials/functions/editProfile.php', postData, function(data){
+                if(data == "success"){
+                    $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
+                    $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
+                    $('#profile_view').slideUp(250, function(){
+                        $('#profile_view').load('partials/views/profile.html #profile_view', function(){
+                            $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
+                                injectData(data, 'user');
+                            }, 'json');
+                            $.get('partials/functions/getInfo.php', { type: 'userDetail' }, function (data) {
+                                injectData(data, 'userDetail');
+                            }, 'json');
+                            $('#profile_view').slideDown(250);
+                        });
+                    });
+                }else{
+                    $('#editProfile_validation_errors').show(250).html(data).addClass('custom-well-failure');
+                }   
+            }).fail(function(){
+                $('#editProfile_validation_errors').show(250).html('Error Contacting the server, please try again').addClass('custom-well-failure');
+            });
         }
     });
 }
@@ -127,7 +178,7 @@ function inject_userDetail(data){
         injectToID('userDetail_lastName', data.userDetail_lastName);
         injectToID('userDetail_nationality', data.userDetail_nationality);
         injectToID('userDetail_age', data.userDetail_age);
-        injectToID('userDetail_occupation', data.userDetail_occupation);
+        injectToID('userDetail_status', data.userDetail_status);
     }
     // ?? profile pic
 }

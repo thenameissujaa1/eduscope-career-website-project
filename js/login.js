@@ -20,9 +20,7 @@ var login_validator = new FormValidator('login_form', [{
             errorString += errors[i].message + '<br />';
         }
         
-        $('#login_validation_errors').show(250);
-        $('#login_validation_errors').addClass('custom-well-failure');
-        $('#login_validation_errors').html(errorString);
+        $('#login_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
         
     }else{
     
@@ -34,9 +32,7 @@ var login_validator = new FormValidator('login_form', [{
         var postData = $('#login_form').serializeArray();
         
         // Show a message     
-        $('#login_validation_errors').show(250);
-        $('#login_validation_errors').removeClass('custom-well-failure');
-        $('#login_validation_errors').html('Processing...');
+        $('#login_validation_errors').show(250).removeClass('custom-well-failure').html('Processing...');
         
 
         // use jQuery post shorthand to post data
@@ -46,8 +42,7 @@ var login_validator = new FormValidator('login_form', [{
             if(data == "success"){
                 window.location.href = 'application.html';
             }else{
-                $('#login_validation_errors').html(data);
-                $('#signup_validation_errors').addClass('custom-well-failure');
+                $('#login_validation_errors').html(data).addClass('custom-well-failure');
             }
 
         }).fail(function(data){
@@ -67,7 +62,7 @@ var signup_validator = new FormValidator('signup_form', [{
 }, {
     name: 'signup_username',
     display: 'Username',
-    rules: 'required|min_length[4]'
+    rules: 'required|min_length[4]|max_length[25]'
 }, {
     name: 'signup_password',
     display: 'Password',
@@ -117,7 +112,7 @@ var signup_validator = new FormValidator('signup_form', [{
         }).fail(function(data){
             
             // If ajax fails
-            $('#signup_validation_errors').html('Error while contacting the server, Please try again');
+            $('#signup_validation_errors').addClass('custom-well-failure').html('Error while contacting the server, Please try again');
         
         }); // end post
 
