@@ -89,9 +89,7 @@ var signup_validator = new FormValidator('signup_form', [{
             errorString += errors[i].message + '<br />';
         }
         
-        $('#signup_validation_errors').show(250);
-        $('#signup_validation_errors').addClass('custom-well-failure');
-        $('#signup_validation_errors').html(errorString);
+        $('#signup_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
         
     }else{
         
@@ -103,9 +101,7 @@ var signup_validator = new FormValidator('signup_form', [{
         var postData = $('#signup_form').serializeArray();
         
         // Show a message     
-        $('#signup_validation_errors').show(250);
-        $('#signup_validation_errors').removeClass('custom-well-failure');
-        $('#signup_validation_errors').html('Processing...');
+        $('#signup_validation_errors').show(250).removeClass('custom-well-failure').html('Processing...');
 
         // use jQuery post shorthand to post data
         $.post('partials/functions/signup.php', postData, function(data){
@@ -115,8 +111,7 @@ var signup_validator = new FormValidator('signup_form', [{
                 $('#signup_validation_errors').html('<b>Signup successful!</b><br>We have sent a verification email, please find the verification link to validate your account');
                 $('#signup_validation_errors').addClass('custom-well-success');
             }else{
-                $('#signup_validation_errors').html(data);
-                $('#signup_validation_errors').addClass('custom-well-failure');
+                $('#signup_validation_errors').html(data).addClass('custom-well-failure');
             }
 
         }).fail(function(data){
