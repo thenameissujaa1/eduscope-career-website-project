@@ -14,30 +14,82 @@ $(window).load(function(){
     updateView('profile');
     $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
         injectData(data, 'user');
-    }, 'json');  
+    }, 'json');
     $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
-        injectData(data, 'userDetail');
+        if(data.userDetail === null){
+            $( "#change_view_editProfile" ).trigger( "click" );
+        }else{
+            injectData(data, 'userDetail');
+        }
     }, 'json');
 });
 
-// This function is triggered everytime an ajax call is started
-$(document).ajaxStart(function(){
-    $('#content').load('partials/views/loading.html');
-});
-
-// This function is triggered everytime an ajax call is stopped
-$(document).ajaxStop(function(){
-
-});
-
-        /* ~~~~~~~~~~~~~~~~~ ONCLICK - CHANGE VIEW ~~~~~~~~~~~~~~~~~~~~~~ */
+        /* ~~~~~~~~~~~~~~~~~ PROFILE ONCLICK - CHANGE VIEW ~~~~~~~~~~~~~~~~~~~~~~ */
         
 // Onclick functions for the views
-$('#change_view_editProfile').click(function(){
-   // Get user and user detail info
+$(document).on('click','#change_view_editProfile',function(){
+    if($('#editIcon').hasClass('glyphicon-edit')){
+        $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');  
+        $('#profile_view').slideUp(250);
+        $('#profile_view').load('partials/views/editProfile.html');
+        $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
+            injectData(data, 'user');
+        }, 'json');
+        $('#profile_view').slideDown(250);
+        $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default');        
+    }else{
+        $('#change_view_editProfile').toggleClass('btn-default').toggleClass('btn-danger'); 
+        $('#editIcon').toggleClass('glyphicon-edit').toggleClass('glyphicon-remove');
+        $('#profile_view').slideUp(250);
+        $('#profile_view').load('partials/views/profile.html #profile_view');
+        $('#profile_view').slideDown(250);
+        $.get('partials/functions/getInfo.php', { type: 'user' }, function (data) {
+            injectData(data, 'user');
+        }, 'json');
+        $.get('partials/functions/getInfo.php', { type: 'userDetail' }, function (data) {
+            injectData(data, 'userDetail');
+        }, 'json');
+    }
+})
 
-});
-
+        /*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
+        
+function initalize_editProfileValidator(){
+    var editProfile_validator = new FormValidator('form_editProfile', [{
+        name: 'editProfile_firstName',
+        display: 'First Name',
+        rules: 'required|min_length[40]'
+    }, {
+        name: 'editProfile_lastName',
+        display: 'Last Name',
+        rules: 'required|min_length[40]'
+    }, {
+        name: 'editProfile_occupation',
+        display: 'Occupation',
+        rules: 'required'
+    }, {
+        name: 'editProfile_dob',
+        display: 'Date of birth',
+        rules: 'required'
+    },{
+        name: 'editProfile_nationality',
+        display: 'Nationality',
+        rules: 'required'
+    }], function(errors, event){
+        if(errors.length > 0){
+            var errorString = '';
+            for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                errorString += errors[i].message + '<br/>';
+            }
+            $('#editProfile_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
+        }else{
+            event.preventDefault();
+            console.log('submit');
+            $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
+            $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
+        }
+    });
+}
          /* ~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
 
@@ -60,7 +112,7 @@ function fixFooter(){
 
 function load_commonViews(){
     $('footer').attr('id','footer');
-    $('#header-main').load('partials/views/navbar_profile.html');
+    $('#header').load('partials/views/navbar_profile.html');
     $('footer').load('partials/views/footer.html');
     //fixFooter();
 }
@@ -70,16 +122,17 @@ function load_commonViews(){
     data : JSON object from the server
 */
 function inject_userDetail(data){
-    injectToID('userDetail_firstName', data.userDetail_firstName);
-    injectToID('userDetail_lastName', data.userDetail_lastName);
-    injectToID('userDetail_nationality', data.userDetail_nationality);
-    injectToID('userDetail_age', data.userDetail_age);
-    injectToID('userDetail_occupation', data.userDetail_occupation);
+    if(data !== null){
+        injectToID('userDetail_firstName', data.userDetail_firstName);
+        injectToID('userDetail_lastName', data.userDetail_lastName);
+        injectToID('userDetail_nationality', data.userDetail_nationality);
+        injectToID('userDetail_age', data.userDetail_age);
+        injectToID('userDetail_occupation', data.userDetail_occupation);
+    }
     // ?? profile pic
 }
 
 function inject_user(data){
-    console.log('injecting..')  
     injectToID('user_username', data.user_username);
     injectToID('user_email', data.user_email);
 }
@@ -124,9 +177,7 @@ function checkID(element){
     data : 
 */
 function injectToID(element, data){
-    if($('#'+element).length != 0){
-        $('#'+element).html(data);
-    }
+    $('#'+element).html(data);
 }
 
 /*

@@ -1,145 +1,156 @@
-    <div class="content">
-        <div class="about">
-            <div class="about-top">
-                <div class="grid-about">
-                    <a href="single.html"><img src="img/11.jpg" alt=""></a>
-                </div>
-                <br>
-                <button><a href="" id="change_view_editProfile">Edit Profile</button>
-					<h2><a>Who Am I?</a></h2>
-                    <p><span id="userDetail_firstName">firstname</span>&nbsp;<span id="userDetail_lastName">lastname</span><br>
-                        <span> Username: <span id="user_username">PS13</span><br>
-					     <span>  Email: <span id="user_email">PS.W@gmail.com</span><br>
-                        <span>currently <span id="userDetail_occupation"></span></span>
-                        <span></p>
-				<!--div class="staff">
-					<h3>My work</h3>
-						<div class="our">
-						<a><img  src="img/p1.jpg" />
-							<div class="simple">
-								<h4>Project 1</h4>
-							</div>
-						</a>
-						</div>
-						<div class="our">
-							<a><img  src="img/p2.jpg" />
-							<div class="simple">
-								<h4>Project 2</h4>
-								
-							</div>
-						</a>						</div>
-						<div class="our">
-						<a><img  src="img/p3.jpg" />
-							<div class="simple">
-								<h4>Project 3</h4>
-								
-							</div>
-						</a>
-						</div>
-						<div class="our">
-						<a><img  src="img/p4.jpg" />
-							<div class="simple">
-								<h4>Project 4</h4>
-								
-							</div>
-						</a></div>
-						<div class="our">
-						<a><img  src="img/p5.jpg" />
-							<div class="simple">
-								<h4>Project 5</h4>
-								
-							</div>
-						</a></div>
-						<div class="our">
-						<a><img  src="img/p6.jpg" />
-							<div class="simple">
-								<h4>Project 6</h4>
-								
-							</div>
-						</a></div>
-						<div class="clear"> </div>
-				
-				</div-->
-            </div>
-				<div class="about-in">
-					<div class="skills">
-						<h3>My Skills</h3>
-						<div class="our-skill">
-							<div class="our-grid">
-								<h5>Website Design</h5>
-								<span>89%</span>
-                        <div class="clear"> </div>
-            </div>
-            <div class="design">
-                <label> </label>
-                <b> </b>
-                <div class="clear"> </div>
-            </div>
+<!--profile picture-->
+<div class="container profile-m-b-20">
+    <h1 class="text-center"> Welcome to <i>EDUSCOPE</i> </h1>
+    <div class="jumbotron text-center" style="padding-bottom: 20px">
+        <div id="profile_view">
+            <img src="http://www.linkedinsider.com.au/wp-content/uploads/2014/09/profile.png" class="img-responsive profile-display-frame" alt="">
+            <h3><span id="userDetail_firstName"></span>&nbsp;&nbsp;<span id="userDetail_lastName"></span></h3>
+            <p id="userDetail_occupation">Occupation</p>
         </div>
-        <div class="our-skill">
-            <div class="our-grid">
-                <h5>Website Development</h5>
-                <span>97%</span>
-                <div class="clear"> </div>
-            </div>
-            <div class="design site">
-                <label> </label>
-                <b> </b>
-                <div class="clear"> </div>
-            </div>
-        </div>
-        <div class="our-skill">
-            <div class="our-grid">
-                <h5>Plugins</h5>
-                <span>85%</span>
-                <div class="clear"> </div>
-            </div>
-            <div class="design eight">
-                <label> </label>
-                <b> </b>
-                <div class="clear"> </div>
-            </div>
-        </div>
-        <div class="our-skill">
-            <div class="our-grid">
-                <h5>Front end</h5>
-                <span>75%</span>
-                <div class="clear"> </div>
-            </div>
-            <div class="design seven">
-                <label> </label>
-                <b> </b>
-                <div class="clear"> </div>
-            </div>
-        </div>
+        <button class="btn btn-default btn-sm" id="change_view_editProfile"><span id="editIcon" class="glyphicon glyphicon-edit"></span></button>
     </div>
-    <div class="test">
-        <h3>Testimonials</h3>
-        <div class="test-top">
-            <div class="test-in">
-                <img class="in-at" src="img/p7.jpg" />
-                <h4 class="author">Collis Ta’eed - CEO at Envato</h4>
-                <div class="clear"> </div>
-            </div>
-            <p>Sollicitudin lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio
-                sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt.</p>
-        </div>
-    </div>
-    <!--div class="services">
-        <h3>Services</h3>
-        <ul class="service-grid">
-            <li><a> Web Design </a></li>
-            <li><a> Photography</a></li>
-            <li><a>Plugin Development</a></li>
-            <li><a>Pixel perfect Design</a></li>
-            <li><a>Front-end</a></li>
-            <li><a>Design from Scratch</a></li>
-            <li><a>Website Maintenance</a></li>
-
+    <div class="profile-content">
+    <!-- Nav tabs -->
+        <ul class="nav nav-tabs " role="tablist">
+            <li role="presentation" class="active"><a href="#path" role="tab" data-toggle="tab">Paths</a></li>
+            <li class="dropdown">
+                <a href="#manage" role="tab" data-toggle="tab">Manage<span class="caret" class="dropdown-toggle" data-toggle="dropdown"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#manage_qualifications">Qualifications</a></li>
+                    <li><a href="#manage_skills">Skills</a></li>
+                    <li><a href="#manage_jobs">Jobs</a></li>
+                </ul>
+            </li>
         </ul>
-    </div-->
-</div>
-<div class="clear"> </div>
-</div>
-</div>
-<div class="clear"> </div>
+        <div class="tab-content">
+            <!--manage:main-->
+            <div role="tabpanel" class="tab-pane text-center fade" id="manage">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>Qualifications</h3>
+                                <p>Add/Edit/Delete your qulifcations</p>
+                                <p><a href="#manage_qualifications" id="btn_manage_q" class="btn btn-primary" role="button">Manage</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>Skills</h3>
+                                <p>Add/Edit/Delete your skills</p>
+                                <p><a href="#manage_skills" id="btn_manage_s" class="btn btn-primary" role="button">Manage</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>Jobs</h3>
+                                <p>Add/Edit/Delete your jobs</p>
+                                <p><a href="#manage_jobs" id="btn_manage_j" class="btn btn-primary" role="button">Manage</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--paths-->
+            <div role="tabpanel" class="tab-pane active text-center fade in" id="path">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>Admire Past</h3>
+                                <p>View graph of your history</p>
+                                <p><a href="#" class="btn btn-primary" role="button">View Graph</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2" ><h1 style="display: inline-block; vertical-align: middle; line-height: normal;">OR</h1></div>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>View Possible Future</h3>
+                                <p>View a graph for your (possible) future</p>
+                                <p><a href="#" class="btn btn-primary" role="button">View Graph</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--manage: qualifications-->
+            <div role="tabpanel" class="tab-pane fade" id="manage_qualifications">
+                <div class="row">
+                    <div class="col-lg-12 text-center"><p>Qualifications</p></div>
+                    <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div id="qualification_list"></div>
+                    <!--add-->
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h3>Add Qualification</h3>
+                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--./add-->
+                </div>
+            </div>
+            <!--manage: skills-->
+            <div role="tabpanel" class="tab-pane fade" id="manage_skills">
+                <div class="row">
+                    <div class="col-lg-12 text-center"><p>Skills</p></div>
+                    <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div id="skill_list"></div>
+                    <!--add-->
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h3>Add Skill</h3>
+                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--./add-->
+                </div>
+            </div>
+            <!--manage: jobs-->
+            <div role="tabpanel" class="tab-pane fade" id="manage_jobs">
+                <div class="row">
+                    <div class="col-lg-12 text-center"><p>Jobs</p></div>
+                    <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div id="job_list"></div>
+                    <!--add-->
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h3>Add Job</h3>
+                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--./add-->
+                </div>
+            </div>
+            <!--./manage-->
+        </div>
+    </div>
+</div> 
+<!-- /container -->  
+<script>
+$(document).ready(function(){
+    $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+    });
+    $("#btn_manage_q").click(function(){
+        $('.nav-tabs a[href="#manage_qualifications"]').tab('show');
+    });
+    $("#btn_manage_s").click(function(){
+        $('.nav-tabs a[href="#manage_skills"]').tab('show');
+    });
+    $("#btn_manage_j").click(function(){
+        $('.nav-tabs a[href="#manage_jobs"]').tab('show');
+    });
+});
+</script>
