@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 4.5.0.2
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 22, 2016 at 08:03 PM
--- Server version: 10.1.9-MariaDB
--- PHP Version: 5.6.15
+-- Host: localhost
+-- Generation Time: Jan 28, 2016 at 08:05 AM
+-- Server version: 10.0.17-MariaDB
+-- PHP Version: 5.6.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Table structure for table `jobDB`
 --
 
 CREATE TABLE `jobDB` (
@@ -37,7 +37,7 @@ CREATE TABLE `jobDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mentorcommentdb`
+-- Table structure for table `mentorCommentDB`
 --
 
 CREATE TABLE `mentorCommentDB` (
@@ -51,7 +51,7 @@ CREATE TABLE `mentorCommentDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `qualificationdb`
+-- Table structure for table `qualificationDB`
 --
 
 CREATE TABLE `qualificationDB` (
@@ -63,7 +63,7 @@ CREATE TABLE `qualificationDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `qualification_subject`
+-- Table structure for table `qualificationSubjectDB`
 --
 
 CREATE TABLE `qualificationSubjectDB` (
@@ -75,7 +75,7 @@ CREATE TABLE `qualificationSubjectDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `skilldb`
+-- Table structure for table `skillDB`
 --
 
 CREATE TABLE `skillDB` (
@@ -87,7 +87,7 @@ CREATE TABLE `skillDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjectdb`
+-- Table structure for table `subjectDB`
 --
 
 CREATE TABLE `subjectDB` (
@@ -99,7 +99,7 @@ CREATE TABLE `subjectDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `university`
+-- Table structure for table `universityDB`
 --
 
 CREATE TABLE `universityDB` (
@@ -113,7 +113,7 @@ CREATE TABLE `universityDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `university_qualification`
+-- Table structure for table `universityQualificationDB`
 --
 
 CREATE TABLE `universityQualificationDB` (
@@ -128,7 +128,7 @@ CREATE TABLE `universityQualificationDB` (
 -- Table structure for table `userdb`
 --
 
-CREATE TABLE `userDB` (
+CREATE TABLE `userdb` (
   `user_id` int(11) NOT NULL,
   `user_username` varchar(50) NOT NULL,
   `user_password` varchar(255) NOT NULL,
@@ -136,27 +136,47 @@ CREATE TABLE `userDB` (
   `user_valid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `userdb`
+--
+
+INSERT INTO `userdb` (`user_id`, `user_username`, `user_password`, `user_email`, `user_valid`) VALUES
+(1, 'username', '$2y$10$3VIZiLjfvr.4NMsUndrykOHim0Uxw.3EG8cIHNcQqEC81lodZzKce', 'username@gmail.com', 0),
+(2, 'username2', '$2y$10$WI1l.9p3fuqfA44KjVxz1.LUp52jqcFtjGmUYI2dJFVbEcxyZ6e5C', 'username2@gmail.com', 0),
+(3, 'username3', '$2y$10$xkj.FOCPxe8jaO7Wbw7qz.o0E7m1PK5h6sS8CxBc1Hc.S9AddPTKG', 'username3@gmail.com', 0),
+(4, 'username4', '$2y$10$rpXFBcLOL4RZ.OzLTiqGFO7jZKXWJRkCYCAUsj4BFfm5bBLTZdmLu', 'username4@gmail.com', 0),
+(5, 'username5', '$2y$10$2l1oroSa86L6BoQ1yCBKZOqX.21ZKNgiU6THR5RirJ9mtfyFOVfJC', 'username5@gmail.com', 0),
+(6, 'username6', '$2y$10$NEe8Z4S9uHyEluTUzW7Qw.6JAc/Xi3qBLirEwjOT2lJH8Id68GbIW', 'username6@gmail.com', 0),
+(7, 'username7', '$2y$10$45YDkiFyVR9ccaLMld2edOS5A42DpgrI6Fizy5YlVaZ4Ko5f4ZZGu', 'username7@gmail.com', 0),
+(8, 'rsureen', '$2y$10$yYo2zYMRJ375UHMJ1Qcbz.QC7I8.ZOzSI/o4ZSD/jMUQIclPBQPri', 'rsureen@yahoo.com', 0);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userdetaildb`
+-- Table structure for table `userDetailDB`
 --
 
 CREATE TABLE `userDetailDB` (
   `userDetail_id` int(11) NOT NULL,
-  `userDetail_firstName` varchar(50) NOT NULL,
-  `userDetail_lastName` varchar(50) NOT NULL,
-  `userDetail_profilePicture` date NOT NULL,
-  `userDetail_nationality` enum('UK','USA','ASIA','AFRICA','this is not how its done') NOT NULL,
-  `userDetail_age` int(11) NOT NULL,
-  `userDetail_occupation` enum('High School Student','College Student','Employed','Unemployed') NOT NULL,
-  `userDetail_gpa` decimal(3,2)
+  `userDetail_firstName` text NOT NULL,
+  `userDetail_lastName` text NOT NULL,
+  `userDetail_nationality` text NOT NULL,
+  `userDetail_status` enum('High School Student','Under Graduate Student','Post Graduate Student','Unemployed','Employed') NOT NULL,
+  `userDetail_fk_user_id` int(11) NOT NULL,
+  `userDetail_dob` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userDetailDB`
+--
+
+INSERT INTO `userDetailDB` (`userDetail_id`, `userDetail_firstName`, `userDetail_lastName`, `userDetail_nationality`, `userDetail_status`, `userDetail_fk_user_id`, `userDetail_dob`) VALUES
+(1, 'aCOOL', 'asds', 'algerian', 'Under Graduate Student', 1, '2016-02-03');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usergradedb`
+-- Table structure for table `userGradeDB`
 --
 
 CREATE TABLE `userGradeDB` (
@@ -170,7 +190,7 @@ CREATE TABLE `userGradeDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usermentordb`
+-- Table structure for table `usermentorDB`
 --
 
 CREATE TABLE `usermentorDB` (
@@ -183,7 +203,7 @@ CREATE TABLE `usermentorDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userqualificationdb`
+-- Table structure for table `userQualificationDB`
 --
 
 CREATE TABLE `userQualificationDB` (
@@ -196,7 +216,7 @@ CREATE TABLE `userQualificationDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userskilldb`
+-- Table structure for table `userskillDB`
 --
 
 CREATE TABLE `userskillDB` (
@@ -208,7 +228,7 @@ CREATE TABLE `userskillDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_subject`
+-- Table structure for table `userSubjectDB`
 --
 
 CREATE TABLE `userSubjectDB` (
@@ -220,7 +240,7 @@ CREATE TABLE `userSubjectDB` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workexp`
+-- Table structure for table `workExpDB`
 --
 
 CREATE TABLE `workExpDB` (
@@ -240,8 +260,14 @@ CREATE TABLE `workExpDB` (
 --
 -- Indexes for table `userdb`
 --
-ALTER TABLE `userDB`
+ALTER TABLE `userdb`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indexes for table `userDetailDB`
+--
+ALTER TABLE `userDetailDB`
+  ADD PRIMARY KEY (`userDetail_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -251,7 +277,12 @@ ALTER TABLE `userDB`
 -- AUTO_INCREMENT for table `userdb`
 --
 ALTER TABLE `userdb`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `userDetailDB`
+--
+ALTER TABLE `userDetailDB`
+  MODIFY `userDetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
