@@ -3,6 +3,10 @@
 
 // Validation (Makes use of validate.js)
 // If it's a login form
+$('#termsModal').on('shown.bs.modal', function () {
+  $('#termsModal').focus();
+});
+
 var login_validator = new FormValidator('login_form', [{
     name: 'login_user',
     display: 'Username/Email',
