@@ -151,7 +151,7 @@ function initalize_editProfileValidator(){
     });
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~ NAVBAR ~~~~~~~~~~~~~~~~~~*/
+/* ~~~~~~~~~~~~~~~~~~~~~ NAVBAR MENU ~~~~~~~~~~~~~~~~~~*/
 $(document).on('click','#nav-mentor',function(){
     $('#content, #footer').fadeOut(0,function(){
         $('#content').load('partials/views/mentor.html',function(){
@@ -160,7 +160,14 @@ $(document).on('click','#nav-mentor',function(){
     })
 })
 
-// Switching back to profile view
+$(document).on('click','#nav-resources',function(){
+    $('#content, #footer').fadeOut(0,function(){
+        $('#content').load('partials/views/resources.html',function(){
+            $('#content, #footer').fadeIn(500);
+        })
+    })  
+})
+
 $(document).on('click','#nav-profile',function(){
     $('#content, #footer').fadeOut(0,function(){
         $('#content').load('partials/views/profile.html',function(){
