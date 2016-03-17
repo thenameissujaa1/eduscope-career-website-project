@@ -31,12 +31,12 @@ if( array_key_exists('login_user',$_POST)
     if(filter_var($user, FILTER_VALIDATE_EMAIL) == true){
         
         // create our query to look for the user
-        $stmt_sql = "SELECT user_id FROM userDB WHERE user_email = ?";
+        $stmt_sql = "SELECT user_id FROM user WHERE user_email = ?";
         
     }else{
         
         // Create a similar query but look for username
-        $stmt_sql = "SELECT user_id FROM userDB WHERE user_username = ?";
+        $stmt_sql = "SELECT user_id FROM user WHERE user_username = ?";
         
     }
 
@@ -50,7 +50,7 @@ if( array_key_exists('login_user',$_POST)
         $user_id = get_single_result($stmt_result);
         
         // Selecting the password
-        $stmt_sql = "SELECT user_password FROM userDB WHERE user_id = ?";
+        $stmt_sql = "SELECT user_password FROM user WHERE user_id = ?";
                 
         // Get the users hashed password
         $stmt_result = execute_single_variable_prepared_stmt($mysqli,$stmt_sql,$user_id,'i');

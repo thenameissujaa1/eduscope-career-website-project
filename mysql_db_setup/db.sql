@@ -1,15 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.0.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jan 28, 2016 at 08:05 AM
--- Server version: 10.0.17-MariaDB
--- PHP Version: 5.6.14
+-- Host: 127.0.0.1
+-- Generation Time: Jan 27, 2016 at 09:20 PM
+-- Server version: 10.1.9-MariaDB
+-- PHP Version: 5.5.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,240 +16,1921 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `eduscope`
+-- Database: `final`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobDB`
+-- Table structure for table `educational_institutions`
 --
 
-CREATE TABLE `jobDB` (
+CREATE TABLE `educational_institutions` (
+  `institute_id` int(11) NOT NULL,
+  `Institution` varchar(24) DEFAULT NULL,
+  `2016 Rank` int(3) DEFAULT NULL,
+  `Teaching Quality` decimal(3,1) DEFAULT NULL,
+  `Student Experience` decimal(3,1) DEFAULT NULL,
+  `Research quality` varchar(3) DEFAULT NULL,
+  `Entry standards` int(3) DEFAULT NULL,
+  `Graduate prospects` decimal(3,1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `educational_institutions`
+--
+
+INSERT INTO `educational_institutions` (`institute_id`, `Institution`, `2016 Rank`, `Teaching Quality`, `Student Experience`, `Research quality`, `Entry standards`, `Graduate prospects`) VALUES
+(1, 'Cambridge', 1, '83.8', '86.3', '57', 602, '89.3'),
+(2, 'Oxford', 2, '83.1', '86.8', '53', 573, '87.1'),
+(3, 'Imperial College', 3, '79.8', '87.8', '56', 568, '91.1'),
+(4, 'St Andrews', 4, '83.2', '86.8', '40', 517, '83.3'),
+(5, 'Durham', 5, '81.9', '86.7', '39', 523, '84.4'),
+(6, 'Warwick', 6, '79.6', '85.0', '45', 482, '79.8'),
+(7, 'Exeter', 7, '82.6', '87.7', '38', 463, '79.8'),
+(8, 'Surrey', 8, '86.9', '90.3', '30', 424, '78.8'),
+(9, 'LSE', 9, '72.1', '78.4', '53', 533, '78.5'),
+(10, 'UCL', 10, '74.2', '81.3', '51', 502, '83.1'),
+(11, 'Lancaster', 11, '82.3', '85.4', '39', 436, '82.5'),
+(12, 'Bath', 12, '82.7', '87.0', '37', 479, '85.2'),
+(13, 'Loughborough', 13, '84.5', '89.3', '36', 397, '83.7'),
+(14, 'Leeds', 14, '83.7', '88.0', '37', 431, '78.4'),
+(15, 'York', 15, '81.7', '86.6', '38', 437, '76.0'),
+(16, 'Southampton', 16, '79.3', '86.5', '45', 411, '78.1'),
+(17, 'Birmingham', 17, '80.8', '84.2', '37', 426, '86.7'),
+(18, 'East Anglia', 18, '83.2', '88.8', '36', 408, '70.3'),
+(19, 'Sussex', 19, '78.6', '85.0', '32', 386, '84.1'),
+(20, 'Bristol', 20, '75.5', '81.5', '47', 487, '79.6'),
+(21, 'Sheffield', 21, '81.3', '87.2', '38', 428, '75.7'),
+(22, 'Edinburgh', 22, '74.5', '82.4', '44', 484, '78.6'),
+(23, 'Kent', 23, '81.5', '85.4', '35', 363, '76.7'),
+(24, 'Newcastle', 23, '82.0', '88.4', '38', 424, '79.1'),
+(25, 'Nottingham', 25, '79.5', '83.9', '38', 428, '81.3'),
+(26, 'Glasgow', 26, '80.0', '86.9', '40', 470, '79.3'),
+(27, 'King''s College', 27, '73.9', '79.7', '44', 455, '85.7'),
+(28, 'Leicester', 28, '77.5', '84.4', '32', 386, '72.1'),
+(29, 'Manchester', 28, '79.0', '84.7', '40', 435, '78.5'),
+(30, 'Aston', 30, '83.3', '87.9', '26', 369, '78.8'),
+(31, 'Queen''s Belfast', 31, '81.6', '87.3', '40', 385, '78.7'),
+(32, 'Reading', 32, '80.5', '85.8', '37', 373, '70.3'),
+(33, 'Cardiff', 33, '80.7', '86.0', '35', 426, '80.1'),
+(34, 'Queen Mary', 34, '80.5', '83.3', '38', 411, '73.3'),
+(35, 'Essex', 35, '83.7', '88.0', '37', 313, '64.1'),
+(36, 'Royal Holloway', 36, '82.6', '84.1', '36', 398, '62.7'),
+(37, 'Dundee', 37, '84.4', '87.1', '31', 410, '80.0'),
+(38, 'Buckingham', 38, '88.0', '88.4', 'n/a', 304, '83.4'),
+(39, 'Heriot-Watt', 38, '80.8', '84.2', '37', 413, '78.1'),
+(40, 'Liverpool', 38, '77.9', '83.4', '32', 404, '76.1'),
+(41, 'City', 41, '82.7', '85.6', '21', 379, '78.9'),
+(42, 'Swansea', 41, '82.6', '86.5', '34', 326, '81.4'),
+(43, 'Keele', 43, '87.0', '90.2', '22', 358, '76.1'),
+(44, 'SOAS', 44, '75.2', '80.8', '28', 407, '68.3'),
+(45, 'Aberdeen', 45, '77.4', '83.7', '30', 446, '76.2'),
+(46, 'Strathclyde', 46, '76.2', '85.6', '38', 476, '72.0'),
+(47, 'Coventry', 47, '87.6', '89.3', '4', 310, '74.2'),
+(48, 'St George''s', 48, '78.7', '81.6', '22', 418, '93.4'),
+(49, 'Harper Adams', 49, '82.6', '89.3', '6', 331, '73.3'),
+(50, 'Stirling', 50, '78.7', '82.3', '31', 375, '73.3'),
+(51, 'Royal Agricultural Uni', 51, '79.3', '85.6', '1', 307, '69.7'),
+(52, 'Bangor', 52, '85.8', '87.8', '27', 321, '67.7'),
+(53, 'De Montfort', 53, '82.4', '84.6', '9', 307, '76.9'),
+(54, 'Nottingham Trent', 54, '83.6', '85.8', '7', 310, '67.6'),
+(55, 'Oxford Brookes', 55, '83.2', '85.7', '11', 348, '69.2'),
+(56, 'Falmouth', 56, '83.7', '83.5', '5', 309, '74.5'),
+(57, 'Ulster', 57, '82.9', '87.0', '32', 306, '63.6'),
+(58, 'Bath Spa', 58, '85.8', '85.8', '8', 318, '55.1'),
+(59, 'Portsmouth', 59, '83.4', '85.9', '9', 310, '66.9'),
+(60, 'Brunel', 60, '78.2', '83.8', '25', 352, '63.4'),
+(61, 'Norwich Arts', 61, '83.8', '83.5', '6', 357, '63.4'),
+(62, 'Creative Arts', 62, '82.7', '81.5', '3', 332, '52.0'),
+(63, 'Lincoln', 62, '81.1', '84.6', '10', 335, '70.7'),
+(64, 'Northumbria', 64, '82.9', '85.1', '9', 363, '66.3'),
+(65, 'Winchester', 64, '84.2', '85.0', '6', 307, '60.7'),
+(66, 'Goldsmiths', 66, '76.6', '76.3', '33', 360, '56.0'),
+(67, 'Hull', 67, '80.0', '83.8', '17', 332, '66.7'),
+(68, 'Edge Hill', 68, '83.2', '83.5', '5', 319, '63.8'),
+(69, 'Chichester', 69, '84.0', '85.3', '6', 310, '57.5'),
+(70, 'Huddersfield', 69, '82.2', '84.0', '9', 333, '74.1'),
+(71, 'Robert Gordon', 69, '80.6', '83.5', '4', 385, '83.1'),
+(72, 'Sheffield Hallam', 72, '80.9', '83.9', '5', 319, '64.7'),
+(73, 'West of England', 73, '80.0', '82.5', '9', 324, '70.8'),
+(74, 'Liverpool John Moores', 74, '81.6', '85.0', '9', 344, '63.3'),
+(75, 'Bradford', 75, '78.8', '84.4', '9', 314, '75.2'),
+(76, 'Hertfordshire', 76, '78.6', '82.8', '6', 318, '75.3'),
+(77, 'Manchester Metropolitan', 77, '81.0', '82.2', '8', 347, '63.0'),
+(78, 'Roehampton', 78, '78.0', '79.9', '25', 286, '60.9'),
+(79, 'Aberystwyth', 79, '78.4', '80.4', '28', 312, '62.5'),
+(80, 'Liverpool Hope', 79, '86.8', '86.4', '9', 304, '53.9'),
+(81, 'Arts, Bournemouth', 81, '81.4', '80.0', '2', 322, '61.4'),
+(82, 'Bournemouth', 82, '75.2', '78.8', '9', 329, '66.4'),
+(83, 'Northampton', 82, '82.3', '84.1', '3', 283, '60.7'),
+(84, 'Derby', 84, '84.4', '85.3', '3', 290, '60.0'),
+(85, 'Middlesex', 85, '78.7', '81.8', '10', 270, '64.9'),
+(86, 'Plymouth', 85, '82.3', '84.1', '16', 312, '60.2'),
+(87, 'Chester', 87, '82.7', '83.7', '4', 299, '63.6'),
+(88, 'Gloucestershire', 88, '79.8', '82.6', '4', 317, '55.7'),
+(89, 'York St John', 89, '82.4', '83.0', '4', 292, '65.3'),
+(90, 'Brighton', 90, '78.6', '80.9', '8', 321, '66.9'),
+(91, 'Leeds Trinity', 91, '83.5', '82.3', '2', 284, '65.8'),
+(92, 'Central Lancashire', 92, '80.4', '83.5', '6', 315, '62.4'),
+(93, 'Edinburgh Napier', 93, '80.2', '83.7', '5', 347, '69.1'),
+(94, 'Glasgow Caledonian', 94, '77.0', '82.5', '7', 372, '70.2'),
+(95, 'Staffordshire', 95, '81.8', '82.8', '17', 274, '58.4'),
+(96, 'Queen Margaret', 96, '78.9', '82.3', '7', 341, '59.6'),
+(97, 'Abertay Dundee', 97, '80.0', '83.1', '5', 338, '65.6'),
+(98, 'Salford', 98, '80.1', '80.9', '8', 334, '59.5'),
+(99, 'Arts, London', 99, '75.9', '74.5', '8', 320, '59.2'),
+(100, 'St Mary''s, Twickenham', 100, '80.5', '84.8', '4', 289, '66.7'),
+(101, 'Worcester', 100, '81.4', '84.5', '4', 301, '63.9'),
+(102, 'Teesside', 102, '82.9', '84.3', '4', 306, '59.8'),
+(103, 'Cardiff Metropolitan', 103, '79.1', '81.8', '4', 317, '59.8'),
+(104, 'Sunderland', 104, '82.5', '84.2', '6', 294, '62.3'),
+(105, 'Birmingham City', 105, '78.0', '79.3', '4', 300, '64.8'),
+(106, 'Greenwich', 106, '79.2', '82.4', '5', 315, '58.2'),
+(107, 'Canterbury Christ Church', 107, '80.7', '81.9', '5', 279, '57.8'),
+(108, 'Anglia Ruskin', 108, '82.5', '83.9', '5', 254, '65.0'),
+(109, 'Buckinghamshire New', 109, '81.5', '81.1', '2', 257, '57.6'),
+(110, 'Bedfordshire', 110, '80.4', '82.7', '7', 229, '58.3'),
+(111, 'Kingston', 111, '76.1', '79.9', '5', 299, '60.7'),
+(112, 'Bishop Grosseteste', 112, '80.9', '80.6', '2', 284, '69.1'),
+(113, 'South Wales', 112, '77.5', '78.3', '4', 322, '59.0'),
+(114, 'Leeds Beckett', 114, '78.5', '82.7', '4', 288, '58.5'),
+(115, 'Newman, Birmingham', 115, '83.1', '84.6', '3', 293, '54.6'),
+(116, 'Southampton Solent', 115, '79.5', '82.1', '1', 276, '54.6'),
+(117, 'Westminster', 115, '72.9', '80.6', '10', 311, '55.1'),
+(118, 'West of Scotland', 118, '81.8', '81.8', '4', 305, '65.7'),
+(119, 'Cumbria', 119, '76.9', '77.6', '1', 299, '64.9'),
+(120, 'London South Bank', 120, '77.0', '81.3', '9', 248, '67.9'),
+(121, 'West London', 121, '76.9', '77.5', '2', 259, '60.5'),
+(122, 'Glyndŵr', 122, '80.5', '79.3', '2', 257, '66.3'),
+(123, 'Bolton', 123, '81.6', '80.8', '3', 287, '60.1'),
+(124, 'UCP Marjon', 123, '76.3', '77.3', 'n/a', 319, '60.4'),
+(125, 'London Metropolitan', 125, '76.0', '78.6', '4', 239, '47.7'),
+(126, 'Highlands and Islands', 126, '78.8', '76.5', 'n/a', 272, '56.0'),
+(127, 'Bolton', 127, '81.6', '80.8', '3', 287, '60.1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `institute_qualification`
+--
+
+CREATE TABLE `institute_qualification` (
+  `fk_institute_id` int(11) NOT NULL,
+  `fk_qualification_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
   `job_id` int(11) NOT NULL,
-  `job_name` varchar(50) NOT NULL,
-  `job_description` varchar(250) NOT NULL,
-  `job_fk_qualification_id` int(11) NOT NULL,
-  `job_fk_skill_id` int(11) NOT NULL
+  `job_name` varchar(100) NOT NULL,
+  `job_description` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mentorCommentDB`
+-- Table structure for table `qualifications`
 --
 
-CREATE TABLE `mentorCommentDB` (
-  `mentorComment_id` int(11) NOT NULL,
-  `mentorComment_fk_userMentor_id` int(11) NOT NULL,
-  `mentorComment_userDetail_id` int(11) NOT NULL,
-  `mentorComment_comment` varchar(5) NOT NULL,
-  `mentorComment_like` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `qualificationDB`
---
-
-CREATE TABLE `qualificationDB` (
+CREATE TABLE `qualifications` (
   `qualification_id` int(11) NOT NULL,
-  `qualification_name` varchar(50) NOT NULL,
-  `qualification_description` varchar(250) NOT NULL
+  `qualification_name` varchar(124) DEFAULT NULL,
+  `short_title` varchar(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `qualifications`
+--
+
+INSERT INTO `qualifications` (`qualification_id`, `qualification_name`, `short_title`) VALUES
+(1, 'Sabbatical Office Bearer', 'Sab'),
+(2, 'Bachelor of Science (Hons) in Combined Studies', 'BSc Combined Studies'),
+(3, 'Bachelor of Science in Combined Studies', 'BSc Combined Studies'),
+(4, 'Doctor of Philosophy', 'PhD Physics'),
+(5, 'Bachelor of Science (Hons) in Chemistry', 'BSc (Hons) Chemistry'),
+(6, 'Postgraduate Certificate in Malting and Brewing', 'Cert in Malt & Brew'),
+(7, 'Postgraduate Diploma in Malting and Brewing', 'Dip in Malt & Brew'),
+(8, 'Master of Science in Malting and Brewing', 'MSc in Malt & Brew'),
+(9, 'Bachelor of Science in Biological Sciences', 'BSc Bio Sciences'),
+(10, 'Bachelor of Science in Actuarial Mathematics and Statistics', 'BSc Act Maths and S'),
+(11, 'Doctor of Philosophy', 'PhD Comp Sc'),
+(12, 'Doctor of Philosophy', 'PhD Mechanical Eng'),
+(13, 'Doctor of Philosophy', 'PhD Chemical Eng'),
+(14, 'Master of Philosophy', 'MPhil Building'),
+(15, 'Postgraduate Diploma in Construction Management (Project Management)', 'Dip Con Man (Proj)'),
+(16, 'Master of Science in Construction Management (Project Management)', 'MSc Const Man (Proj)'),
+(17, 'Doctor of Philosophy', 'PhD Petroleum Eng'),
+(18, 'Postgraduate Diploma in Petroleum Engineering', 'DIP PET ENG'),
+(19, 'Master of Science in Petroleum Engineering', 'MSc Pet Eng'),
+(20, 'Bachelor of Arts in Combined Studies', 'BA Comb Stud'),
+(21, 'Master of Philosophy', 'MPhil Languages'),
+(22, 'Doctor of Philosophy', 'PhD Languages'),
+(23, 'Doctor of Philosophy', 'PhD Textiles'),
+(24, 'Postgraduate Diploma in Information Technology (Systems)', 'DIP IT (SYS)'),
+(25, 'Certificate of Higher Education', 'Cert of Higher Education'),
+(26, 'Diploma of Higher Education', 'Diploma of Higher Education'),
+(27, 'Sabbatical Office Bearer', 'Sabbatical Office Bearer'),
+(28, 'CPD Visiting Scholar', 'CPD Visiting Scholar'),
+(29, 'ISG Visiting Scholar', 'ISG Visiting Scholar'),
+(30, 'Bachelor of Science (Hons) in Mathematics with Finance', 'BSc Maths w Finance'),
+(31, 'Postgraduate Diploma in Brewing and Distilling', 'Dip Brew and Dist'),
+(32, 'Master of Science in Information Technology (Systems)', 'MSc IT (SYS)'),
+(33, 'Master of Science in Energy', 'MSc Energy'),
+(34, 'Postgraduate Diploma in Energy', 'Dip Energy'),
+(35, 'Master of Science in Construction Management (Project Management)', 'MSc Const Man (Proj)'),
+(36, 'Postgraduate Diploma in Construction Management (Project Management)', 'Dip Con Man (Proj)'),
+(37, 'Master of Science in Building Services Engineering', 'MSc Bld Ser Eng(DL)'),
+(38, 'Postgraduate Diploma in Building Services Engineering', 'Dip Build Serv Eng(DL)'),
+(39, 'Master of Science in Building Services Engineering Management', 'MSc BSEM'),
+(40, 'Postgraduate Diploma in Building Services Engineering Management', 'Dip Build Serv Eng M'),
+(41, 'Postgraduate Diploma in Facilities Management and Asset Maintenance', 'Dip in Facilities Mg'),
+(42, 'Master of Science in Facilities Management and Asset Maintenance', 'MSc FMAM'),
+(43, 'Postgraduate Diploma in Facilities Management and Asset Maintenance', 'Dip in Facilities Mg'),
+(44, 'Postgraduate Diploma in Building Services Facilities Management', 'Dip BSFM'),
+(45, 'Master of Science in Building Services Facilities Management', 'MSc BSFM'),
+(46, 'Postgraduate Diploma in Building Services Facilities Management', 'Dip BSFM'),
+(47, 'Postgraduate Diploma in the Built Environment', 'Dip BUILT ENV(DL)'),
+(48, 'Master of Science in Environmental Services', 'MSC ENV. SERV.'),
+(49, 'Master of Science in Property Investment and Finance', 'MSc PIF'),
+(50, 'Master of Science in Building Conservation (Technology and Management)', 'MSc Build. Cons Tech'),
+(51, 'Postgraduate Diploma in Building Conservation (Technology and Management)', 'Dip Build. Cons Tech'),
+(52, 'Master of Science in Petroleum Engineering', 'MSc Pet Eng'),
+(53, 'Postgraduate Diploma in Petroleum Engineering', 'DIP PET ENG'),
+(54, 'Heriot-Watt Management Programe', 'HW Mgt Prog'),
+(55, 'Master of Arts in Management with Business Law', 'MA Mgt with B Law'),
+(56, 'Master of Arts in Economics', 'MA in Economics'),
+(57, 'Master of Science in Marine Science', 'MSc Marine Science'),
+(58, 'Postgraduate Diploma in Marine Science', 'PgDip Marine Science'),
+(59, 'Postgraduate Certificate in Marine Science', 'PgCert Marine Science'),
+(60, 'Master of Science in Human Health and Disease', 'MSc Human Health & Disease'),
+(61, 'Postgraduate Diploma in Human Health and Disease', 'PgDip Human Health & Disease'),
+(62, 'Postgraduate Certificate in Human Health and Disease', 'PgCert Human Health & Disease'),
+(63, 'Bachelor of Science in Bioengineering (Brewing and Distilling)', 'BSc Bioengineering (B&D)'),
+(64, 'Bachelor of Science in Brewing and Distilling', 'BSc Brewing and Distilling'),
+(65, 'Bachelor of Science in Marine Biology', 'BSc Marine Biology'),
+(66, 'Master of Science in Chemical Innovation and Regulation (Erasmus Mundus) (ChIR)', 'MSc ChIR (Erasmus Mundus)'),
+(67, 'Postgraduate Diploma in Chemical Innovation and Regulation (Erasmus Mundus) (ChIR)', 'PgDip ChIR (Erasmus Mundus)'),
+(68, 'Postgraduate Certificate in Chemical Innovation and Regulation (Erasmus Mundus) (ChIR)', 'PgCert ChIR (Erasmus Mundus)'),
+(69, 'Master of Philosophy', 'MPhil (Brewing)'),
+(70, 'Doctor of Philosophy', 'PhD (Brewing)'),
+(71, 'Postgraduate Certificate in Malting and Brewing', 'PGCert Malt & Brew'),
+(72, 'Bachelor of Science in Biochemistry', 'BSc Biochemistry'),
+(73, 'Postgraduate Certificate in Marine Resource Management', 'PgCert Marine Resource Mgt'),
+(74, 'Postgraduate Diploma in Marine Resource Management', 'PgDip Marine Resource Mgt'),
+(75, 'Master of Science in Marine Resource Management', 'MSc Marine Resource Mgt'),
+(76, 'Postgraduate Diploma in Malting and Brewing', 'PGDip Malting and Brewing'),
+(77, 'Master of Philosophy', 'MPhil (Biochemistry)'),
+(78, 'Master of Science in Malting and Brewing', 'MSc Malting and Brewing'),
+(79, 'Master of Science', 'MSc by Research (Biochemistry)'),
+(80, 'Doctor of Philosophy', 'PhD (Biochemistry)'),
+(81, 'Bachelor of Science in Microbiology', 'BSc Microbiology'),
+(82, 'Postgraduate Certificate in Marine Renewable Energy', 'PgCert Marine Renewable Energy'),
+(83, 'Postgraduate Diploma in Marine Renewable Energy', 'PgDip Marine Renewable Energy'),
+(84, 'Master of Science in Marine Renewable Energy', 'MSc Marine Renewable Energy'),
+(85, 'Master of Philosophy', 'MPhil (Microbiology)'),
+(86, 'Master of Science', 'MSc by Research (Microbiology)'),
+(87, 'Doctor of Philosophy', 'PhD (Microbiology)'),
+(88, 'Postgraduate Certificate in Brewing and Distilling', 'PgCert Brewing & Distilling'),
+(89, 'Postgraduate Certificate in Renewable Energy Development', 'PgCert Renewable Energy Dev'),
+(90, 'Postgraduate Diploma in Renewable Energy Development', 'PgDip Renewable Energy Dev'),
+(91, 'Master of Science in Renewable Energy Development', 'MSc Renewable Energy Dev'),
+(92, 'Postgraduate Diploma in Brewing and Distilling', 'PgDip Brewing & Distilling'),
+(93, 'Master of Science in Brewing and Distilling', 'MSc Brewing & Distilling'),
+(94, 'Doctor of Philosophy', 'PhD (Petroleum Engineering)'),
+(95, 'Master of Philosophy', 'MPhil (Food Science)'),
+(96, 'Master of Science', 'MSc Research (Food Science)'),
+(97, 'Doctor of Philosophy', 'PhD (Food Science)'),
+(98, 'Master of Philosophy', 'MPhil (Marine Biology)'),
+(99, 'Master of Science', 'MSc by Research (Marine Bio)'),
+(100, 'Doctor of Philosophy', 'PhD (Marine Biology)'),
+(101, 'Master of Philosophy', 'MPhil (Environment)'),
+(102, 'Master of Science', 'MSc by Research (Environment)'),
+(103, 'Doctor of Philosophy', 'PhD (Environment)'),
+(104, 'Master of Philosophy', 'MPhil (Biotechnology)'),
+(105, 'Master of Science', 'MSc by Research (Biotech)'),
+(106, 'Doctor of Philosophy', 'PhD (Biotechnology)'),
+(107, 'Bachelor of Science in Biological Sciences', 'BSc Biological Sciences'),
+(108, 'Master of Science', 'MSc by Research (Brewing)'),
+(109, 'Bachelor of Science in Food Science, Technology and Management', 'BSc Food Sc, Tech and Mgt'),
+(110, 'Postgraduate Certificate in Marine Biodiversity and Biotechnology', 'PgCert Marine Biodiv & Biotech'),
+(111, 'Bachelor of Science in Biological Sciences (Food and Beverage Science)', 'BSc Bio Sc (Food & Bev Sc)'),
+(112, 'Postgraduate Diploma in Marine Biodiversity and Biotechnology', 'PgDip Marine Biodiv & Biotech'),
+(113, 'Master of Science in Marine Biodiversity and Biotechnology', 'MSc Marine Biodiv & Biotech'),
+(114, 'Postgraduate Certificate in Climate Change: Impacts and Mitigation', 'PgCert Climate Change: IM'),
+(115, 'Bachelor of Science in Biological Sciences (Microbiology)', 'BSc Biological Sc (Micro)'),
+(116, 'Postgraduate Diploma in Climate Change: Impacts and Mitigation', 'PgDip Climate Change: IM'),
+(117, 'Master of Science in Climate Change: Impacts and Mitigation', 'MSc Climate Change: IM'),
+(118, 'Postgraduate Certificate in Climate Change: Managing the Marine Environment', 'PgCert Climate Change: MME'),
+(119, 'Bachelor of Science in Biological Sciences (Food Science)', 'BSc Biological Sc (Food Sc)'),
+(120, 'Postgraduate Diploma in Climate Change: Managing the Marine Environment', 'PgDip Climate Change: MME'),
+(121, 'Master of Science in Climate Change: Managing the Marine Environment', 'MSc Climate Change: MME'),
+(122, 'Postgraduate Certificate in Food Science, Safety and Health', 'PgCert Food Sc,Safety & Health'),
+(123, 'Bachelor of Science in Biological Sciences (Human Health)', 'BSc Biological Sc (Human Hlth)'),
+(124, 'Postgraduate Diploma in Food Science, Safety and Health', 'PgDip Food Sc,Safety & Health'),
+(125, 'Master of Science in Food Science, Safety and Health', 'MSc Food Sc, Safety & Health'),
+(126, 'Doctor of Engineering', 'Doctor of Engineering'),
+(127, 'Bachelor of Science in Biological Sciences (Cell and Molecular Biology)', 'BSc Biological Sc (CMB)'),
+(128, 'Postgraduate Diploma in Environmental Analysis and Assesssment', 'PgDip Env Anal & Assessment'),
+(129, 'Master of Research in Environmental Analysis and Assessment', 'MRes Env Analysis & Assessment'),
+(130, 'Postgraduate Certificate in Biotechnology', 'PgCert Biotechnology'),
+(131, 'Postgraduate Diploma in Biotechnology', 'PgDip Biotechnology'),
+(132, 'Master of Science in Biotechnology', 'MSc Biotechnology'),
+(133, 'Postgraduate Certificate in Marine Resource Development and Protection', 'PgCert Marine Res Dev & Prot'),
+(134, 'Postgraduate Diploma in Marine Resource Development and Protection', 'PgDip Marine Res Dev & Prot'),
+(135, 'Master of Science in Marine Resource Development and Protection', 'MSc Marine Res Dev & Prot'),
+(136, 'Doctor of Letters', 'Doctor of Letters'),
+(137, 'Postgraduate Certificate in Marine Spatial Planning', 'PgCert Marine Spatial Planning'),
+(138, 'Postgraduate Diploma in Marine Spatial Planning', 'PgDip Marine Spatial Planning'),
+(139, 'Master of Science in Marine Spatial Planning', 'MSc Marine Spatial Planning'),
+(140, 'Bachelor of Science in Applied Marine Biology', 'BSc Applied Marine Biology'),
+(141, 'Postgraduate Certificate in Environmental Interactions of Marine Renewable Energy', 'PgCert EIMRE'),
+(142, 'Postgraduate Diploma in Environmental Interactions of Marine Renewable Energy', 'PgDip EIMRE'),
+(143, 'Master of Science in Environmental Interactions of Marine Renewable Energy', 'MSc EIMRE'),
+(144, 'Postgraduate Certificate in Food Science and Nutrition', 'PgCert Food Science and Nutrit'),
+(145, 'Postgraduate Diploma in Food Science and Nutrition', 'PgDip Food Science and Nutriti'),
+(146, 'Master of Science in Food Science and Nutrition', 'MSc Food Science and Nutrition'),
+(147, 'Doctor of Science', 'Doctor of Science'),
+(148, 'Postgraduate Certificate in Food and Beverage Science', 'PgCert Food & Beverage Science'),
+(149, 'Postgraduate Diploma in Food and Beverage Science', 'PgDip Food & Beverage Science'),
+(150, 'Master of Science in Food and Beverage Science', 'MSc Food & Beverage Science'),
+(151, 'Visiting Scholar (Biology)', 'Visiting Scholar (Biology)'),
+(152, 'Bachelor of Science in Applied Marine Biology', 'BSc App Marine Bio'),
+(153, 'Doctor of Philosophy (Marine Biology)', 'PhD Marine Biology'),
+(154, 'Doctor of Philosophy (Environment)', 'PhD Environment'),
+(155, 'Bachelor of Science in Sustainability and Environmental Management', 'BSc Sust En'),
+(156, 'Bachelor of Science in Sport and Exercise Science', 'BSc Sport & Exercise Sc'),
+(157, 'Master of Philosophy', 'MPhil (Human Ex Phys)'),
+(158, 'Master of Science', 'MSc Research (Human Ex Phys)'),
+(159, 'Doctor of Philosophy', 'PhD (Human Ex Phys)'),
+(160, 'Master of Philosophy', 'MPhil (Sport & Ex Science)'),
+(161, 'Master of Science', 'MSc Research (Sport & Ex Sc)'),
+(162, 'Doctor of Philosophy', 'PhD (Sport & Ex Science)'),
+(163, 'Bachelor of Science in Sport and Exercise Science with Psychology', 'BSc Sport & Exercise Sc w Psyc'),
+(164, 'Doctor of Engineering', 'Doctor of Engineering'),
+(165, 'Doctor of Letters', 'Doctor of Letters'),
+(166, 'Doctor of Science', 'Doctor of Science'),
+(167, 'Visiting Scholar (Sport & Exercise Science)', 'Visiting Scholar (Sp & Ex Sci)'),
+(168, 'Master of Science in Human Factors', 'MSc Human Factors'),
+(169, 'Postgraduate Diploma in Human Factors', 'PgDip Human Factors'),
+(170, 'Postgraduate Certificate in Human Factors', 'PgCert Human Factors'),
+(171, 'Bachelor of Science in Psychology', 'BSc Psychology'),
+(172, 'Bachelor of Science in Psychology with Management', 'BSc Psychology with Mgt'),
+(173, 'Bachelor of Science in Psychology with Management', 'BSc Psychology with Management'),
+(174, 'Bachelor of Science in Psychology (Forensic Science)', 'BSc Psychology (Forensic Sci)'),
+(175, 'Bachelor of Science in Psychology with Human Health', 'BSc Psychology w Human Health'),
+(176, 'Master of Philosophy', 'MPhil (Psychology)'),
+(177, 'Master of Science', 'MSc by Research (Psychology)'),
+(178, 'Doctor of Philosophy', 'PhD (Psychology)'),
+(179, 'Bachelor of Arts in Psychology', 'BA Psychology'),
+(180, 'Postgraduate Certificate in the Psychology of Organisational Development and Change', 'PgCert Psych Org Dev & Change'),
+(181, 'Postgraduate Certificate in the Psychology of Coaching', 'PgCert Psychology of Coaching'),
+(182, 'Postgraduate Certificate in Applied Psychology', 'PgCert Applied Psychology'),
+(183, 'Postgraduate Diploma in Applied Psychology', 'PgDip Applied Psychology'),
+(184, 'Master of Science in Applied Psychology', 'MSc Applied Psychology'),
+(185, 'Bachelor of Science in Applied Psychology', 'BSc Applied Psychology'),
+(186, 'Postgraduate Certificate in Engineering Psychology with Ergonomics', 'PGCert Eng Psych w Ergonomics'),
+(187, 'Postgraduate Diploma in Engineering Psychology with Ergonomics', 'PGDip Eng Psych w Ergonomics'),
+(188, 'Master of Science in Engineering Psychology with Ergonomics', 'MSc Eng Psych w Ergonomics'),
+(189, 'Doctor of Engineering', 'Doctor of Engineering'),
+(190, 'Doctor of Letters', 'Doctor of Letters'),
+(191, 'Bachelor of Arts in Management and Psychology', 'BA Mgt and Psychology'),
+(192, 'Postgraduate Certificate in Business Psychology', 'PgCert Business Psychology'),
+(193, 'Postgraduate Diploma in Business Psychology', 'PgDip Business Psychology'),
+(194, 'Master of Science in Business Psychology', 'MSc Business Psychology'),
+(195, 'Bachelor of Science in Psychology (Applied)', 'BSc Psychology (Applied)'),
+(196, 'Bachelor of Science in Psychological Studies', 'BSc Psychological Studies'),
+(197, 'Doctor of Science', 'Doctor of Science'),
+(198, 'Visiting Scholar (Applied Psychology)', 'Visiting Scholar (App Psy)'),
+(199, 'Life Sciences Exchange', 'Life Sciences Exchange'),
+(200, 'Life Sciences', 'Life Sciences non grad'),
+(201, 'Master of Philosophy', 'MPhil (Life Science)'),
+(202, 'Master of Science', 'MSc by Research (Life Science)'),
+(203, 'Doctor of Philosophy', 'PhD (Life Science)'),
+(204, 'Doctor of Engineering', 'Doctor of Engineering'),
+(205, 'Doctor of Letters', 'Doctor of Letters'),
+(206, 'Doctor of Science', 'Doctor of Science'),
+(207, 'Visiting Scholar (Life Sciences General)', 'Visiting Scholar (LS Gen)'),
+(208, 'Bachelor of Science in Chemistry with a year in Australia', 'BSc Chemistry year Australia'),
+(209, 'Master of Chemistry in Chemistry with a year in Australia', 'MChem Chemistry year Australia'),
+(210, 'Bachelor of Science in Chemistry', 'BSc in Chemistry'),
+(211, 'Bachelor of Science in Chemistry', 'BSc Chemistry'),
+(212, 'Bachelor of Science in Chemistry', 'BSc Chemistry (Ord)'),
+(213, 'Chemistry Exchange Student', 'Chemistry Exchange'),
+(214, 'Master of Philosophy', 'MPhil (Chemistry)'),
+(215, 'Master of Science', 'MSc by Research (Chemistry)'),
+(216, 'Doctor of Philosophy', 'PhD (Chemistry)'),
+(217, 'Master of Chemistry in Chemistry', 'MChem in Chemistry'),
+(218, 'Bachelor of Science in Chemistry With Materials', 'BSc Chemistry With Materials'),
+(219, 'Bachelor of Science in Chemistry With Materials', 'BSc Chemistry with Materials'),
+(220, 'Bachelor of Science with Chemistry as the main subject', 'BSc Chemistry main subject'),
+(221, 'Master of Chemistry in Chemistry With Materials', 'MChem Chemistry With Materials'),
+(222, 'Bachelor of Science in Chemistry with Computer Science', 'BSc Chemistry w Comp Science'),
+(223, 'Master of Chemistry in Chemistry with Computer Science', 'MChem Chemistry w Comp Science'),
+(224, 'Master of Chemistry in Chemistry with a European Language', 'MChem Chemistry European Lang'),
+(225, 'Bachelor of Science in Chemistry with a European Language', 'BSc Chemistry European Lang'),
+(226, 'Bachelor of Science in Chemistry with Biochemistry', 'BSc Chemistry w Biochemistry'),
+(227, 'Master of Chemistry in Chemistry with Biochemistry', 'MChem Chemistry w Biochemistry'),
+(228, 'Postgraduate Certificate in Forensic Materials', 'PgCert Forensic Materials'),
+(229, 'Postgraduate Diploma in Forensic Materials', 'PGDip Forensic Materials'),
+(230, 'Master of Science in Forensic Materials', 'MSc Forensic Materials'),
+(231, 'Bachelor of Science in Chemistry with Pharmaceutical Chemistry', 'BSc Chemistry with Pharm Chem'),
+(232, 'Master of Chemistry in Chemistry with Pharmaceutical Chemistry', 'MChem Chemistry w Pharm Chem'),
+(233, 'Bachelor of Science in Chemistry with Environmental Economics', 'BSc Chem w Envt Econ'),
+(234, 'Bachelor of Science in Chemistry with Management', 'BSc Chemistry with Mgt'),
+(235, 'Bachelor of Science in Chemistry with Management', 'BSc in Chemistry with Mgt'),
+(236, 'Master of Chemistry in Chemistry with Management', 'MChem in Chemistry with Mgt'),
+(237, 'Bachelor of Science (Hons) in Chemistry with a Year in North America', 'Chem Year N America'),
+(238, 'Master of Chemistry in Chemistry with a Year in North America', 'MChem Chemistry Yr Nth America'),
+(239, 'Bachelor of Science in Chemistry with a year in North America', 'BSc Chemistry Yr Nth America'),
+(240, 'Master of Chemistry in Chemistry with a Year in Europe', 'MChem Chemistry Year in Europe'),
+(241, 'Bachelor of Science in Chemistry with a year in Europe', 'BSc Chemistry Year in Europe'),
+(242, 'Bachelor of Science in Chemistry with Computational Chemistry', 'BSc in Chemistry w Comp Chem'),
+(243, 'Master of Chemistry in Chemistry with Computational Chemistry', 'MChem Chemistry w Comp Chem'),
+(244, 'Doctor of Engineering', 'Doctor of Engineering'),
+(245, 'Master of Chemistry in Chemistry with Professional Education', 'MChem Chemistry Profess Ed'),
+(246, 'Bachelor of Science in Chemistry with Professional Education', 'BSc in Chemistry Profess Ed'),
+(247, 'Master of Chemistry in Chemistry with Forensic Science', 'MChem Chemistry w Forensic Sc'),
+(248, 'Bachelor of Science in Chemistry with Forensic Science', 'BSc in Chemistry w Forensic Sc'),
+(249, 'Master of Chemistry in Chemistry with Industrial Experience', 'MChem Chemistry w Ind Exp'),
+(250, 'Bachelor of Science in Chemistry with Industrial Experience', 'BSc Chemistry w Ind Exp'),
+(251, 'Doctor of Letters', 'Doctor of Letters'),
+(252, 'Postgraduate Certificate in Materials for Sustainable and Renewable Energies', 'PgCert Mat Sus&Renew Energies'),
+(253, 'Postgraduate Diploma in Materials for Sustainable and Renewable Energies', 'PgDip Mat Sus&Renew Energies'),
+(254, 'Master of Science in Materials for Sustainable and Renewable Energies', 'MSc Mat Sus&Renew Energies'),
+(255, 'Master of Chemistry in Chemistry with Nanotechnology', 'MChem Chemistry w Nanotech'),
+(256, 'Bachelor of Science in Chemistry with Nanotechnology', 'BSc Chemistry w Nanotech'),
+(257, 'Doctor of Science', 'Doctor of Science'),
+(258, 'Visiting Scholar (Chemistry)', 'Visiting Scholar (Chemistry)'),
+(259, 'Bachelor of Science in Physics', 'BSc in Physics'),
+(260, 'Physics Exchange Student', 'Physics Exchange'),
+(261, 'Physics Exchange', 'Physics Exchange'),
+(262, 'Master of Philosophy', 'MPhil (Physics)'),
+(263, 'Master of Science', 'MSc by Research (Physics)'),
+(264, 'Doctor of Philosophy', 'PhD (Physics)'),
+(265, 'Master of Physics in Physics', 'MPhys in Physics'),
+(266, 'Bachelor of Science in Physics with Energy Science and Technology', 'BSc Phys w Energy Sc & Tech'),
+(267, 'Master of Physics in Physics with Energy Science and Technology', 'MPhys Phys w Energy Sc & Tech'),
+(268, 'Master of Physics in Computational Physics', 'MPhys Computational Physics'),
+(269, 'Master of Science', 'MSc by Research (Photonics)'),
+(270, 'Doctor of Engineering', 'EngD in Photonics'),
+(271, 'Bachelor of Science in Engineering Physics', 'BSc Engineering Physics'),
+(272, 'Master of Physics in Engineering Physics', 'MPhys Engineering Physics'),
+(273, 'Postgraduate Certificate in Nanotechnology and Microsystems', 'PgCert Nanotech & Micro'),
+(274, 'Bachelor of Science in Physics with Education', 'BSc Physics with Education'),
+(275, 'Postgraduate Diploma in Nanotechnology and Microsystems', 'PgDip Nanotech & Micro'),
+(276, 'Master of Science in Nanotechnology and Microsystems', 'MSc Nanotech & Micro'),
+(277, 'Bachelor of Science in Physics with Environmental Science', 'BSc Physics w Environmental Sc'),
+(278, 'Postgraduate Certificate in Photonics and Optoelectronic Devices', 'PgCert Photonics & Opto Dev'),
+(279, 'Postgraduate Diploma in Photonics and Optoelectronic Devices', 'PgDip Photonics & Opto Dev'),
+(280, 'Master of Science in Photonics and Optoelectronic Devices', 'MSc Photonics & Opto Dev'),
+(281, 'Postgraduate Certificate in Industrial Photonics', 'PgCert Industrial Photonics'),
+(282, 'Bachelor of Science in Photonics and Lasers', 'BSc Photonics & Lasers'),
+(283, 'Postgraduate Diploma in Industrial Photonics', 'PgDip Industrial Photonics'),
+(284, 'Master of Science in Industrial Photonics', 'MSc Industrial Photonics'),
+(285, 'Master of Physics in Photonics and Lasers', 'MPhys Photonics & Lasers'),
+(286, 'Bachelor of Science in Computational Physics', 'BSc Computational Physics'),
+(287, 'Master of Physics in Optoelectronics and Lasers', 'MPhys Optoelectronics & Lasers'),
+(288, 'Postgraduate Certificate Erasmus Mundus Masters in Photonics', 'PgCert Photonics (EM)'),
+(289, 'Master of Science Erasmus Mundus Masters in Photonics', 'MSc Photonics (EM)'),
+(290, 'Doctor of Engineering', 'Doctor of Engineering'),
+(291, 'Master of Physics in Physical Science', 'MPhys Physical Science'),
+(292, 'Bachelor of Science in Energy Science and Technology', 'BSc Energy Science & Tech'),
+(293, 'Master of Physics in Energy Science and Technology', 'MPhys Energy Science & Tech'),
+(294, 'Bachelor of Science in Chemical Physics', 'BSc Chemical Physics'),
+(295, 'Master of Physics in Chemical Physics', 'MPhys Chemical Physics'),
+(296, 'Bachelor of Science in Physics with Electronic Engineering', 'BSc Physics w Electronic Eng'),
+(297, 'Doctor of Letters', 'Doctor of Letters'),
+(298, 'Master of Physics in Physics with Electronic Engineering', 'MPhys Physics w Electronic Eng'),
+(299, 'Bachelor of Science in Mathematical Physics', 'BSc Mathematical Physics'),
+(300, 'Master of Physics in Mathematical Physics', 'MPhys Mathematical Physics'),
+(301, 'Bachelor of Science in Nanoscience', 'BSc in Nanoscience'),
+(302, 'Master of Physics in Nanoscience', 'MPhys in Nanoscience'),
+(303, 'Bachelor of Science in Physics with Professional Education', 'BSc Physics w Professional Ed'),
+(304, 'Bachelor of Science in Physical Science', 'BSc Physical Science'),
+(305, 'Doctor of Science', 'Doctor of Science'),
+(306, 'Postgraduate Certificate in Optics and Photonics Technologies', 'PgCert Optics & Pho Technolog'),
+(307, 'Postgraduate Diploma in Optics and Photonics Technologies', 'PgDip Optics & Pho Technolog'),
+(308, 'Master of Science in Optics and Photonics Technologies', 'MSc Optics & Pho Technologies'),
+(309, 'Master of Research in Optics and Photonics Technologies', 'MRes Optics & Pho Technologies'),
+(310, 'Doctor of Engineering', 'EngD Optics & Pho Technologies'),
+(311, 'Postgraduate Diploma in Applied Photonics', 'PgDip Applied Photonics'),
+(312, 'Master of Science in Applied Photonics', 'MSc Applied Photonics'),
+(313, 'Doctor of Engineering', 'EngD Applied Photonics'),
+(314, 'Visiting Scholar (Physics)', 'Visiting Scholar (Physics)'),
+(315, 'Bachelor of Science Gateway to Physics and Engineering', 'BSc Gateway to Physics and Eng'),
+(316, 'Master of Physics Gateway to Physics and Engineering', 'MPhys Gateway to Phys & Eng'),
+(317, 'Associate Student in Electrical and Electronic Engineering', 'Associate Student in EEE'),
+(318, 'Doctor of Engineering', 'EngD SIS'),
+(319, 'Doctor of Philosophy', 'PhD (RAS)'),
+(320, 'Bachelor of Engineering in Electrical and Electronic Engineering', 'BEng Electrical & Electron Eng'),
+(321, 'Electrical and Electronic Engineering Exchange Student', 'Electrical&Electron Eng (Ex)'),
+(322, 'Electrical and Electronic Engineering Visiting Student Programme', 'EECE Non Grad'),
+(323, 'Master of Philosophy', 'MPhil (Electrical)'),
+(324, 'Bachelor of Engineering in Electrical and Electronic Engineering', 'BEng Electrical & Electron Eng'),
+(325, 'Master of Science', 'MSc by Research (Electrical)'),
+(326, 'Doctor of Philosophy', 'PhD (Electrical)'),
+(327, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Marine Robotics', 'MSc RAIS spec Marine Robotics'),
+(328, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Auto Robotics', 'MSc RAIS spec Auton Robotics'),
+(329, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Evolutionary and Bioinspired Robotics', 'MSc RAIS spec Evo Bio Robotics'),
+(330, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Human-Robot Interaction', 'MSc RAIS spec H-R Interaction'),
+(331, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Embedded Robotics', 'MSc RAIS spec Emb Robotics'),
+(332, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in MicroRobotics', 'MSc RAIS spec MicroRobotics'),
+(333, 'Master of Science in Robotics, Autonomous and Interactive Systems with a specialism in Robot Vision', 'MSc RAIS spec Robot Vision'),
+(334, 'Bachelor of Engineering in Telecommunications Engineering', 'BEng in Telecommunications Eng'),
+(335, 'Postgraduate Certificate in Robotics Autonomous and Interactive Systems', 'PgCert in RAIS'),
+(336, 'Postgraduate Diploma in Robotics Autonomous and Interactive Systems', 'PgDip in RAIS'),
+(337, 'Postgraduate Certificate in Vision, Image and Signal Processing', 'PGCert VISP'),
+(338, 'Postgraduate Diploma in Vision, Image and Signal Processing', 'PGDip VISP'),
+(339, 'Master of Science in Vision, Image and Signal Processing', 'MSc VISP'),
+(340, 'Bachelor of Engineering in Computing and Electronics', 'BEng Computing & Electronics'),
+(341, 'Bachelor of Engineering in Electrical Power and Energy', 'BEng Electrical Power & Energy'),
+(342, 'Bachelor of Engineering in Robotics, Autonomous and Interactive Systems', 'BEng Robotic Auton & Inter Sys'),
+(343, 'Postgraduate Certificate in Vision and Robotics (Erasmus Mundus)', 'PGCert Vision & Robotics (EM)'),
+(344, 'Master of Engineering in Electrical and Electronic Engineering', 'MEng Electrical & Electron Eng'),
+(345, 'Master of Engineering in Industrial Engineering (Electrical and Electronic Engineering)', 'MEng Ind Eng (E and E Eng)'),
+(346, 'Master of Engineering in Electrical Power and Energy', 'MEng Electrical Power & Energy'),
+(347, 'Master of Engineering in Robotics, Autonomous and Interactive Systems', 'MEng Robotic Auton & Inter Sys'),
+(348, 'Postgraduate Diploma in Vision and Robotics (Erasmus Mundus)', 'PGDip Vision & Robotics (EM)'),
+(349, 'Bachelor of Engineering in Industrial Engineering (Electrical and Electronic Engineering)', 'BEng Ind Eng (E and E Eng)'),
+(350, 'Master of Science in Vision, Image and Robotics (Erasmus Mundus)', 'MSc Vision & Robotics (EM)'),
+(351, 'Master of Science', 'MSc by Research (SLI)'),
+(352, 'Doctor of Engineering in Systems Level Integration', 'EngD System Level Integration'),
+(353, 'Bachelor of Engineering in Information Systems Engineering', 'BEng Information Systems Eng'),
+(354, 'Bachelor of Engineering in Electrical and Electronic Engineering (Real-time Control and Robotics)', 'BEng Elec & Elec Eng (R-TCR)'),
+(355, 'Bachelor of Engineering in Electrical and Electronic Engineering (Microwaves and Photonics Engineering)', 'BEng Elec & Elec Eng (MPE)'),
+(356, 'Doctor of Engineering', 'EngD Microsystems Eng Tech'),
+(357, 'Postgraduate Certificate in Renewable Energy and Distributed Generation', 'PgCert Renewable En & Dist Gen'),
+(358, 'Bachelor of Engineering in Electrical and Electronic Engineering (Mobile and Digital Communications)', 'BEng Elec & Elec Eng (MDC)'),
+(359, 'Postgraduate Diploma in Renewable Energy and Distributed Generation', 'PgDip Renewable En & Dist Gen'),
+(360, 'Master of Science in Renewable Energy and Distributed Generation', 'MSc Renewable En & Dist Gen'),
+(361, 'Bachelor of Engineering in Electrical and Electronic Engineering (Computer and Internet Engineering)', 'BEng Elec & Elec Eng (CIE)'),
+(362, 'Bachelor of Engineering in Electronic and Electrical Engineering', 'BEng Electronic and Elec Eng'),
+(363, 'Postgraduate Certificate in Mobile Communications', 'PgCert in Mobile Comms'),
+(364, 'Bachelor of Engineering in Electrical and Electronic Engineering (Sustainable Energy Systems)', 'BEng Elec & Elec Eng (SES)'),
+(365, 'Postgraduate Diploma in Mobile Communications', 'PgDip in Mobile Comms'),
+(366, 'Master of Science in Mobile Communications', 'MSc in Mobile Comms'),
+(367, 'Doctor of Engineering', 'Doctor of Engineering'),
+(368, 'Postgraduate Certificate in Information Technology (Software Systems)', 'PgCert IT (App Sys)'),
+(369, 'Master of Science in Information Technology (Applied Systems)', 'MSc IT (App Sys)'),
+(370, 'Postgraduate Diploma in Information Technology (Applied Systems)', 'PgDip IT (App Sys)'),
+(371, 'Master of Science in Information Technology (Embedded Systems)', 'MSc IT (ES)'),
+(372, 'Postgraduate Diploma in Information Technology (Embedded Systems)', 'PgDip IT (ES)'),
+(373, 'Postgraduate Certificate in Information Technology (Embedded Systems)', 'PgCert IT (ES)'),
+(374, 'Master of Science in Information Technology (Mobile Communications)', 'MSc IT (MC)'),
+(375, 'Postgraduate Diploma in Information Technology (Mobile Communications)', 'PgDip IT (MC)'),
+(376, 'Postgraduate Certificate in Information Technology (Mobile Communications)', 'PgCert IT (MC)'),
+(377, 'Bachelor of Engineering in Electronic and Photonic Engineering', 'BEng Electronic & Photonic Eng'),
+(378, 'Postgraduate Certificate in Systems Level Integration', 'PgCert System Level Integrat''n'),
+(379, 'Master of Engineering in Electronic and Photonic Engineering', 'MEng Electronic & Photonic Eng'),
+(380, 'Postgraduate Diploma in Systems Level Integration', 'PgDip System Level Integration'),
+(381, 'Master of Science in Systems Level Integration', 'MSc System Level Integration'),
+(382, 'Postgraduate Certificate in Embedded Systems Engineering', 'PgCert Emb Sys Eng'),
+(383, 'Postgraduate Diploma in Embedded Systems Engineering', 'PgDip Embedded Sys Eng'),
+(384, 'Master of Science in Embedded Systems Engineering', 'MSc Embedded Sys Eng'),
+(385, 'Postgraduate Certificate in Microsystems with Photonics', 'PgCert Microsys Photonics'),
+(386, 'Postgraduate Diploma in Microsystems with Photonics', 'PgDip Microsys Photon'),
+(387, 'Master of Science in Microsystems with Photonics', 'MSc Microsys Photonics'),
+(388, 'Master of Engineering in Computing and Electronics', 'MEng Computing & Electronics'),
+(389, 'Doctor of Letters', 'Doctor of Letters'),
+(390, 'Bachelor of Engineering in Electronic Engineering with Imaging Science and Technologies', 'BEng Elec Eng w Imag Sc & Tech'),
+(391, 'Postgraduate Diploma in Applied Microsystems Integration (Joint International)', 'PGDip App Microsys Int (JI)'),
+(392, 'Master of Science in Applied Microsystems Integration (Joint International)', 'MSc App Microsys Int (JI)'),
+(393, 'Master of Engineering in Electronic Engineering with Imaging Science and Technologies', 'MEng Elec Eng w Imag Sc & Tech'),
+(394, 'Postgraduate Certificate in Microsystems Engineering', 'PgCert Microsystems Eng'),
+(395, 'Bachelor of Engineering in Robotics, Sensing and Automation', 'BEng Robotics, Sensing & Autom'),
+(396, 'Master of Engineering in Robotics, Sensing and Automation', 'MEng Robotics, Sensing & Autom'),
+(397, 'Postgraduate Diploma in Microsystems Engineering', 'PgDip Microsystems Eng'),
+(398, 'Master of Research in Microsystems Engineering', 'MRes Microsystems Engineering'),
+(399, 'Post Gradute Certificate Sensor Networks', 'PG Cert Sensor Networks'),
+(400, 'Post Gradute Diploma Sensor Networks', 'PG Dip Sensor Networks'),
+(401, 'Master of Science in Sensor Networks', 'MSc Sensor Networks'),
+(402, 'Postgraduate Certificate in Smart Systems Integration', 'PgCert Smart Sys Integration'),
+(403, 'Postgraduate Diploma in Smart Systems Integration', 'PgDip Smart Sys Integration'),
+(404, 'Master of Science in Smart Systems Integration', 'MSc Smart Systems Integration'),
+(405, 'Master of Research in Smart Systems Integration', 'MRes Smart Systems Integration'),
+(406, 'Doctor of Science', 'Doctor of Science'),
+(407, 'Postgraduate Certificate in Smart Grid and Demand Management', 'PgCert Smart Grid & Demand Mgt'),
+(408, 'Postgraduate Diploma in Smart Grid and Demand Management', 'PgDip Smart Grid & Demand Mgt'),
+(409, 'Master of Science in Smart Grid and Demand Management', 'MSc Smart Grid & Demand Mgt'),
+(410, 'Visiting Scholar (Electrical, Electronic & Computer Engineering)', 'Visiting Scholar (EE&CE)'),
+(411, 'Associate Student in Chemical Engineering', 'Associate Student in ChemE'),
+(412, 'Postgraduate Certificate in Bioprocessing', 'PgCert in Bioprocessing'),
+(413, 'Bachelor of Engineering in Chemical Engineering', 'BEng in Chemical Engineering'),
+(414, 'Chemical Engineering (Exchange)', 'Chemical Engineering (Ex)'),
+(415, 'Postgraduate Diploma in Bioprocessing', 'PgDip in Bioprocessing'),
+(416, 'Master of Philosophy', 'MPhil (Chemical)'),
+(417, 'Master of Science in Bioprocessing', 'MSc in Bioprocessing'),
+(418, 'Master of Science', 'MSc by Research (Chemical)'),
+(419, 'Doctor of Philosophy', 'PhD (Chemical)'),
+(420, 'Master of Engineering in Chemical Engineering', 'MEng Chemical Engineering'),
+(421, 'Postgraduate Certificate in Oil and Gas Technology', 'PgCert Oil and Gas Technology'),
+(422, 'Bachelor of Engineering in Petroleum Engineering', 'BEng Petroleum Engineering'),
+(423, 'Master of Engineering in Petroleum Engineering', 'MEng Petroleum Engineering'),
+(424, 'Master of Engineering in Chemical Engineering', 'MEng Chem Eng (new)'),
+(425, 'Master of Engineering in Chemical Engineering', 'MEng Chemical Engineering'),
+(426, 'Bachelor of Engineering in Chemical Engineering', 'BEng Chem Eng (Exchange)'),
+(427, 'Master of Engineering in Industrial Engineering (Chemical)', 'MEng Industrial Eng (Chem)'),
+(428, 'Bachelor of Engineering in Industrial Engineering (Chemical)', 'BEng Industrial Eng (Chem)'),
+(429, 'Postgraduate Certificate in Sustainability Engineering', 'PgCert in Sustainability Eng'),
+(430, 'Master of Engineering in Chemical Engineering with Pharmaceutical Chemistry', 'MEng Chem Eng w Pharm Chem'),
+(431, 'Bachelor of Engineering in Chemical Engineering with Pharmaceutical Chemistry', 'BEng Chemical Eng w Pharm Chem'),
+(432, 'Postgraduate Diploma in Sustainability Engineering', 'PgDip in Sustainability Eng'),
+(433, 'Master of Science in Sustainability Engineering', 'MSc in Sustainability Eng'),
+(434, 'Master of Engineering in Chemical Engineering with Energy Engineering', 'MEng Chem Eng w Energy Eng'),
+(435, 'Master of Engineering in Chemical Engineering with Energy Engineering and Diploma in Industrial Training', 'MEng Chem Eng w Energy Eng'),
+(436, 'Master of Science in Oil and Gas Technology', 'MSc in Oil and Gas Technology'),
+(437, 'Postgraduate Diploma in Oil and Gas Technology', 'PgDip Oil and Gas Technology'),
+(438, 'Postgraduate Certificate in Oil and Gas Technology', 'PgCert Oil and Gas Technology'),
+(439, 'Bachelor of Engineering in Chemical Engineering and Diploma in Industrial Training', 'BEng Chem Eng and DIT'),
+(440, 'Bachelor of Engineering in Chemical Engineering', 'BEng Chem Eng'),
+(441, 'Master of Engineering in Chemical Engineering', 'MEng Chemical Eng'),
+(442, 'Master of Science in Energy', 'MSc Energy'),
+(443, 'Master of Science in Energy', 'MSc in Energy'),
+(444, 'Postgraduate Diploma in Energy', 'Dip Energy'),
+(445, 'Postgraduate Certificate in Energy', 'PG Cert in Energy'),
+(446, 'Master of Science in Energy', 'MSc Energy (Dubai)'),
+(447, 'Doctor of Engineering', 'Doctor of Engineering'),
+(448, 'Master of Engineering in Chemical Engineering with Pharmaceutical Chemistry and Diploma in Industrial Training', 'MEng Chem Eng w Pharm Chem'),
+(449, 'Bachelor of Engineering in Chemical Engineering with Pharmaceutical Chemistry', 'BEng Chem Eng w Pharm Chem'),
+(450, 'Master of Engineering in Chemical Engineering with Oil and Gas Technology', 'MEng Chem Eng w Oil & Gas Tech'),
+(451, 'Master of Engineering in Chemical Engineering with Oil and Gas Technology and Diploma in Industrial Training', 'MEng Chemical Eng with (OGT DIT)'),
+(452, 'Doctor of Letters', 'Doctor of Letters'),
+(453, 'Chemical Engineering (Non-Graduating)', 'Chemical Engineering (Non-G)'),
+(454, 'Doctor of Science', 'Doctor of Science'),
+(455, 'Visiting Scholar (Chemical Engineering)', 'Visiting Scholar (Chem Eng)'),
+(456, 'Associate Student in Mechanical Engineering', 'Associate Student in MechE'),
+(457, 'Bachelor of Engineering in Mechanical Engineering', 'BEng Mechanical Engineering'),
+(458, 'Bachelor of Engineering in Mechanical Engineering', 'BEng Mech Eng (Ord)'),
+(459, 'Mechanical Engineering Exchange Student', 'Mechanical Engineering (Ex)'),
+(460, 'Master of Philosophy', 'MPhil (Mechanical)'),
+(461, 'Master of Science', 'MSc by Research (Mechanical)'),
+(462, 'Doctor of Philosophy', 'PhD (Mechanical)'),
+(463, 'Bachelor of Engineering in Mechanical Engineering (Computer-Aided Engineering)', 'BEng Mech Eng (CA)'),
+(464, 'Master of Engineering in Industrial Engineering (Mechanical)', 'MEng Industrial Eng (Mech)'),
+(465, 'Bachelor of Engineering in Industrial Engineering (Mechanical)', 'BEng Indust Eng (Mech)'),
+(466, 'Master of Engineering in Mechanical Engineering', 'MEng Mechanical Engineering'),
+(467, 'Bachelor of Engineering in Mechanical Engineering and Energy Engineering', 'BEng Mech Eng & Energy Eng'),
+(468, 'BEng (Ord) Mechanical Engineering with Energy Engineering', 'BEng Ord Mech Energy'),
+(469, 'Master of Engineering in Mechanical Engineering and Energy Engineering', 'MEng Mech Eng & Energy Eng'),
+(470, 'Bachelor of Engineering in Mechanical Engineering and Energy Engineering', 'BEng Mech Eng & Energy E'),
+(471, 'Master of Engineering in Mechanical Engineering and Energy Engineering', 'MEng Mech Eng&Energy E'),
+(472, 'Bachelor of Science in Integrated Product Design', 'BSc Int Prod Des'),
+(473, 'Bachelor of Engineering in Automotive Engineering', 'BEng Automotive Engineering'),
+(474, 'Bachelor of Engineering (Ordinary) in Automotive Engineering', 'BEng(Ord) Auto Eng'),
+(475, 'Bachelor of Engineering in Automotive Engineering', 'BEng Automotive Eng'),
+(476, 'Bachelor of Engineering in Mechanical Engineering', 'BEng Mech Eng'),
+(477, 'Master of Engineering in Mechanical Engineering', 'MEng Mech Eng'),
+(478, 'Postgraduate Certificate in Advanced Mechanical Engineering', 'PgCert Adv Mech Eng'),
+(479, 'Postgraduate Diploma in Advanced Mechanical Engineering', 'PgDip Adv Mech Eng'),
+(480, 'Master of Science in Advanced Mechanical Engineering', 'MSc Adv Mech Eng'),
+(481, 'Postgraduate Certificate in Energy', 'PgCert in Energy'),
+(482, 'Bachelor of Science in Engineering and Management', 'BSc Eng and Mgt'),
+(483, 'Postgraduate Diploma in Energy', 'PgDip in Energy'),
+(484, 'Master of Science in Energy', 'MSc in Energy'),
+(485, 'Bachelor of Science in Engineering with Management', 'BSc Engineering with Mgt'),
+(486, 'Master of Science in Energy Technology', 'MSc Energy Technology'),
+(487, 'Bachelor of Engineering in Robotics and Cybertronics', 'BEng Robotics & Cybertronics'),
+(488, 'BEng (Ord) Robotics and Cybertronics', 'BEng Robot & Cyber'),
+(489, 'Master of Science in Energy Systems (Energy Systems Design)', 'MSc Energy Systems (ESD)'),
+(490, 'Postgraduate Certificate in Renewable Energy Engineering', 'PgCert Renewable Energy Eng'),
+(491, 'Master of Engineering in Robotics and Cybertronics', 'MEng Robotics & Cybertronics'),
+(492, 'Postgraduate Diploma in Renewable Energy Engineering', 'PgDip Renewable Energy Eng'),
+(493, 'Master of Science in Renewable Energy Engineering', 'MSc Renewable Energy Eng'),
+(494, 'Doctor of Engineering', 'Doctor of Engineering'),
+(495, 'Master of Science in Energy Systems (Renewable Energy Technologies)', 'MSc Energy Systems (RET)'),
+(496, 'Doctor of Engineering in Creative 3D Digital Technologies', 'EngD Creative 3D Digital Tec'),
+(497, 'Doctor of Letters', 'Doctor of Letters'),
+(498, 'Doctor of Science', 'Doctor of Science'),
+(499, 'Doctor of Engineering in Digital Tools and Technologies', 'EngD Digital Tools & Tech'),
+(500, 'Visiting Scholar (Mechanical Engineering)', 'Visiting Scholar (Mech Eng)'),
+(501, 'Doctor of Philosophy', 'PhD'),
+(502, 'Doctor of Engineering', 'Doctor of Engineering'),
+(503, 'Doctor of Letters', 'Doctor of Letters'),
+(504, 'Doctor of Science', 'Doctor of Science'),
+(505, 'Visiting Scholar (Occupational Health and Safety)', 'Visiting Scholar (OHS)'),
+(506, 'Bachelor of Science in Combined Studies', 'BSc Combined Studies'),
+(507, 'Bachelor of Science (Hons) in Combined Studies (Non Graduating)', 'BSc C Studies (NG)'),
+(508, 'Bachelor of Science in Combined Studies', 'BSc Combined Studies (Hons)'),
+(509, 'Bachelor of Science in Combined Studies', 'BSc (Ord) Comb St'),
+(510, 'Bachelor of Science in Combined Studies', 'BSc Combined Studies (Ord)'),
+(511, 'Bachelor of Science (Hons) in Combined Studies Non-Graduating', 'BSc Comb St NG'),
+(512, 'Bachelor of Science in Combined Studies Non-Graduating', 'BSc Combined Studies NG'),
+(513, 'Bachelor of Science in Combined Studies (General Science)', 'BSc Comb St (Gen Sci)'),
+(514, 'Bachelor of Engineering in Engineering', 'BEng in Engineering'),
+(515, 'Bachelor of Science in Combined Studies (General Engineering)', 'BSc Comb St (Gen Eng)'),
+(516, 'Bachelor of Science in Combined Studies (Engineering Technology with Management)', 'BSc Combined Studies (ETM)'),
+(517, 'Bachelor of Science in Combined Studies (Mathematical Science with Economics)', 'BSc Combined Studies (MSE)'),
+(518, 'Bachelor of Science in Combined Studies (Physical Sciences with Engineering Technology)', 'BSc Combined Studies (PSET)'),
+(519, 'Bachelor of Science in Combined Studies (Mathematical Science with Accountancy and Finance)', 'BSc Combined Studies (MSAF)'),
+(520, 'Bachelor of Science in Combined Studies (Physical Science with Biology)', 'BSc Combined Studies (PSB)'),
+(521, 'Bachelor of Science in Combined Studies (Physical Science with Management)', 'BSc Combined Studies (PSM)'),
+(522, 'Bachelor of Science in Combined Studies (Psychological Studies with Management)', 'BSc Combined Studies (Psy SM)'),
+(523, 'Bachelor of Science in Combined Studies (Mathematical Science with Management)', 'BSc Combined Studies (MSMgt)'),
+(524, 'Bachelor of Science in Combined Studies (Computing with Management)', 'BSc Combined Studies (CM)'),
+(525, 'Bachelor of Science in Combined Studies (Biology with Psychological Studies)', 'BSc Combined Studies (BwPS)'),
+(526, 'Eng & Physical Sciences, PhD', 'Eng & Physical Sciences, PhD'),
+(527, 'Degree Entry Programme in Engineering', 'Degree Entry prog in Eng'),
+(528, 'College Maths (ELRAH/EPS)', 'College Maths (ELRAH/EPS)'),
+(529, 'Degree Entry Bridging Programme', 'Degree Entry Bridging Programm'),
+(530, 'Management & Languages, PhD', 'Management & Languages, PhD'),
+(531, 'Bachelor of Arts in Combined Studies', 'BA Comb Stud (H)'),
+(532, 'Bachelor of Arts in Combined Studies', 'BA Comb Stud'),
+(533, 'Bachelor of Arts in Combined Studies (Non Graduating)', 'BA Comb Stud (NG)'),
+(534, 'Bachelor of Arts in Combined Studies', 'BA Combined Studies'),
+(535, 'Bachelor of Arts in Combined Studies', 'BA Comb St'),
+(536, 'Bachelor of Arts in Combined Studies Non Graduating', 'BA Comb ST NG'),
+(537, 'Bachelor of Arts in Combined Studies (General Degree)', 'BA GD in Combined Studies'),
+(538, 'Bachelor of Arts in Combined Studies (Languages with Management)', 'BA Combined Studies (LM)'),
+(539, 'Bachelor of Arts in Combined Studies (Economics with Management)', 'BA Combined Studies (EM)'),
+(540, 'Bachelor of Arts in Combined Studies (Accountancy and Finance with Economics)', 'BA Combined Studies (AFE)'),
+(541, 'Bachelor of Arts in Combined Studies (Economics with Accountancy and Finance)', 'BA Combined Studies (EAF)'),
+(542, 'Bachelor of Arts in Combined Studies (Management with Engineering Technology)', 'BA Combined Studies (MET)'),
+(543, 'Bachelor of Arts in Combined Studies (Accountancy and Finance with Management)', 'BA Combined Studies (AFM)'),
+(544, 'Bachelor of Arts in Combined Studies (Management with Languages)', 'BA Combined Studies (ML)'),
+(545, 'Bachelor of Arts in Combined Studies (Management with Economics)', 'BA Combined Studies (ME)'),
+(546, 'Bachelor of Arts in Combined Studies (Management and Computing)', 'BA Combined Studies (MgtComp)'),
+(547, 'Bachelor of Arts in Combined Studies (Management with Languages)', 'BA Combined Studies (MgtLan)'),
+(548, 'Bachelor of Arts in Combined Studies (Management with Accountancy and Finance)', 'BA Combined Studies (MAF)'),
+(549, 'Bachelor of Arts in Combined Studies (Management and Languages)', 'BA Combined Studies (ML)'),
+(550, 'Master of Science in International Business Management with Project Management', 'MSc IBM w Project Mgt'),
+(551, 'Postgraduate Diploma in International Business Management with Project Management', 'PgDip IBM w Project Mgt'),
+(552, 'Postgraduate Certificate in International Business Management', 'PgCert Int Business Management'),
+(553, 'Master of Science in International Business Management with Tourism', 'MSc IBM with Tourism'),
+(554, 'Postgraduate Diploma in International Business Management with Tourism', 'PgDip IBM with Tourism'),
+(555, 'Master of Science in International Business Management with Performance Management', 'MSc IBM w Performance Mgt'),
+(556, 'Postgraduate Diploma in International Business Management with Performance Management', 'PgDip IBM w Performance Mgt'),
+(557, 'Degree Entry Programme in Management', 'Degree Entry prog in Mgmt'),
+(558, 'Bachelor of Arts in Hospitality and Tourism Management', 'BA Hospitality & Tourism Mgt'),
+(559, 'Master of Science in Operations Management', 'MSc Operations Management'),
+(560, 'Master of Science in Managing Business Performance', 'MSc Managing Bus Performance'),
+(561, 'Master of Science in Lean Six Sigma for Operational Excellence', 'MSc in LSS for Ops Exc'),
+(562, 'Master of Science in Business Strategy, Leadership and Change', 'MSc in Business Strategy, LC'),
+(563, 'Master of Philosophy', 'MPhil (Management)'),
+(564, 'Master of Science in Strategic Project Planning', 'MSc Strat Proj Plan'),
+(565, 'Associate Student in Bachelor of Business Administration', 'Associate Student (BBA)'),
+(566, 'Doctor of Philosophy', 'PhD (Management)'),
+(567, 'Postgraduate Certificate in Leadership and Organisational Performance', 'PgCert Leadership Org Perf'),
+(568, 'Postgraduate Diploma in Leadership and Organisational Performance', 'PgDip Leadership Org Perf'),
+(569, 'Bachelor of Arts in Management', 'BA in Management'),
+(570, 'Management (Non Graduating)', 'Management (Non-graduating)'),
+(571, 'Master of Science in International Management and Business Communications', 'MSc Int Mgt and Bus Comm'),
+(572, 'Master of Arts in Management', 'MA Management'),
+(573, 'Master of Arts in Management', 'MA in Management'),
+(574, 'Bachelor of Arts in Management', 'BA in Management'),
+(575, 'Postgraduate Certificate in Strategic Project Management', 'PgCert SPM (Europe)'),
+(576, 'Management Exchange', 'Management Exchange'),
+(577, 'Postgraduate Diploma in Strategic Project Management (European)', 'PgDip SPM (European)'),
+(578, 'Master of Science in Strategic Project Management (European)', 'MSc SPM (European)'),
+(579, 'Master of Arts in Management with Marketing', 'MA Management with Marketing'),
+(580, 'Postgraduate Certificate in Strategic Project Management', 'PgCert Strategic Project Mgt'),
+(581, 'Business Management (Non Graduating)', 'Business Management (Non Grad)'),
+(582, 'Postgraduate Diploma in Strategic Project Management', 'PgDip Strategic Project Mgt'),
+(583, 'Master of Science in Strategic Project Management', 'MSc Strategic Project Mgt'),
+(584, 'Master of Arts in Management with Human Resource Management', 'MA Mgt with Human Res Mgt'),
+(585, 'Postgraduate Certificate in Research Methods in the Social Sciences', 'PgCert Res Mds Social Sciences'),
+(586, 'Business Management Exchange', 'Business Management Exchange'),
+(587, 'Postgraduate Diploma in Research Methods in the Social Sciences', 'PgDip Res Mds Social Sciences'),
+(588, 'Master of Research in Research Methods in the Social Sciences', 'MRes Res Mds Social Sciences'),
+(589, 'Master of Arts in Management with Operations Management', 'MA in Mgt with Operations Mgt'),
+(590, 'Postgraduate Certificate in International Business Management with Logistics', 'PgCert Int Bus Mgt w Logistics'),
+(591, 'Postgraduate Diploma in International Business Management with Logistics', 'PgDip Int Bus Mgt w Logistics'),
+(592, 'Master of Science in International Business Management with Logistics', 'MSc Int Bus Mgt w Logistics'),
+(593, 'Master of Arts in Management with Business Law', 'MA Mgt with Business Law'),
+(594, 'Postgraduate Certificate in International Fashion Marketing', 'PgCert Intern Fashion Mkt'),
+(595, 'Bachelor of Arts in International Management', 'BA in International Mgt'),
+(596, 'Postgraduate Diploma in International Fashion Marketing', 'PgDip Intern Fashion Mkt');
+INSERT INTO `qualifications` (`qualification_id`, `qualification_name`, `short_title`) VALUES
+(597, 'Master of Science in International Fashion Marketing', 'MSc Intern Fashion Mkt'),
+(598, 'Master of Arts in International Management', 'MA International Mgt'),
+(599, 'Postgraduate Certificate in International Business Management with Human Resource Management', 'PgCert Int Bus Mgt with HRM'),
+(600, 'Postgraduate Diploma in International Business Management with Human Resource Management', 'PgDip Int Bus Mgt with HRM'),
+(601, 'Master of Science in International Business Management with Human Resource Management', 'MSc Int Bus Mgt with HRM'),
+(602, 'Master of Arts in International Business Management', 'MA Int Business Management'),
+(603, 'Executive Master of Science in Strategic Project Management', 'Exec MSc Strategic Proj Mgt'),
+(604, 'Master of Science in International Fashion Marketing and Retailing', 'MSc International FM&R'),
+(605, 'Postgraduate Diploma in International Fashion Marketing and Retailing', 'PgDip International FM&R'),
+(606, 'Postgraduate Certificate in International Fashion Marketing and Retailing', 'PgCert International FM&R'),
+(607, 'Postgraduate Certificate in Logistics and Supply Chain Management', 'PgCert Log & Sup Chain Mgt'),
+(608, 'Bachelor of Business Administration', 'BBA (Dubai)'),
+(609, 'Master of Science in Logistics with Green and Sustainable Supply Chain Management', 'MSc Green & Sustainable SCM'),
+(610, 'Master of Science in Logistics and Supply Chain Management with Marketing', 'MSc in Logistics w Marketing'),
+(611, 'Master of Science in Logistics and Supply Chain Management with Lean Six Sigma', 'MSc Logistics w Lean Six Sigma'),
+(612, 'Postgraduate Diploma in Logistics and Supply Chain Management', 'PgDip Log & Sup Chain Mgt'),
+(613, 'Master of Science in Logistics and Supply Chain Management with Business Performance', 'MSc in LSCM & Bus Performance'),
+(614, 'Master of Science in Logistics and Supply Chain Management', 'MSc Log & Sup Chain Mgt'),
+(615, 'Postgraduate Certificate in International Marketing', 'PgCert International Marketing'),
+(616, 'Bachelor of Arts in Business and Finance', 'BA Bus & Fin (Dubai)'),
+(617, 'Postgraduate Certificate in Logistics and Supply Chain Management with Shipping and Port Operations', 'PgCert LSCM w SPO'),
+(618, 'Postgraduate Diploma in Logistics and Supply Chain Management with Shipping and Port Operations', 'PgDip LSCM w SPO'),
+(619, 'Master of Science in Logistics and Supply Chain Management with Shipping and Port Operations', 'MSc LSCM w SPO'),
+(620, 'Postgraduate Diploma in International Marketing', 'PgDip International Marketing'),
+(621, 'Master of Science in International Marketing', 'MSc International Marketing'),
+(622, 'Bachelor of Business Administration', 'Bachelor of Business Admin'),
+(623, 'Bachelor of Business Administration', 'Bach of Business Admin'),
+(624, 'Bachelor of Business Administration with Information Technology', 'BBA w Information Technology'),
+(625, 'Master of Arts in Business Management', 'MA Business Mgmt'),
+(626, 'Bachelor of Arts in Business Management', 'BA Business Mgmt'),
+(627, 'Bachelor of Business Administration (Enterprise)', 'BBA (Enterprise)'),
+(628, 'Bachelor of Business Administration (Hospitality and Tourism Management)', 'BBA (HTM)'),
+(629, 'Bachelor of Business Administration (Human Resource Management)', 'BBA (HRM)'),
+(630, 'Bachelor of Business Administration (Law)', 'BBA (Law)'),
+(631, 'Bachelor of Business Administration (Marketing)', 'BBA (Marketing)'),
+(632, 'Bachelor of Business Administration (Accountancy)', 'BBA (Accountancy)'),
+(633, 'Master of Arts in Business Management', 'MA Business Management'),
+(634, 'Bachelor of Business Administration (Accountancy and Finance)', 'BBA (A and F)'),
+(635, 'Bachelor of Business Administration (Finance)', 'BBA (Finance)'),
+(636, 'Master of Arts in Business Management with Work Placement', 'MA Bus Mgt with Placement'),
+(637, 'Postgraduate Diploma in Supply Chain Management', 'PgDip Supply Chain Mgt'),
+(638, 'Master of Science in Supply Chain Management', 'MSc Supply Chain Mgt'),
+(639, 'Master of Arts in Business Management with Business Law', 'MA Business Mgt w Business Law'),
+(640, 'Postgraduate Diploma in Strategic Project Planning', 'PG Dip SPP (Dubai)'),
+(641, 'Master of Science in Strategic Project Planning', 'MSc SPP (Dubai)'),
+(642, 'Master of Arts in Business Management with Marketing', 'MA Business Mgt with Marketing'),
+(643, 'Postgraduate Certificate in International Business Management with Marketing', 'PgCert Int Bus Mgt w Marketing'),
+(644, 'Postgraduate Diploma in International Business Management with Marketing', 'PgDip Int Bus Mgt w Marketing'),
+(645, 'Master of Science in International Business Management with Marketing', 'MSc Int Bus Mgt w Marketing'),
+(646, 'Doctor of Engineering', 'Doctor of Engineering'),
+(647, 'Master of Arts in Business Management with Human Resource Management', 'MA Business Management w HRM'),
+(648, 'Postgraduate Certificate in International Business Management with Sustainability Management', 'PgCert Int Bus Mgt w Sus Mgt'),
+(649, 'Postgraduate Diploma in International Business Management with Sustainability Management', 'PgDip Int Bus Mgt w Sus Mgt'),
+(650, 'Master of Science in International Business Management with Sustainability Management', 'MSc Int Bus Mgt w Sus Mgt'),
+(651, 'Master of Arts in Business Management with Enterprise', 'MA Business Mgt w Enterprise'),
+(652, 'Bachelor of Business Administration', 'Bachelor of Business Admin'),
+(653, 'Bachelor of Business Administration', 'Bach of Business Admin'),
+(654, 'Postgraduate Certificate in International Business Management with Finance', 'PgCert Int Bus Mgt w Finance'),
+(655, 'Postgraduate Diploma in International Business Management with Finance', 'PgDip Int Bus Mgt w Finance'),
+(656, 'Master of Science in International Business Management with Finance', 'MSc Int Bus Mgt w Finance'),
+(657, 'Master of Science in Industrial Management (International)', 'MSc in Industrial Mgt (Inter)'),
+(658, 'Postgraduate Diploma in Industrial Management (International)', 'PgDip Industrial Mgt (Inter)'),
+(659, 'Master of Science in International Marketing Management', 'MSc International Mkting Mgt'),
+(660, 'Postgraduate Diploma in International Marketing Management', 'PgDip International Mkting Mgt'),
+(661, 'Postgraduate Certificate in International Marketing Management', 'PgCert International Mkt Mgt'),
+(662, 'Master of Science in International Marketing Management with Consumer Psychology', 'MSc IMM w Consumer Psychology'),
+(663, 'Master of Science in International Marketing Management with Digital Marketing', 'MSc IMM w Digital Marketing'),
+(664, 'Master of Science in International Marketing Management with Sustainability', 'MSc IMM with Sustainability'),
+(665, 'Master of Science in International Marketing Management with Tourism', 'MSc IMM with Tourism'),
+(666, 'Postgraduate Certificate in Business Management with International Marketing', 'PgCert Bus Mgt w Int Mark'),
+(667, 'Postgraduate Diploma in Business Management with International Marketing', 'PgDip Bus Mgt w Int Mark'),
+(668, 'Master of Science in Business Management with International Marketing', 'MSc Bus Mgt w Int Mark'),
+(669, 'Postgraduate Certificate in Business Management with Human Resource Management', 'PgCert Bus Mgt w Hum Res Mgt'),
+(670, 'Postgraduate Diploma in Business Management with Human Resource Management', 'PgDip Bus Mgt w Hum Res Mgt'),
+(671, 'Master of Science in Business Management with Human Resource Management', 'MSc Bus Mgt w Hum Res Mgt'),
+(672, 'Doctor of Letters', 'Doctor of Letters'),
+(673, 'Postgraduate Certificate in Business Management with Finance', 'PgCert Business Mgt w Finance'),
+(674, 'Master of Arts in Management with Enterprise', 'MA Management with Enterprise'),
+(675, 'Postgraduate Diploma in Business Management with Finance', 'PgDip Business Mgt w Finance'),
+(676, 'Master of Science in Business Management with Finance', 'MSc Business Mgt w Finance'),
+(677, 'Postgraduate Certificate in Strategic Change Management', 'PgCert Strategic Change Mgt'),
+(678, 'Postgraduate Diploma in Strategic Change Management', 'PgDip Strategic Change Mgt'),
+(679, 'Executive Master of Science in Strategic Change Management', 'Exec MSc Strategic Change Mgt'),
+(680, 'Postgraduate Certificate in Maritime Logistics and Supply Chain Management', 'PgCert Maritime Log & SCM'),
+(681, 'Postgraduate Diploma in Maritime Logistics and Supply Chain Management', 'PgDip Maritime Log & SCM'),
+(682, 'Master of Science in Maritime Logistics and Supply Chain Management', 'MSc Maritime Log & SCM'),
+(683, 'Doctor of Science', 'Doctor of Science'),
+(684, 'Visiting Scholar (Management)', 'Visiting Scholar (Management)'),
+(685, 'Postgraduate Certificate in International Finance and Economic Development', 'PgCert Int Fin & Econ Develop'),
+(686, 'Bachelor of Arts in Economics', 'BA in Economics'),
+(687, 'Economics Exchange Student', 'Economics Exchange Student'),
+(688, 'Postgraduate Diploma in International Finance and Economic Development', 'PgDip Int Fin & Econ Develop'),
+(689, 'Master of Philosophy', 'MPhil (Economics)'),
+(690, 'Master of Science in International Finance and Economic Development', 'MSc Int Fin & Econ Development'),
+(691, 'Doctor of Philosophy', 'PhD (Economics)'),
+(692, 'Master of Science in Economics, Banking and Finance', 'MSc Econ, Banking & Finance'),
+(693, 'Postgraduate Diploma in Economics, Banking and Finance', 'PgDip Econ, Banking & Finance'),
+(694, 'Postgraduate Certificate in Economics, Banking and Finance', 'PgCert Econ, Banking & Finance'),
+(695, 'Master of Arts in Economics', 'MA in Economics'),
+(696, 'Master of Arts in Economics with Work Placement', 'MA Economics with Placement'),
+(697, 'Bachelor of Arts in Economics and Marketing', 'BA Economics & Marketing'),
+(698, 'Master of Arts in Economics and Marketing', 'MA Economics & Marketing'),
+(699, 'Bachelor of Arts in Business and Economics', 'BA Business Economics'),
+(700, 'Master of Arts in Business and Economics', 'MA Business Economics'),
+(701, 'Bachelor of Arts in Economics and Finance', 'BA in Economics & Finance'),
+(702, 'Master of Arts in Economics and Finance', 'MA Economics & Finance'),
+(703, 'Master of Arts in Economics and Finance with Work Placement', 'MA Eco Fin with Placement'),
+(704, 'Bachelor of Arts in Economics and Accountancy', 'BA Economics & Accountancy'),
+(705, 'Master of Arts in Economics and Accountancy', 'MA Economics & Accountancy'),
+(706, 'Bachelor of Arts in Economics and Business Law', 'BA Economics & Business Law'),
+(707, 'Master of Arts in Economics and Business Law', 'MA Economics & Business Law'),
+(708, 'Master of Arts in Economics and Management', 'MA Economics and Management'),
+(709, 'Bachelor of Arts in Economics and Management', 'BA Economics and Management'),
+(710, 'Master of Arts in Economics and Business Management', 'MA Economics and Business Mgt'),
+(711, 'Bachelor of Arts in Economics and Business Management', 'BA Economics and Business Mgt'),
+(712, 'Doctor of Engineering', 'Doctor of Engineering'),
+(713, 'Doctor of Letters', 'Doctor of Letters'),
+(714, 'Doctor of Science', 'Doctor of Science'),
+(715, 'Visiting Scholar (Economics)', 'Visiting Scholar (Economics)'),
+(716, 'Master of Arts in Accounting and Business Finance', 'MA Acc and Bus Fin'),
+(717, 'Bachelor of Arts in Accounting and Business Finance', 'BA Acc and Bus Fin'),
+(718, 'Postgraduate Certificate in International Accounting and Management', 'PgCert Int Accounting & Mgt'),
+(719, 'Bachelor of Arts in Accountancy and Finance', 'BA Accountancy & Finance'),
+(720, 'Accountancy & Finance Non graduating', 'Non grad Acc & Fin'),
+(721, 'Postgraduate Diploma in International Accounting and Management', 'PgDip Int Accounting & Mgt'),
+(722, 'Master of Philosophy', 'MPhil (Acc & Finance)'),
+(723, 'Master of Science in International Accounting and Management', 'MSc Int Accounting & Mgt'),
+(724, 'Doctor of Philosophy', 'PhD (Acc & Finance)'),
+(725, 'Master of Science in International Banking and Finance', 'MSc Int Banking and Finance'),
+(726, 'Postgraduate Diploma in International Banking and Finance', 'PgDip Int Banking and Finance'),
+(727, 'Postgraduate Certificate in Accounting, Economics and Finance', 'PgCert Acc, Econ & Finance'),
+(728, 'Master of Science in Accounting', 'MSc Accounting'),
+(729, 'Postgraduate Diploma in Accounting', 'PgDip Accounting'),
+(730, 'Postgraduate Certificate in Accounting', 'PgCert Accounting'),
+(731, 'Master of Arts in Accountancy and Finance', 'MA Accountancy and Finance'),
+(732, 'Master of Arts in Accountancy and Finance', 'MA Accountancy & Finance'),
+(733, 'Master of Arts in Accountancy and Finance with Work Placement', 'MA Acc Fin with Placement'),
+(734, 'Postgraduate Certificate in Finance and Management', 'PgCert Finance & Management'),
+(735, 'Postgraduate Diploma in Finance and Management', 'PgDip Finance & Management'),
+(736, 'Master of Science in Finance and Management', 'MSc Finance & Management'),
+(737, 'Master of Arts in Finance', 'MA Finance'),
+(738, 'Bachelor of Arts in Accountancy and Business Law', 'BA Acct & Bus Law'),
+(739, 'Master of Arts in Accountancy and Business Law', 'MA Accountancy & Business Law'),
+(740, 'Bachelor of Arts in Accountancy', 'BA Accountancy'),
+(741, 'Bachelor of Arts in Accountancy', 'BA in Accountancy'),
+(742, 'Master of Arts in Accountancy', 'MA in Accountancy'),
+(743, 'Master of Science in International Finance and Environmental Economics', 'MSc Int Fin & Env Economics'),
+(744, 'Postgraduate Diploma in International Finance and Environmental Economics', 'PgDip Int Fin & Env Economics'),
+(745, 'Master of Science in International Finance and Corporate Accountability', 'MSc Int Fin & Corporate Acc'),
+(746, 'Postgraduate Diploma in International Finance and Corporate Accountability', 'PgDip Int Fin & Corporate Acc'),
+(747, 'Master of Science in International Accounting and Environmental Economics', 'MSc Int Acc & Env Economics'),
+(748, 'Postgraduate Diploma in International Accounting and Environmental Economics', 'PgDip Int Acc & Env Economics'),
+(749, 'Master of Science in Strategy and International Management Accounting', 'MSc Strategy & Int Mgt Acc'),
+(750, 'Postgraduate Diploma in Strategy and International Management Accounting', 'PgDip Strategy & Int Mgt Acc'),
+(751, 'Postgraduate Certificate in Accounting, Economics and Finance', 'PgCert Acc Economics & Finance'),
+(752, 'Master of Arts in Finance and Business Law', 'MA Finance & Business Law'),
+(753, 'Bachelor of Arts in Finance and Business Law', 'BA Finance & Business Law'),
+(754, 'Postgraduate Certificate in International Accounting and Finance', 'PgCert Inter Acc & Finance'),
+(755, 'Bachelor of Arts in Business and Finance', 'BA Bus & Finance'),
+(756, 'Bachelor of Arts in Business and Finance', 'BA Business & Finance'),
+(757, 'Postgraduate Diploma in International Accounting and Finance', 'PgDip Inter Acc & Finance'),
+(758, 'Master of Science in International Accounting and Finance', 'MSc Inter Acc & Finance'),
+(759, 'Master of Arts in Business and Finance', 'MA Business and Finance'),
+(760, 'Master of Arts in Business and Finance', 'MA Business & Finance'),
+(761, 'Bachelor of Arts in Business and Finance', 'BA Business and Finance'),
+(762, 'Master of Arts in Business and Finance with Work Placement', 'MA Bus Fin with Placement'),
+(763, 'Postgraduate Certificate in Finance', 'PgCert in Finance'),
+(764, 'Postgraduate Diploma in Finance', 'PgDip in Finance'),
+(765, 'Master of Science in Finance', 'MSc in Finance'),
+(766, 'Postgraduate Certificate in Banking and Finance', 'PgCert Inter Banking & Finance'),
+(767, 'Postgraduate Diploma in Banking and Finance', 'PgDip Inter Banking & Finance'),
+(768, 'Postgraduate Diploma in Investment Management', 'PGDip in Investment Management'),
+(769, 'Master of Science in Investment Management', 'MSc in Investment Management'),
+(770, 'Bachelor of Arts in Accountancy and Finance', 'BA Acc & Fin (Dubai)'),
+(771, 'Doctor of Engineering', 'Doctor of Engineering'),
+(772, 'Doctor of Letters', 'Doctor of Letters'),
+(773, 'Doctor of Science', 'Doctor of Science'),
+(774, 'Visiting Scholar (Accounting & Finance)', 'Visiting Scholar (Acc & Fin)'),
+(775, 'Master of Science in Arabic-English Translating', 'MSc Arabic-Eng Translating'),
+(776, 'Postgraduate Diploma in Arabic-English Translating', 'PgDip Arabic-Eng Translating'),
+(777, 'Postgraduate Certificate in Languages', 'PgCert Languages'),
+(778, 'Master of Science in Chinese-English Translating', 'MSc Chinese-Eng Translating'),
+(779, 'Postgraduate Diploma in Chinese-English Translating', 'PgDip Chinese-Eng Translating'),
+(780, 'Master of Science in Translating', 'MSc Translating'),
+(781, 'Postgraduate Diploma in Translating', 'PgDip Translating'),
+(782, 'Master of Science in Cultural Resource Management', 'MSc Cultural Resource Mgt'),
+(783, 'Postgraduate Diploma in Cultural Resource Management', 'PgDip Cultural Resource Mgt'),
+(784, 'Postgraduate Certificate in International Business Management', 'Pg Cert Int Business Mgt'),
+(785, 'Bachelor of Arts in Languages (Interpreting and Translating)', 'BA Languages (Inter & Trans)'),
+(786, 'Languages Exchange Students', 'Languages Ex Students'),
+(787, 'Master of Philosophy', 'MPhil (Languages)'),
+(788, 'Doctor of Philosophy', 'PhD (Languages)'),
+(789, 'Master of Science in Translating for Business', 'MSc Translating for Business'),
+(790, 'Postgraduate Diploma in Translating for Business', 'PgDip Translating for Business'),
+(791, 'Postgraduate Certificate in Translating for Business', 'PgCert Translating f Business'),
+(792, 'Master of Science in Interpreting', 'MSc Interpreting'),
+(793, 'Postgraduate Diploma in Interpreting', 'PgDip Interpreting'),
+(794, 'Postgraduate Certificate in Interpreting', 'PgCert Interpreting'),
+(795, 'Master of Arts in Languages (Interpreting and Translating)', 'MA Languages (Inter & Trans)'),
+(796, 'Master of Arts in International Business and Languages', 'MA (IBL)'),
+(797, 'Bachelor of Arts in Applied Languages and Translating', 'BA App Languages & Trans'),
+(798, 'Master of Arts in Applied Languages and Translating', 'MA App Languages & Trans'),
+(799, 'Postgraduate Certificate in International Management and Business Communication', 'PgCert Int Mgt and Bus Comm'),
+(800, 'Postgraduate Diploma in International Management and Business Communication', 'PgDip Int Mgt and Bus Comm'),
+(801, 'Master of Science in International Management and Business Communication', 'MSc Int Mgt and Bus Comm'),
+(802, 'Master of Arts in Foreign Languages and the Teaching of English to Speakers of Other Languages', 'MA FL - TESOL'),
+(803, 'Bachelor of Arts in International Management and Languages', 'BA International Man & Lang'),
+(804, 'Master of Arts in International Management and Languages', 'MA International Man & Lang'),
+(805, 'Bachelor of Arts in International Business Management and Languages', 'BA Int Bus Mgt & Languages'),
+(806, 'Master of Arts in International Business Management and Languages (Double Degree)', 'MA Int Bus Mgt & Lang (DD)'),
+(807, 'Master of Arts in International Business Management and Languages', 'MA Int Bus Mgt & Languages'),
+(808, 'Postgraduate Diploma in Interpreting and Translating', 'PgDip Interpreting & Trans'),
+(809, 'Master of Science in Interpreting and Translating', 'MSc Interpreting & Translating'),
+(810, 'Postgraduate Certificate in European Studies', 'PgCert European Studies'),
+(811, 'Non-Graduating Languages', 'Non-Grad Languages'),
+(812, 'Postgraduate Certificate in Translating and Conference Interpreting', 'PgCert Translating & Conf Int'),
+(813, 'Postgraduate Diploma in Translating and Conference Interpreting', 'PgDip Translating & Conf Int'),
+(814, 'Master of Science in Translating and Conference Interpreting', 'MSc Translating & Conf Int'),
+(815, 'Master of Science in Arabic-English Translation and Computer-Assisted Translation Tools', 'MSc Ar-Eng Tran & Comp A T T'),
+(816, 'Postgraduate Diploma in Arabic-English Translation and Computer-Assisted Translation Tools', 'PGDip Ar-Eng Tran & Comp A T T'),
+(817, 'Master of Science in Arabic-English Translation and Computer Assisted Translation Tools', 'MSc A-E Tran & Comp ATT(2yr)'),
+(818, 'Postgraduate Diploma in Arabic-English Translation and Computer-Assisted Translation Tools', 'PGDip A-E Tran & Comp ATT(2yr)'),
+(819, 'Master of Science in Arabic-English Translating and Conference Interpreting', 'MSc A-E Tran & Conf Int'),
+(820, 'Postgraduate Diploma in Arabic-English Translating and Conference Interpreting', 'PgDip A-E Tran & Conf Int'),
+(821, 'Master of Science in Arabic-English Translating and Conference Interpreting', 'MSc A-E Tran & Conf Int (2yr)'),
+(822, 'Postgraduate Diploma in Arabic-English Translating and Conference Interpreting', 'PgDip A-E Tran & Conf Int(2yr)'),
+(823, 'Postgraduate Diploma in Arabic-English Interpreting and Translating', 'PgDip A-E Interpreting & Trans'),
+(824, 'Master of Science in Arabic-English Interpreting and Translating', 'MSc A-E Interpreting & Trans'),
+(825, 'Postgraduate Certificate in Interpreting', 'PgCert Interpreting'),
+(826, 'Master of Arts in British Sign Language (Interpreting, Translating and Applied Language Studies)', 'MA BSL (Int, Trans & ALS)'),
+(827, 'Bachelor of Arts in British Sign Language (Interpreting, Translating and Applied Language Studies)', 'BA BSL (Int, Trans & ALS)'),
+(828, 'Master of Science in Chinese-English Translation and Computer-Assisted Translation Tools', 'MSc C-E Tran & Comp A T T'),
+(829, 'Postgraduate Diploma in Chinese-English Translation and Computer-Assisted Translation Tools', 'PgDip C-E Tran & Comp A T T'),
+(830, 'Master of Science in Chinese-English Translation and Computer-Assisted Translation Tools', 'MSc C-E Tran & Comp ATT (2 yr)'),
+(831, 'Postgraduate Diploma in Chinese-English Translation and Computer-Assisted Translation Tools', 'PgDip C-E Tran & Comp ATT(2yr)'),
+(832, 'Postgraduate Diploma in Chinese-English Interpreting and Translating', 'PgDip C-E Interpreting & Trans'),
+(833, 'Master of Science in Chinese-English Interpreting and Translating', 'MSc C-E Interpreting & Trans'),
+(834, 'Master of Science in Chinese-English Translating and Conference Interpreting', 'MSc C-E Tran & Conf Int'),
+(835, 'Postgraduate Diploma in Chinese-English Translating and Conference Interpreting', 'PgDip C-E Tran & Conf Int'),
+(836, 'Postgraduate Diploma in Chinese-English Translating and Conference Interpreting', 'PgDip C-E Tran & Conf Int(2yr)'),
+(837, 'Master of Science in Translation and Intercultural Communication (Arabic-English)(DL)', 'MSc Trans (Ara-Eng)'),
+(838, 'Postgraduate Certificate in Translating', 'PgCert Translating'),
+(839, 'Doctor of Engineering', 'Doctor of Engineering'),
+(840, 'Foundation English', 'Foundation English'),
+(841, 'Postgraduate Diploma in Translation and Computer-Assisted Translation Tools', 'PgDip Translation & Comp-ATT'),
+(842, 'Master of Science in Translation and Computer-Assisted Translation Tools', 'MSc Translation & Comp-ATT'),
+(843, 'Certificate in Foundation English', 'Cert in Foundation English'),
+(844, 'Certificate in Foundation English', 'Cert Foundation English (grad)'),
+(845, 'Bachelor of Arts in Foreign Languages and Teaching English to Speakers of Other Languages', 'BA in Foreign Langs & TESOL'),
+(846, 'General English (Languages) Non-graduating', 'General English (Languages) NG'),
+(847, 'Master of Arts in Foreign Languages and Teaching English to Speakers of Other Languages', 'MA Foreign Language (TESOL)'),
+(848, 'International Management and Languages Exchange', 'IML Exchange'),
+(849, 'Master of Arts in French and Applied Language Studies', 'MA French and App Lang Stud'),
+(850, 'Bachelor of Arts in French and Applied Language Studies', 'BA French and App Lang Stud'),
+(851, 'Master of Arts in German and Applied Language Studies', 'MA German and App Lang Stud'),
+(852, 'Bachelor of Arts in German and Applied Language Studies', 'BA German and App Lang Stud'),
+(853, 'Master of Arts in Spanish and Applied Language Studies', 'MA Spanish and App Lang Stud'),
+(854, 'Bachelor of Arts in Spanish and Applied Language Studies', 'BA Spanish and App Lang Stud'),
+(855, 'International Business Management and Languages Exchange', 'Int Bus Mgt and Languages Ex'),
+(856, 'Certificate in Foundation English', 'Cert in Foundation English'),
+(857, 'Certificate in Foundation English for Postgraduate Purposes', 'Cert in Foundation Eng Grad'),
+(858, 'Graduate Certificate in Teaching British Sign Language Tutors', 'GCert Teaching British SLT'),
+(859, 'Graduate Diploma in Teaching British Sign Language Tutors', 'GDip Teaching British SLT'),
+(860, 'Graduate Diploma in Interpreting Studies and Skills (British Sign Language/English)', 'GDip Int Stud Skills (BSL/E)'),
+(861, 'Doctor of Letters', 'Doctor of Letters'),
+(862, 'Post Graduate Certificate in Sign Language Interpreting (EUMASLI)', 'PG Cert Sign Lang Intrpt (E)'),
+(863, 'Post Graduate Diploma in Sign Language Interpreting (EUMASLI)', 'PG Dip Sign Lang Intrpt (E)'),
+(864, 'Master of Science in Sign Language Interpreting (EUMASLI)', 'MSc Sign Lang Intrpt (EUMASLI)'),
+(865, 'Pre-Session English (for Postgraduates)', 'Pre-Session English (12PG)'),
+(866, 'Pre-Session English (for Postgraduates)', 'Pre-Session English (6PG)'),
+(867, 'Pre-Session English (for Postgraduates)', 'Pre-Session English (3PG)'),
+(868, 'Doctor of Science', 'Doctor of Science'),
+(869, 'Master of Science in Translation & European Studies', 'MSc Translation & European Stu'),
+(870, 'Postgraduate Diploma in Translation & European Studies', 'PgDip Translation & Europ Stu'),
+(871, 'Master of Science in Chinese-English Translating and Conference Interpreting', 'MSc C-E Tran & Conf Int (2yr)'),
+(872, 'Visiting Scholar (Languages)', 'Visiting Scholar (Languages)'),
+(873, 'Business Studies NG', 'Business Studies NG'),
+(874, 'Bachelor of Arts in Business Management with Industrial Experience', 'BA Bus Mgt w Ind Exp'),
+(875, 'Bachelor of Business Administration with Information Technology', 'BBA with Information Tech'),
+(876, 'Bachelor of Business Administration', 'Bachelor of Business Admin'),
+(877, 'Bachelor of Arts in Business Management', 'BA Business Management'),
+(878, 'Foundation English', 'Foundation English'),
+(879, 'Certificate in Foundation English', 'Cert in Foundation English'),
+(880, 'Certificate in Foundation English for Graduate Purposes', 'Cert Foundation English (grad)'),
+(881, 'Pre-sessional English APR-SEPT', 'Pre-sessional English APR-SEPT'),
+(882, 'Bachelor of Arts in Business and Accounting', 'BA in Business & Accounting'),
+(883, 'Bachelor of Arts in Management', 'BA in Management'),
+(884, 'Bachelor of Business Administration', 'Bach of Business Admin'),
+(885, 'Heriot-Watt Management Programme', 'HW Mgt Prog'),
+(886, 'Bachelor of Arts in Business and Finance', 'BA Business & Finance'),
+(887, 'Bachelor of Arts in Accountancy and Finance', 'BA Accountancy & Finance'),
+(888, 'Bachelor of Arts in Accountancy', 'BA in Accountancy'),
+(889, 'Bachelor of Business Administration (Hospitality and Tourism Management)', 'BBA (Hosp and Tourism Mgt)'),
+(890, 'Academic English for Business', 'Academic English for Business'),
+(891, 'English for Science and Engineering Studies', 'Cert English Sci & Eng Studies'),
+(892, 'English for Business Studies', 'English for Business Studies'),
+(893, 'Programme of Industrial Practice', 'Programme Industrial Practice'),
+(894, 'Master of Science in Sustainable Building Design', 'MSc Sustainable Bld Design'),
+(895, 'Postgraduate Diploma in Sustainable Building Design', 'PgDip Sustainable Bld Design'),
+(896, 'Postgraduate Certificate in Sustainable Building Design', 'PgCert Sustainable Bld Design'),
+(897, 'Bachelor of Science (Hons) Built Environment', 'BSc Built Environmen'),
+(898, 'Postgraduate Certificate in Architectural Engineering', 'PgCert Architectural Eng'),
+(899, 'Postgraduate Diploma in Architectural Engineering', 'PgDip Architectural Eng'),
+(900, 'Master of Philosophy (Construction)', 'MPhil Building'),
+(901, 'Master of Science in Architectural Engineering', 'MSc Architectural Eng'),
+(902, 'Doctor of Philosophy (Construction)', 'PhD Construction'),
+(903, 'Master of Science in Architectural Project Management', 'MSc Arch PM'),
+(904, 'Postgraduate Certificate in Inclusive Environmental Access and Design', 'PgCert Inc Envir Access & Des'),
+(905, 'Bachelor of Science (Honours) in Building Economics and Quantiity Surveying (Flexible Learning)', 'BSc Bld Ec & QS (DL)'),
+(906, 'Master of Science in Construction Project Management', 'MSc Con Proj Man WB'),
+(907, 'Postgraduate Diploma in Construction Project Management', 'PGDip Cons Man PM WB'),
+(908, 'Postgraduate Certificate in Carbon Management', 'PgCert Carbon Management'),
+(909, 'Bachelor of Science in Estate Management', 'BSc Est Mgt (Oct 03)'),
+(910, 'Master of Science in Carbon and Energy Management', 'MSc Carbon Management'),
+(911, 'Postgraduate Diploma in Carbon and Energy Management', 'PgDip Carbon Management'),
+(912, 'Bachelor of Science in Estate Management', 'BSc Estate Mgt'),
+(913, 'Bachelor of Science in Building Surveying', 'BSc Build Surveying'),
+(914, 'Postgraduate Diploma in Construction Management (Project Management)', 'Dip Con Man (Proj)'),
+(915, 'Master of Philosophy', 'MPhil (Architectural Eng)'),
+(916, 'Master of Science in Construction Management (Project Management)', 'MSc Const Man (Proj)'),
+(917, 'Doctor of Philosophy', 'PhD (Architectural Eng)'),
+(918, 'Master of Science in Construction Management (Project Management)(DL)', 'MSc Const Man (Proj)'),
+(919, 'Postgraduate Diploma in Construction Management (Project Management)', 'Dip Con Man (Proj)'),
+(920, 'Master of Science in Sustainable Community Design', 'MSc Sustainable Com Design'),
+(921, 'Postgraduate Diploma in Sustainable Community Design', 'PgDip Sustainable Com Design'),
+(922, 'Postgraduate Certificate in Sustainable Community Design', 'PgCert Sustainable Com Design'),
+(923, 'Postgraduate Certificate in Building Services Engineering', 'PgCert Bldg Services Eng'),
+(924, 'Postgraduate Diploma in Building Services Engineering', 'PgDip Bldg Services Eng'),
+(925, 'Master of Science in Building Services Engineering', 'MSc Bldg Services Eng'),
+(926, 'Postgraduate Certificate in Building Services Engineering', 'PGCert BSE (DL)'),
+(927, 'Postgraduate Certificate in Building Services Engineering Management', 'PgCert Bldg Serv Eng Mgt'),
+(928, 'Bachelor of Science in Construction Management', 'BSc Constn Mgt'),
+(929, 'Postgraduate Diploma in Building Services Engineering Management', 'PgDip Bldg Serv Eng Mgt'),
+(930, 'Master of Science in Building Services Engineering Management', 'MSc Bldg Serv Eng Mgt'),
+(931, 'Bachelor of Science (Hons) Construction Management', 'BSc Const Mgt Dubai'),
+(932, 'Bachelor of Science (Honours) in Construction Management', 'BSc Const Mgt (DL)'),
+(933, 'Postgraduate Diploma in Construction Management (Project Management)', 'PGDip Cons Man (Pro)'),
+(934, 'Master of Science in Construction Management (Project Management)', 'MSc Cons Man (Proj)D'),
+(935, 'Bachelor of Engineering in Architectural Engineering', 'BEng Architectural Eng'),
+(936, 'Bachelor of Engineering in Architectural Engineering', 'BEng Architectural Engineering'),
+(937, 'Architectural Engineering (Non-Graduating Undergraduate)', 'Architectural Eng (NG)'),
+(938, 'Postgraduate Certificate in Carbon Management in the Built Environment', 'PGCert Carbon Mgmt in Built'),
+(939, 'Master of Engineering in Architectural Engineering', 'MEng Architectural Eng'),
+(940, 'Postgraduate Diploma in Carbon Management in the Built Environment', 'PGDip Carbon Mgmt in Built'),
+(941, 'Master of Science in Carbon Management in the Built Environment', 'MSc Carbon Mgmt in Built'),
+(942, 'Master of Science in Construction Financial Management', 'MSc in Con Fin Man'),
+(943, 'Postgraduate Diploma in Construction Financial Management', 'PG Dip Constr Fin Mg'),
+(944, 'Postgraduate Certificate in Facilities Management and Asset Maintenance', 'PGCert in Fac Mg A M'),
+(945, 'Bachelor of Science in Architectural Engineering', 'BSc Architectural Eng'),
+(946, 'Master of Science in Facilities Management and Asset Maintenance', 'MSC FMAM'),
+(947, 'Master of Science in Facilities Management and Asset Maintenance (DL)', 'MSc FMAM'),
+(948, 'Postgraduate Diploma in Facilities Management and Asset Maintenance (DL)', 'PG Dip Fac Man Asset'),
+(949, 'Master of Engineering in Architectural Engineering with International Studies', 'MEng Arch Eng w Inter Studies'),
+(950, 'Bachelor of Engineering in Architectural Engineering with International Studies', 'BEng Arch Eng w Inter Studies'),
+(951, 'Doctor of Engineering', 'Doctor of Engineering'),
+(952, 'Master of Science in Facilities Management', 'MSc Fac Man'),
+(953, 'Postgraduate Diploma in Facilities Management', 'PG Dip Fac Man'),
+(954, 'Postgraduate Certificate in Facilities Management', 'PGCert'),
+(955, 'Bachelor of Science in Quantity Surveying', 'BSc Quant Surveying'),
+(956, 'Postgraduate Diploma in Facilities Management', 'PGDip Fac Man (D)'),
+(957, 'Master of Science in Facilities Management', 'MSc Facil Man (D)'),
+(958, 'Bachelor of Science (Hons) Quantity Surveying', 'BSc QS Dubai'),
+(959, 'Bachelor of Science in Quantity Surveying', 'BSc Q Survey DL'),
+(960, 'Postgraduate Certificate in Building Services Facilities Management', 'PgCert Bldg Serv Fac Mgt'),
+(961, 'Postgraduate Diploma in Building Services Facilities Management', 'PgDip Bldg Serv Fac Mgt'),
+(962, 'Master of Science in Building Services Facilities Management', 'MSc Bldg Serv Fac Mgt'),
+(963, 'Postgraduate Certificate in Building Services Facilities Management', 'PGCert BSFM (DL)'),
+(964, 'Bachelor of Science in Quantity Surveying (Building Services)', 'BSc QS (Build Ser)'),
+(965, 'Master of Science in the Built Environment (DL)', 'MSC BUILT ENV(DL)'),
+(966, 'Postgraduate Diploma in the Built Environment (DL)', 'PG Dip Built Environ'),
+(967, 'Postgraduate Certificate in Environmental Services', 'PgCert Environmental Services'),
+(968, 'Postgraduate Diploma in Environmental Services', 'PgDip Environmental Services'),
+(969, 'Master of Science in Environmental Services', 'MSc Environmental Services'),
+(970, 'Doctor of Letters', 'Doctor of Letters'),
+(971, 'Master of Science in Property Investment and Finance (DL)', 'MSc PIF'),
+(972, 'Postgraduate Diploma in Property Investment and Finance (DL)', 'Dip PIF'),
+(973, 'Master of Science in Building Conservation (Technology and Management)', 'MSc Build Conserv'),
+(974, 'Postgraduate Diploma in Building Conservation (Technology and Management)', 'PgDip Build Cons T/M'),
+(975, 'Bachelor of Science in Construction Management (Project Management)', 'BSc Cons Mgt (Proj)'),
+(976, 'Bachelor of Science in Construction Management (Building Services)', 'BSc Const Mgt (Build'),
+(977, 'Postgraduate Diploma in Quantity Surveying', 'PGDip Quant Surv (D)'),
+(978, 'Master of Science in Quantity Surveying', 'MSc Quant Surv (D)'),
+(979, 'Postgraduate Diploma in Quantity Surveying', 'PGDip Quant Surv'),
+(980, 'Master of Science in Quantity Surveying', 'MSc Quant Surv'),
+(981, 'Master of Science in Quantity Surveying', 'MSc Quant Sur (DL)'),
+(982, 'Doctor of Science', 'Doctor of Science'),
+(983, 'Bachelor of Science in Facilities Management', 'BSc Fac Mgt'),
+(984, 'Visiting Scholar (Archictectural Engineering)', 'Visiting Scholar (Arch Eng)'),
+(985, 'Master of Science in Water and Environmental Management', 'MSc Water Env Management'),
+(986, 'Postgraduate Diploma in Water and Environmental Management', 'PgDip Water Env Management'),
+(987, 'Postgraduate Certificate in Water and Environmental Management', 'PgCert Water Env Management'),
+(988, 'Civil and Structural Engineering Programme (Non-Graduating)', 'Civil Engineering Prog (Ex)'),
+(989, 'Postgraduate Certificate in Water Technology and Disalination', 'PgCert Water Tech and Desalin'),
+(990, 'Bachelor of Engineering in Civil Engineering', 'BEng Civil Engineering'),
+(991, 'Civil Engineering Exchange Student', 'Civil Engineering Prog (Ex)'),
+(992, 'Postgraduate Diploma in Water Technology and Disalination', 'PgDip Water Tech and Desalin'),
+(993, 'Master of Philosophy', 'MPhil (Civil)'),
+(994, 'Master of Science in Water Technology and Desalination', 'MSc Water Tech and Desalin'),
+(995, 'Doctor of Philosophy', 'PhD (Civil)'),
+(996, 'Bachelor of Engineering in Civil and Environmental Engineering', 'BEng Civil & Environ Eng'),
+(997, 'Non grad Civil & Env Eng', 'Non grad Civil & Env'),
+(998, 'Master of Engineering in Civil and Environmental Engineering', 'MEng Civil & Environ Eng'),
+(999, 'Civil and Structural Engineering (Non-Graduating)', 'Civil and Structural Eng (NNG)'),
+(1000, 'Bachelor of Engineering in Structural Engineering', 'BEng Structural Engineering'),
+(1001, 'Bachelor of Engineering in Structural Engineering with Architectural Design', 'BEng Struct Eng w Archit Des'),
+(1002, 'Master of Engineering in Structural Engineering', 'MEng Structural Engineering'),
+(1003, 'Master of Engineering in Structural Engineering with International Studies', 'MEng Struct Eng w Intern St'),
+(1004, 'Postgraduate Certificate in Water Resources and Catchment Management', 'PgCert Wtr Res & Catchment Mg'),
+(1005, 'Master of Engineering in Civil Engineering with International Studies', 'MEng Civil Eng w Intern St'),
+(1006, 'Postgraduate Diploma in Water Resources and Catchment Management', 'PG Dip Water Res & Catch Mgt'),
+(1007, 'Master of Science in Water Resources and Catchment Management', 'MSc Water Res & Catch Mgt'),
+(1008, 'Postgraduate Certificate in Geotechnical Engineering', 'PgCert Geotechnical Eng'),
+(1009, 'Master of Engineering in Civil Engineering', 'MEng Civil Engineering'),
+(1010, 'Postgraduate Diploma in Geotechnical Engineering', 'PgDip Geotechnical Eng'),
+(1011, 'Master of Science in Geotechnical Engineering', 'MSc Geotechnical Eng'),
+(1012, 'Postgraduate Certificate in Structural Engineering', 'PgCert Structural Engineering'),
+(1013, 'Postgraduate Diploma in Structural Engineering', 'PgDip Structural Engineering'),
+(1014, 'Master of Science in Structural Engineering', 'MSc Structural Engineering'),
+(1015, 'Postgraduate Certificate in Water Resources Engineering Management', 'PgCert Water Resources Eng Mgt'),
+(1016, 'Postgraduate Diploma in Water Resources Engineering Management', 'PgDip Water Resources Eng Mgt'),
+(1017, 'Master of Science in Water Resources Engineering Management', 'MSc Water Resources Eng Mgt'),
+(1018, 'Postgraduate Certificate in Flood Risk Management', 'PgCert Flood Risk Mgt'),
+(1019, 'Master of Engineering in Structural Engineering with Architectural Design', 'MEng Struct Eng w Archit Des'),
+(1020, 'Postgraduate Diploma in Flood Risk Management', 'PgDip Flood Risk Mgt'),
+(1021, 'Master of Science in Flood Risk Management', 'MSc Flood Risk Mgt'),
+(1022, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1023, 'Postgraduate Certificate in Sustainable River Catchment Flood Management', 'PgCert Sust River CFM'),
+(1024, 'Postgraduate Diploma in Sustainable River Catchment Flood Management', 'PgDip Sust River CFM'),
+(1025, 'Master of Science in Sustainable River Catchment Flood Management', 'MSc Sust River CFM'),
+(1026, 'Postgraduate Certificate in Civil Engineering', 'PgCert Civil Engineering'),
+(1027, 'Postgraduate Diploma in Civil Engineering', 'PgDip Civil Engineering'),
+(1028, 'Master of Science in Civil Engineering', 'MSc Civil Engineering'),
+(1029, 'Postgraduate Certificate in Civil Engineering', 'PGCert Civil Eng(DL)'),
+(1030, 'Postgraduate Certificate in Civil Engineering and Construction Management', 'PgCert Civil Eng & Constr Mgt'),
+(1031, 'Postgraduate Diploma in Civil Engineering and Construction Management', 'PgDip Civil Eng & Constr Mgt'),
+(1032, 'Master of Science in Civil Engineering and Construction Management', 'MSc Civil Eng & Constr Mgt'),
+(1033, 'PG Dip Concrete Enginering', 'PG Dip Concrete Enginering'),
+(1034, 'MSc Concrete Enginering', 'MSc Concrete Enginering'),
+(1035, 'Doctor of Letters', 'Doctor of Letters'),
+(1036, 'Postgraduate Certificate in Structural Rehabilitation Repair and Maintenance', 'PgCert Struct Rehab Rep & Main'),
+(1037, 'Postgraduate Diploma in Structural Rehabilitation Repair and Maintenance', 'PgDip Struct Rehab Rep & Main'),
+(1038, 'Master of Science in Structural Rehabilitation Repair and Maintenance', 'MSc Struct Rehab Rep & Main'),
+(1039, 'Postgraduate Certificate in Safety, Risk and Reliability Engineering', 'PgCert Safety Risk & Rel Eng'),
+(1040, 'Postgraduate Diploma in Safety, Risk and Reliability Engineering', 'PgDip Safety Risk & Rel Eng'),
+(1041, 'Master of Science in Safety, Risk and Reliability Engineering', 'MSc Saf Risk & Rel'),
+(1042, 'Master of Science in Safety, Risk and Reliability Engineering', 'MSc Safety Risk & Rel Eng'),
+(1043, 'Postgraduate Certificate in Structural and Foundation Engineering', 'PgCert Structural Found Eng'),
+(1044, 'Postgraduate Diploma in Structural and Foundation Engineering', 'PgDip Structural Foundation En'),
+(1045, 'Master of Science in Structural and Foundation Engineering', 'MSc Structural Foundation Eng'),
+(1046, 'Postgraduate Certificate in Safety and Risk Management', 'PgCert Safety & Risk Mgt'),
+(1047, 'Postgraduate Diploma in Safety and Risk Management', 'PgDip Safety & Risk Mgt'),
+(1048, 'Master of Science in Safety and Risk Management', 'MSc Safety & Risk Mgt'),
+(1049, 'Doctor of Science', 'Doctor of Science'),
+(1050, 'Postgraduate Certificate in Safety and Risk Management', 'PGCert SafRskMgt(DL)'),
+(1051, 'Visiting Scholar (Civil Engineering)', 'Visiting Scholar (Civil Eng)'),
+(1052, 'Postgraduate Certificate in Water Resources', 'PGCert Water Resources'),
+(1053, 'Postgraduate Diploma in Water Resources', 'PGDip Water Resources'),
+(1054, 'Master of Science in Water Resources', 'MSc Water Resources'),
+(1055, 'Bachelor of Science in Urban and Regional Planning', 'BSc Urban & Reg Plan'),
+(1056, 'Bachelor of Science (Hons) in Planning and Development', 'BSc Planning & Dev'),
+(1057, 'BSc (Hons) Planning and Property Development', 'BSc Planning PD'),
+(1058, 'Master of Philosophy', 'MPhil (Const)'),
+(1059, 'Master of Science', 'MSc by Research (Const)'),
+(1060, 'Doctor of Philosophy', 'PhD (Const)'),
+(1061, 'BSc (Hons) Real Estate Management', 'BSc Real Estate Mgt'),
+(1062, 'Postgraduate Diploma in Urban and Regional Planning', 'PG Dip Urban & Reg P'),
+(1063, 'Bachelor of Science Real Estate Management', 'BSc Real Est Mgt'),
+(1064, 'Bachelor of Science in Building Surveying', 'BSc Building Surveying'),
+(1065, 'Bachelor of Science in Building Surveying', 'BSc Building Surveying w CIT'),
+(1066, 'Postgraduate Diploma in Urban Real Estate Management and Development', 'PG Dip Urban Real Es'),
+(1067, 'Master of Science in Urban Real Estate Management and Development', 'MSc Urb Real Estate'),
+(1068, 'Postgraduate Diploma in Urban Real Estate Management and Development', 'PGDip Urb Real Est'),
+(1069, 'Postgraduate Diploma in Housing (Placement Practice)', 'PGDip Housing (PP)'),
+(1070, 'Doctor of Philosophy by Published Research', 'PhD by Published Research'),
+(1071, 'Postgraduate Diploma in Urban and Regional Planning', 'PG Dip Urban & Reg P'),
+(1072, 'Master of Science in Urban and Regional Planning', 'MSc URP'),
+(1073, 'Postgraduate Diploma in Housing', 'PG Dip Housing'),
+(1074, 'Master of Science in Housing', 'MSc Housing'),
+(1075, 'Postgraduate Certificate in Construction Project Management', 'PGCert CPM (D)'),
+(1076, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1077, 'Postgraduate Certificate in Facilities Management', 'PGCert Fac Mgmt (DL)'),
+(1078, 'Bachelor of Science in Quantity Surveying', 'BSc Quantity Surveying'),
+(1079, 'Bachelor of Science in Quantity Surveying', 'BSc Quantity Surveying w CIT'),
+(1080, 'Postgraduate Certificate in Facilities Management', 'PGCert FM (PT, D)'),
+(1081, 'Postgraduate Certificate in Construction Financial Management', 'PgCert Constr Fin Mgt'),
+(1082, 'Postgraduate Diploma in Construction Financial Management', 'PgDip Constr Fin Mgt'),
+(1083, 'Master of Science in Construction Financial Management', 'MSc Constr Fin Mgt'),
+(1084, 'Postgraduate Certificate in Construction Financial Management', 'PGCert CFM (DL)'),
+(1085, 'Bachelor of Science in Quantity Surveying', 'BSc Quantity Surveying BS'),
+(1086, 'Bachelor of Science in Quantity Surveying', 'BSc Quantity Surv BS w CIT'),
+(1087, 'Postgraduate Certificate in Architectural Project Management', 'PgCert Archit Project Mgt'),
+(1088, 'Postgraduate Diploma in Architectural Project Management', 'PgDip Archit Project Mgt'),
+(1089, 'Master of Science in Architectural Project Management', 'MSc Archit Project Mgt'),
+(1090, 'Postgraduate Certificate in Construction Project Management', 'PGCert ConPrjMgt'),
+(1091, 'Postgraduate Certificate in Construction Project Management', 'PgCert Constr Project Mgt'),
+(1092, 'Postgraduate Diploma in Construction Project Management', 'PgDip Constr Project Mgt'),
+(1093, 'Master of Science in Construction Project Management', 'MSc Constr Project Mgt'),
+(1094, 'Postgraduate Certificate in Construction Project Management', 'PGCert Cons PM (DL)'),
+(1095, 'Postgraduate Certificate in Construction Project Management (Work Based Learning)', 'PgCert Constr Project Mgt WBL'),
+(1096, 'Postgraduate Diploma in Construction Project Management (Work Based Learning)', 'PgDip Constr Project Mgt WBL'),
+(1097, 'Master of Science in Construction Project Management (Work Based Learning)', 'MSc Constr Project Mgt WBL'),
+(1098, 'Doctor of Letters', 'Doctor of Letters'),
+(1099, 'Postgraduate Certificate in Building Conservation (Technology and Management)', 'PgCert Bldg Cons (Tech & Mgt)'),
+(1100, 'Bachelor of Science in Construction Project Management', 'BSc Construction Project Mgt'),
+(1101, 'Bachelor of Science in Construction Project Management', 'BSc Constr Project Mgt'),
+(1102, 'Bachelor of Science in Construction Project Management', 'BSc Construction Project Man'),
+(1103, 'Postgraduate Diploma in Building Conservation (Technology and Management)', 'PgDip Bldg Cons (Tech & Mgt)'),
+(1104, 'Master of Science in Building Conservation (Technology and Management)', 'MSc Bldg Cons (Tech & Mgt)'),
+(1105, 'Bachelor of Science in Construction Project Management', 'BSc Constr Proj Mgt w CIT'),
+(1106, 'Postgraduate Certificate in Building Conservation (Technology and Management)', 'PGCert Build Cons DL'),
+(1107, 'Postgraduate Certificate in Architectural Facilities Management', 'PgCert Architect Fac Mgt'),
+(1108, 'Construction Management and Surveying Programme (Non-Graduating Undergraduate)', 'CMS Prog (NG)'),
+(1109, 'Postgraduate Diploma in Architectural Facilities Management', 'PgDip Architect Fac Mgt'),
+(1110, 'Master of Science in Architectural Facilities Management', 'MSc Architect Fac Mgt'),
+(1111, 'Bachelor of Science in Construction Management (Building Services)', 'BSc Const Mgt (Bldg Service)'),
+(1112, 'Master of Science in Quantity Surveying', 'MSc QS (D)'),
+(1113, 'Bachelor of Science in Construction Management (Building Services)', 'BSc Const Mgt (BS) w CIT'),
+(1114, 'Postgraduate Certificate in Quantity Surveying', 'PGCert Quantity Surveying'),
+(1115, 'Postgraduate Certificate in Quantity Surveying', 'PgCert Quantity Surveying'),
+(1116, 'Postgraduate Diploma in Quantity Surveying', 'PgDip Quantity Surveying'),
+(1117, 'Master of Science in Quantity Surveying', 'MSc Quantity Surveying'),
+(1118, 'Postgraduate Certificate in Quantity Surveying', 'PGCert Quan Surv DL'),
+(1119, 'Postgraduate Certificate in Construction Project Management', 'PGCert CPM (PT, D)'),
+(1120, 'Doctor of Science', 'Doctor of Science'),
+(1121, 'Postgraduate Certificate in Facilities Management', 'PgCert Facilities Mgt'),
+(1122, 'Bachelor of Science in Facilities Management', 'BSc Facilities Mgt'),
+(1123, 'Bachelor of Science in Facilities Management', 'BSc Facilities Management'),
+(1124, 'Postgraduate Diploma in Facilities Management', 'PgDip Facilities Mgt'),
+(1125, 'Master of Science in Facilities Management', 'MSc Facilities Mgt'),
+(1126, 'Postgraduate Certificate in Building Surveying', 'PgCert Building Surveying'),
+(1127, 'Postgraduate Diploma in Building Surveying', 'PgDip Building Surveying'),
+(1128, 'Master of Science in Building Surveying', 'MSc Building Surveying'),
+(1129, 'Visiting Scholar (Construction Management and Surveying)', 'Visiting Scholar (CMS)'),
+(1130, 'Postgraduate Certificate in Building Refurbishment Management', 'PgCert Build Refurb Mgt'),
+(1131, 'Postgraduate Diploma in Building Refurbishment Management', 'PgDip Build Refurb Mgt'),
+(1132, 'Master of Science in Building Refurbishment Management', 'MSc Build Refurb Mgt'),
+(1133, 'Bachelor of Science in the Built Environment', 'BSc Built Environment'),
+(1134, 'Master of Arts in Geography, Society and Environment', 'MA Geography, Soc & Environ'),
+(1135, 'Bachelor of Arts in Geography, Society and Environment', 'BA Geography, Soc & Environ'),
+(1136, 'Bachelor of Science in Built Environment', 'BSc Built Env (DL)'),
+(1137, 'Bachelor of Science in Urban Planning and Property Development (with a sandwich year)', 'BSc Urb Planning & Prop De (S)'),
+(1138, 'Bachelor of Science in Urban Planning and Property Development', 'BSc Urban Planning & Prop Dev'),
+(1139, 'Master of Science in Urban Strategies and Design', 'MSc Urban Strat and Design'),
+(1140, 'Postgraduate Diploma in Urban Strategies and Design', 'PgDip Urban Strat and Design'),
+(1141, 'Postgraduate Certificate in Urban Strategies and Design', 'PgCert Urban Strat and Design'),
+(1142, 'Bachelor of Science in Urban and Regional Planning', 'BSc Urban & Reg Planning'),
+(1143, 'Bachelor of Science in Urban and Regional Planning with a Sandwich Year', 'BSc URP (Sandwich)'),
+(1144, 'Bachelor of Science in Urban and Regional Planning with a Sandwich Year', 'BSc Urban & Reg Plan w S Y'),
+(1145, 'Graduate Certificate in Inclusive Environmental Access and Design', 'Grad Cert Inc Env Ac'),
+(1146, 'Bachelor of Science in Planning and Development', 'BSc Planning & Development'),
+(1147, 'Bachelor of Science in Planning and Property Development', 'BSc Planning & Prop Dev'),
+(1148, 'Bachelor of Science in Real Estate Management', 'BSc Real Estate Mgt'),
+(1149, 'Bachelor of Science in Estate Management', 'BSc Estate Management'),
+(1150, 'Postgraduate Certificate in Real Estate Research', 'PgCert Real Estate Research'),
+(1151, 'Postgraduate Diploma in Real Estate Research', 'PgDip Real Estate Research'),
+(1152, 'Master of Philosophy', 'MPhil (Urb St)'),
+(1153, 'Master of Research in Real Estate Research', 'MRes Real Estate Research'),
+(1154, 'Bachelor of Science in Real Estate Management', 'BSc Real Estate Management'),
+(1155, 'Doctor of Philosophy', 'PhD (Urb St)'),
+(1156, 'Postgraduate Certificate in Housing Studies', 'PgCert Housing Studies'),
+(1157, 'Postgraduate Certificate in Planning Studies Research', 'PgCert Planning Stud Research');
+INSERT INTO `qualifications` (`qualification_id`, `qualification_name`, `short_title`) VALUES
+(1158, 'Postgraduate Diploma in Planning Studies Research', 'PgDip Planning Stud Research'),
+(1159, 'Postgraduate Diploma in Housing Studies', 'PgDip Housing Studies'),
+(1160, 'Master of Research in Planning Studies Research', 'MRes Planning Stud Research'),
+(1161, 'Master of Science in Housing Studies', 'MSc Housing Studies'),
+(1162, 'Postgraduate Certificate in Housing Research', 'PgCert Housing Research'),
+(1163, 'Postgraduate Diploma in Housing Research', 'PgDip Housing Research'),
+(1164, 'Master of Research in Housing Research', 'MRes Housing Research'),
+(1165, 'Postgraduate Certificate in Urban Studies Research', 'PgCert Urban Studies Research'),
+(1166, 'Postgraduate Diploma in Urban Studies Research', 'PgDip Urban Studies Research'),
+(1167, 'Master of Research in Urban Studies Research', 'MRes Urban Studies Research'),
+(1168, 'Postgraduate Certificate in Urban Real Estate Management and Development', 'PgCert Urb Real Est Mgt & Dev'),
+(1169, 'Postgraduate Diploma in Urban Real Estate Management and Development', 'PgDip Urb Real Est Mgt & Dev'),
+(1170, 'Master of Science in Urban Real Estate Management and Development', 'MSc Urb Real Est Mgt & Dev'),
+(1171, 'Postgraduate Certificate in Housing (Professional Practice)', 'PgCert Housing (PP)'),
+(1172, 'Postgraduate Diploma in Housing (Professional Practice)', 'PgDip Housing (PP)'),
+(1173, 'Master of Science in Housing (Professional Practice)', 'MSc Housing (PP)'),
+(1174, 'Postgraduate Certificate in Urban and Regional Planning', 'PgCert Urban & Reg Planning'),
+(1175, 'Postgraduate Diploma in Urban and Regional Planning', 'PgDip Urban & Reg Planning'),
+(1176, 'Master of Science in Urban and Regional Planning', 'MSc Urban & Reg Planning'),
+(1177, 'Postgraduate Certificate in Housing', 'PgCert Housing (PT)'),
+(1178, 'Postgraduate Diploma in Housing', 'PgDip Housing (PT)'),
+(1179, 'Master of Science in Housing', 'MSc Housing (PT)'),
+(1180, 'Postgraduate Certificate in Real Estate Management and Development', 'PgCert Real Est Mgt Dev'),
+(1181, 'Postgraduate Diploma in Real Estate Management and Development', 'PgDip Real Est Mgt Dev'),
+(1182, 'Master of Science in Real Estate Management and Development', 'MSc Real Est Mgt Dev'),
+(1183, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1184, 'Postgraduate Certificate in Housing and Regeneration', 'PgCert Housing & Regen'),
+(1185, 'Postgraduate Diploma in Housing and Regeneration', 'PgDip Housing & Regen'),
+(1186, 'Master of Science in Housing and Regeneration', 'MSc Housing & Regen'),
+(1187, 'Postgraduate Certificate in Housing and Regeneration (Professional Practice)', 'PgCert Housing & Regen (PP)'),
+(1188, 'Postgraduate Diploma in Housing and Regeneration (Professional Practice)', 'PgDip Housing & Regen (PP)'),
+(1189, 'Master of Science in Housing and Regeneration (Professional Practice)', 'MSc Housing & Regen (PP)'),
+(1190, 'Postgraduate Certificate in Housing and Regeneration', 'PgCert Housing & Regen (PT)'),
+(1191, 'Postgraduate Diploma in Housing and Regeneration', 'PgDip Housing & Regen (PT)'),
+(1192, 'Master of Science in Housing and Regeneration', 'MSc Housing & Regen (PT)'),
+(1193, 'Postgraduate Certificate in Housing Studies (Asia-Pacific)', 'PgCert Housing Studies AP'),
+(1194, 'Postgraduate Diploma in Housing Studies (Asia-Pacific)', 'PgDip Housing Studies AP'),
+(1195, 'Master of Science in Housing Studies (Asia Pacific)', 'MSc Housing Studies AP'),
+(1196, 'Postgraduate Certificate in Real Estate Investment and Finance', 'PgCert Real Est Invest & Fin'),
+(1197, 'Postgraduate Diploma in Real Estate Investment and Finance', 'PgDip Real Est Invest & Fin'),
+(1198, 'Master of Science in Real Estate Investment and Finance', 'MSc Real Est Invest & Fin'),
+(1199, 'Postgraduate Certificate in Real Estate Investment and Finance', 'PGCert REI & Fin DL'),
+(1200, 'Postgraduate Certificate in Property Investment and Finance', 'PgCert Property Invest & Fin'),
+(1201, 'Postgraduate Diploma in Property Investment and Finance', 'PgDip Property Invest & Fin'),
+(1202, 'Master of Science in Property Investment and Finance', 'MSc Property Invest & Fin'),
+(1203, 'Doctor of Letters', 'Doctor of Letters'),
+(1204, 'Urban Studies Programme (Non-Graduating Undergraduate)', 'Urban Studies (NG)'),
+(1205, 'Postgraduate Certificate in Real Estate and Planning', 'PGCert Real Estate & Planning'),
+(1206, 'Postgraduate Diploma in Real Estate and Planning', 'PGDip Real Estate and Planning'),
+(1207, 'Master of Science in Real Estate and Planning', 'MSc Real Estate and Planning'),
+(1208, 'Postgraduate Certificate in Urban Regeneration and Real Estate Development', 'PgCert Urban Reg & Real Est D'),
+(1209, 'Postgraduate Diploma in Urban Regeneration and Real Estate Development', 'PgDip Urban Reg & Real Est D'),
+(1210, 'Master of Science in Urban Regeneration and Real Estate Development', 'MSc Urban Reg & Real Est D'),
+(1211, 'Postgraduate Certificate in Sustainable Urban Management', 'PGCert Sustainable Urban Mgmt'),
+(1212, 'Postgraduate Diploma in Sustainable Urban Management', 'PGDip Sustainable Urban Mgmt'),
+(1213, 'Master of Science in Sustainable Urban Management', 'MSc Sustainable Urban Mgmt'),
+(1214, 'Doctor of Science', 'Doctor of Science'),
+(1215, 'Postgraduate Certificate in Housing and Real Estate', 'PGCert Housing & Real Estate'),
+(1216, 'Postgraduate Diploma in Housing and Real Estate', 'PGDip Housing & Real Estate'),
+(1217, 'Master of Science in Housing and Real Estate', 'MSc Housing & Real Estate'),
+(1218, 'Postgraduate Certificate in Urban Regeneration', 'PgCert Urban Regeneration'),
+(1219, 'Postgraduate Diploma in Urban Regeneration', 'PgDip Urban Regeneration'),
+(1220, 'Master of Science in Urban Regeneration', 'MSc Urban Regeneration'),
+(1221, 'Visiting Scholar (Urban Stud)', 'Visiting Scholar (Urban Stud)'),
+(1222, 'Postgraduate Certificate in Research in the Built Environment', 'PgCert Res Built Environment'),
+(1223, 'Postgraduate Diploma in Research in the Built Environment', 'PgDip Research Blt Environment'),
+(1224, 'Master of Science in Research in the Built Environment', 'MSc Research Built Environment'),
+(1225, 'Built Environment, PhD', 'Built Environment, PhD'),
+(1226, 'Certificate of Higher Education', 'Foundation Pathway (Bus)'),
+(1227, 'Certificate of Higher Education', 'Foundation Pathway (S&E)'),
+(1228, 'Master of Philosophy', 'MPhil (Blt Env)'),
+(1229, 'Doctor of Philosophy', 'PhD (Blt Env)'),
+(1230, 'Degree Entry Bridging Programme', 'Degree Entry Bridging Programm'),
+(1231, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1232, 'Postgraduate Certificate in the Built Environment', 'PgCert Built Environment'),
+(1233, 'Postgraduate Diploma in the Built Environment', 'PgDip Built Environment'),
+(1234, 'Master of Science in the Built Environment', 'MSc Built Environment'),
+(1235, 'Doctor of Letters', 'Doctor of Letters'),
+(1236, 'Doctor of Science', 'Doctor of Science'),
+(1237, 'Visiting Scholar (Built Environment)', 'Visiting Scholar (Built Env)'),
+(1238, 'Bachelor of Arts in Architecture', 'BA Architecture'),
+(1239, 'Degree Entry Programme in Design Studies', 'Degree Entry Prog in Des Studs'),
+(1240, 'Postgraduate Certificate in Strategic Management of Innovation (Fashion Textiles)', 'PGCert StratMgt of Inov(F Tex)'),
+(1241, 'Bachelor of Arts in Fashion Design for Industry', 'BA Fashion Design for Industry'),
+(1242, 'Bachelor of Science in Textiles and Fashion Design Management', 'BSc Tex & Fashion Des Mgt'),
+(1243, 'Bachelor of Science in Clothing Design and Manufacture', 'BSc Clothing Design & Manu'),
+(1244, 'Postgraduate Diploma in Strategic Management of Innovation (Fashion Textiles)', 'PGDip StratMgt of Inov(F Tex)'),
+(1245, 'Master of Science in Strategic Management of Innovation (Fashion Textiles)', 'MSc StratMgt of Inov(F Tex)'),
+(1246, 'Associate Student in Design for Textiles (Weave)', 'Associate Student in D & T (W)'),
+(1247, 'Associate Student in Textiles', 'Associate Student in Textiles'),
+(1248, 'Bachelor of Arts in Interior Design', 'BA (Hons) Interior Design'),
+(1249, 'Bachelor of Arts in Interior Design', 'BA in Interior Design (ord)'),
+(1250, 'Bachelor of Arts in Design for Textiles (Fashion, Interior, Art)', 'BA Design for Textiles (FIA)'),
+(1251, 'Master of Science in Ethics in Fashion (Consumerism, Communication and Sustainability)', 'MSc Ethics in Fashion (CCS)'),
+(1252, 'Postgraduate Diploma in Ethics in Fashion (Consumerism, Communication and Sustainability)', 'PgDip Ethics in Fashion (CCS)'),
+(1253, 'Postgraduate Certificate in Ethics in Fashion (Consumerism, Communication and Sustainability)', 'PgCert Ethics in Fashion (CCS)'),
+(1254, 'Postgraduate Certificate in Clothing Managment', 'PgCert Clothing Mgt'),
+(1255, 'Postgraduate Diploma in Clothing Management', 'PgDip Clothing Mgt'),
+(1256, 'Master of Science in Clothing Management', 'MSc Clothing Mgt'),
+(1257, 'Textiles and Design Exchange Student', 'Textiles & Design Ex Student'),
+(1258, 'Textiles & Design Non Grad', 'Textiles & Design Non Grad'),
+(1259, 'Postgraduate Certificate in Professional Design for Fashion and Textiles', 'PgCert Prof Des f Fas & Tex'),
+(1260, 'Postgraduate Diploma in Professional Design for Fashion and Textiles', 'PgDip Prof Des f Fas & Tex'),
+(1261, 'Master of Design in Professional Design for Fashion and Textiles', 'MDes Prof Des f Fas & Tex'),
+(1262, 'Postgraduate Certificate in Clothing Management and Intelligent Textiles and Clothing', 'PgCert Clothing Mgt & IT & C'),
+(1263, 'Postgraduate Diploma in Clothing Management and Intelligent Textiles and Clothing', 'PgDip Clothing Mgt & IT & C'),
+(1264, 'Master of Science Clothing Management and Intelligent Textiles and Clothing', 'MSc Clothing Mgt & IT & C'),
+(1265, 'Textiles and Design (CPD)', 'Textiles and Design (CPD)'),
+(1266, 'Degree Entry Bridging Programme', 'Degree Entry Bridging Programm'),
+(1267, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1268, 'Bachelor of Science in Fashion Technology', 'BSc Fashion Technology'),
+(1269, 'Bachelor of Arts in Fashion', 'BA in Fashion'),
+(1270, 'Bachelor of Arts in Fashion Womenswear', 'BA in Fashion Womenswear'),
+(1271, 'Bachelor of Arts in Fashion Menswear', 'BA in Fashion Menswear'),
+(1272, 'Bachelor of Arts in Fashion Marketing and Retailing', 'BA Fashion Mkting & Retailing'),
+(1273, 'Bachelor of Arts in Fashion Marketing and Retailing', 'BA in Fashion Mkting&Retailing'),
+(1274, 'Bachelor of Arts in Fashion Communication', 'BA in Fashion Communication'),
+(1275, 'Bachelor of Science in Fashion Technology', 'BSc Fashion Tech'),
+(1276, 'Bachelor of Arts in International Fashion Retailing', 'BA Int Fashion Retailing'),
+(1277, 'Bachelor of Arts in International Fashion Retailing', 'BA Int Fash Retailing'),
+(1278, 'Bachelor of Arts in Fashion Design', 'BA in Fashion Design'),
+(1279, 'Bachelor of Arts in Fashion', 'BA in Fashion'),
+(1280, 'Master of Arts in Fashion and Textiles Design', 'MA Fashion & Textiles Design'),
+(1281, 'Master of Arts in Fashion and Textiles Innovation and New Applications', 'MA Fash & Tex In & New Apps'),
+(1282, 'Postgraduate Certificate in International Design Marketing', 'PgCert International Des Mkt'),
+(1283, 'Bachelor of Arts in International Fashion Retailing', 'BA Internat Fashion Retailing'),
+(1284, 'Postgraduate Diploma in International Design Marketing', 'PgDip International Des Mkt'),
+(1285, 'Master of Philosophy', 'MPhil (Textiles)'),
+(1286, 'Master of Science in International Design Marketing', 'MSc International Des Mkt'),
+(1287, 'Master of Science', 'MSc Research (Textiles)'),
+(1288, 'Doctor of Philosophy', 'PhD (Textiles)'),
+(1289, 'Postgraduate Certificate in International Design Marketing', 'PgCert International Des Mkt'),
+(1290, 'Postgraduate Diploma in International Design Marketing', 'PgDip International Des Mkt'),
+(1291, 'Master of Arts in International Design Marketing', 'MA International Des Mkt'),
+(1292, 'Master of Arts in Fashion and Textiles Design', 'MA Fashion & Textiles Design'),
+(1293, 'Master of Arts in Fashion and Textiles Innovation and New Applications', 'MA Fash & Tex In & New Apps'),
+(1294, 'Doctor of Letters', 'Doctor of Letters'),
+(1295, 'Master of Science in Fashion and Textiles Innovation and New Applications', 'MSc Fash & Tex In & New Apps'),
+(1296, 'Master of Science in Fashion and Textiles Management', 'MSc Fashion & Textiles Mgt'),
+(1297, 'Postgraduate Certificate in Fashion and Textiles', 'PgCert Fashion & Textiles'),
+(1298, 'Postgraduate Diploma in Fashion and Textiles', 'PgDip Fashion & Textiles'),
+(1299, 'Doctor of Science', 'Doctor of Science'),
+(1300, 'Visiting Scholar (Textiles & Design)', 'Visiting Scholar (Tex & Des)'),
+(1301, 'Bachelor of Arts in Combined Studies', 'BA in Combined Studies'),
+(1302, 'Bachelor of Science in Combined Studies', 'BSc in Combined Studies'),
+(1303, 'Bachelor of Arts in Combined Studies (General Degree)', 'BA GD in Combined Studies'),
+(1304, 'Bachelor of Arts in Combined Studies (Fashion with Management)', 'BA Combined Studies (FM)'),
+(1305, 'Bachelor of Arts in Combined Studies (Clothing with Management)', 'BA Combined Studies (CM)'),
+(1306, 'Bachelor of Arts in Combined Studies (Fashion with Management)', 'BA Combined Studies (FM)'),
+(1307, 'Bachelor of Science in Combined Studies (Fashion with Management)', 'BSc Combined Studies (FM)'),
+(1308, 'Bachelor of Arts in Combined Studies (Clothing with Fashion)', 'BA Combined Studies (CwF)'),
+(1309, 'Bachelor of Science in Combined Studies (Clothing with Management)', 'BSc Combined Studies (CwM)'),
+(1310, 'Bachelor of Science in Combined Studies (Clothing with Textile Design)', 'BSc Combined Studies (CwTD)'),
+(1311, 'Master of Philosophy (Textiles)', 'MPhil Textiles'),
+(1312, 'Doctor of Philosophy (Textiles)', 'PhD Textiles'),
+(1313, 'Bachelor of Science in Mathematics', 'BSc Mathematics'),
+(1314, 'Master of Philosophy', 'MPhil (Mathematics)'),
+(1315, 'Master of Science', 'MSc Research (Maths)'),
+(1316, 'Doctor of Philosophy', 'PhD (Mathematics)'),
+(1317, 'Postgraduate Certificate in Advanced Mathematics and Statistics for Engineers', 'PgCert Adv Maths & Stats f Eng'),
+(1318, 'Bachelor of Science in General Mathematics', 'BSc General Maths'),
+(1319, 'Postgraduate Certificate in Applied Mathematical Sciences', 'PgCert App Mathematical Sci'),
+(1320, 'Bachelor of Science in Mathematics with Physics', 'BSc Mathematics with Physics'),
+(1321, 'Bachelor of Science in Mathematics with Physics', 'BSc Maths with Physics'),
+(1322, 'Postgraduate Diploma in Applied Mathematical Sciences', 'PgDip App Mathematical Sci'),
+(1323, 'Master of Science in Applied Mathematical Sciences', 'MSc App Mathematical Sci'),
+(1324, 'Postgraduate Certificate in Applied Mathematical Sciences with Biological and Ecological Modelling', 'PgCert App Math Sci w Bio & EM'),
+(1325, 'Bachelor of Science in Mathematics with Economics', 'BSc Mathematics with Economics'),
+(1326, 'Bachelor of Science in Mathematics with Economics', 'BSc Maths with Economics'),
+(1327, 'Postgraduate Diploma in Applied Mathematical Sciences with Biological and Ecological Modelling', 'PgDip App Math Sci w Bio & EM'),
+(1328, 'Master of Science in Applied Mathematical Sciences with Biological and Ecological Modelling', 'MSc App Math Sci w Bio & EM'),
+(1329, 'Bachelor of Science in Mathematics with Education', 'BSc Mathematics with Education'),
+(1330, 'Bachelor of Science in Mathematics with Education', 'BSc Maths with Education'),
+(1331, 'Bachelor of Science in Mathematics with Computer Science', 'BSc Mathematics with Comp Sc'),
+(1332, 'Bachelor of Science in Mathematics with a European Language', 'BSc Mathematics w Euro Lang'),
+(1333, 'Bachelor of Science in Mathematics with a European Language', 'BSc Mathematicss w Euro Lang'),
+(1334, 'Mathematics Exchange Student', 'Mathematics Ex Student'),
+(1335, 'Bachelor of Science in Mathematics with Statistics', 'BSc Mathematics with Stats'),
+(1336, 'Doctor of Philosophy', 'PhD MIGSAA'),
+(1337, 'Master of Science', 'MSc by Research (MIGSAA)'),
+(1338, 'Bachelor of Science in Mathematics with Finance', 'BSc Mathematics with Fin'),
+(1339, 'Bachelor of Science in Mathematics with Management', 'BSc Maths with Management'),
+(1340, 'Postgraduate Certificate in Computational Mathematics', 'PgCert Computational Maths'),
+(1341, 'Postgraduate Diploma in Computational Mathematics', 'PgDip Computational Maths'),
+(1342, 'Master of Science in Computational Mathematics', 'MSc Computational Maths'),
+(1343, 'Bachelor of Science in Mathematics with Psychology', 'BSc Mathematics w Psychology'),
+(1344, 'Bachelor of Science in Mathematics with Professional Education', 'BSc Maths with Prof Education'),
+(1345, 'Bachelor of Science in General Mathematics with Professional Education', 'BSc Gen Maths with Prof Educ'),
+(1346, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1347, 'Bachelor of Science in Mathematical, Statistical and Actuarial Sciences', 'BSc Math, Statistical & Act Sc'),
+(1348, 'Postgraduate Certificate in Quantitative Finance and Mathematics', 'PgCert Quant Finance and Maths'),
+(1349, 'Postgraduate Diploma in Quantitative Finance and Mathematics', 'PgDip Quant Finance and Maths'),
+(1350, 'Master of Science in Quantitative Finance and Mathematics', 'MSc Quant Finance and Maths'),
+(1351, 'Graduate Certificate in Mathematical Sciences', 'GCert Mathematical Sciences'),
+(1352, 'Bachelor of Science in Mathematics and Computer Science', 'BSc Mathematics & Comp Sc'),
+(1353, 'Graduate Diploma in Mathematical Sciences', 'GDip Mathematical Sciences'),
+(1354, 'Master of Mathematics', 'Master of Mathematics'),
+(1355, 'Bachelor of Science in Mathematical Studies', 'BSc Mathematical Studies'),
+(1356, 'Certificate in Applied Mathematical Sciences with Climate Change Impacts Modelling', 'PgCert App Math Sci w CCIM'),
+(1357, 'Bachelor of Science in Mathematical Statistical and Actuarial Sciences with Diploma in Industrial Training', 'BSc MSAS Dip IT'),
+(1358, 'Postgraduate Diploma in Applied Mathematical Sciences with Climate Change Impacts Modelling', 'PgDip App Math Sci w CCIM'),
+(1359, 'Master of Science in Applied Mathematical Sciences with Climate Change Impacts Modelling', 'MSc App Math Sci w CCIM'),
+(1360, 'Bachelor of Science in Mathematics with Finance with Diploma in Industrial Training', 'BSc Maths with Fin Dip IT'),
+(1361, 'Doctor of Letters', 'Doctor of Letters'),
+(1362, 'Postgraduate Certificate in Mathematics', 'PgCert in Mathematics'),
+(1363, 'Postgraduate Diploma in Mathematics', 'PgDip in Mathematics'),
+(1364, 'Master of Science in Mathematics', 'MSc in Mathematics'),
+(1365, 'Doctor of Science', 'Doctor of Science'),
+(1366, 'Visiting Scholar (Maths)', 'Visiting Scholar (Maths)'),
+(1367, 'Computer Science (Exchange)', 'Computer Science (Exchange)'),
+(1368, 'Master of Philosophy', 'MPhil (Computer Science)'),
+(1369, 'Master of Science', 'MSc by Research (Computer Sc)'),
+(1370, 'Doctor of Philosophy', 'PhD (Computer Science)'),
+(1371, 'Graduate Certificate in Information Technology', 'GradCert Information Tech'),
+(1372, 'Bachelor of Science in Computer Science', 'BSc Computer Science'),
+(1373, 'Non-graduating Computer Science', 'Non-grad Computer Science'),
+(1374, 'Master of Science in Artificial Intelligence with Speech and Multimodal Interaction', 'MSc Art Intell with SMI'),
+(1375, 'Postgraduate Diploma in Artificial Intelligence with Speech and Multimodal Interaction', 'PgDip Art Intell with SMI'),
+(1376, 'Postgraduate Certificate in Computer Science', 'PgCert Computer Science'),
+(1377, 'Master of Science in Advanced Computer Science', 'MSc Advanced Computer Science'),
+(1378, 'Postgraduate Diploma in Advanced Compuer Science', 'PgDip Adv Compuer Science'),
+(1379, 'Master of Science in Business Information Management', 'MSc Bus Information Mgt'),
+(1380, 'Postgraduate Diploma in Business Information Management', 'PgDip Bus Information Mgt'),
+(1381, 'Postgraduate Certificate in Business Information Management', 'PgCert Bus Information Mgt'),
+(1382, 'Postgraduate Certificate in Computational Biology', 'PgCert Computational Biology'),
+(1383, 'Postgraduate Diploma in Computational Biology', 'PgDip in Computational Biology'),
+(1384, 'Master of Science in Computational Biology', 'MSc Computational Biology'),
+(1385, 'Bachelor of Science in Computer Science (Computer Games Programme)', 'BSc Comp Sci (Comp Games Prog)'),
+(1386, 'Bachelor of Science in Computer Systems (Computer Games Programming)', 'BSc Computer Sys (CGP)'),
+(1387, 'Bachelor of Science in Computer Systems', 'BSc Computer Systems'),
+(1388, 'Diploma of Higher Education in Computer Systems', 'DipHE Computer Systems'),
+(1389, 'Master of Science in Information Technology (Business)', 'MSc Information Tech (Bus)'),
+(1390, 'Postgraduate Diploma in Information Technology (Business)', 'PgDip Information Tech (Bus)'),
+(1391, 'Postgraduate Certificate in Information Technology (Business)', 'PgCert Information Tech (Bus)'),
+(1392, 'Master of Science in Data Science', 'MSc Data Science'),
+(1393, 'Postgraduate Diploma in Data Science', 'PgDip Data Science'),
+(1394, 'Postgraduate Certificate in e-Commerce', 'PgCert e-Commerce'),
+(1395, 'Postgraduate Diploma in e-Commerce', 'PgDip e-Commerce'),
+(1396, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1397, 'Master of Science in Information Technology (Software Systems)', 'MSc Information Tech (SS)'),
+(1398, 'Postgraduate Diploma in Information Technology (Software Systems)', 'PgDip Information Tech (SS)'),
+(1399, 'Postgraduate Certificate in Information Technology (Software Systems)', 'PgCert Information Tech (SS)'),
+(1400, 'Master of Science in e-Commerce', 'MSc e-Commerce'),
+(1401, 'Master of Science in Information Technology (Information Systems)', 'MSc Information Tech (IS)'),
+(1402, 'Postgraduate Diploma in Information Technology (Information Systems)', 'PgDip Information Tech (IS)'),
+(1403, 'Postgraduate Certificate in Information Technology (Information Systems)', 'PGCert IT (Info Sys)'),
+(1404, 'Postgraduate Certificate in Information Technology (Information Systems)', 'PgCert Information Tech (IS)'),
+(1405, 'Bachelor of Science in Computer Science (Information Systems)', 'BSc Comp Sci (IS)'),
+(1406, 'Graduate Certificate in Information Technology', 'G Cert Information Technology'),
+(1407, 'Graduate Diploma in Information Technology', 'GradDip Information Technology'),
+(1408, 'Postgraduate Certificate in Advanced Internet Applications', 'PgCert Adv Internet Applicatio'),
+(1409, 'Postgraduate Diploma in Advanced Internet Applications', 'PG Dip Adv Internet Apps'),
+(1410, 'Bachelor of Science in Information Systems (Human Factors)', 'BSc Information Systems (HF)'),
+(1411, 'Bachelor of Science in Information Systems (Internet Systems)', 'BSc Information Systems (IS)'),
+(1412, 'Master of Science in Advanced Internet Applications', 'MSc Adv Internet Applications'),
+(1413, 'Bachelor of Science in Information Systems (Management)', 'BSc Information Systems (Mgt)'),
+(1414, 'Bachelor of Science in Information Systems (Interaction Design)', 'BSc IS (Interaction Design)'),
+(1415, 'Bachelor of Science in Information Systems', 'BSc Information Systems'),
+(1416, 'Bachelor of Science in Computer Science (Software Engineering)', 'BSc Computer Sc (Software Eng)'),
+(1417, 'Bachelor of Science in Information Technology', 'BSc Information Technology'),
+(1418, 'Bachelor of Science in Information Technology (Human Factors)', 'BSc Information Tech (HF)'),
+(1419, 'Bachelor of Science in Information Technology (Interaction Design)', 'BSc IT (Interaction Design)'),
+(1420, 'Bachelor of Science in Information Technology (FE Link)', 'BSc IT (FE Link)'),
+(1421, 'Doctor of Letters', 'Doctor of Letters'),
+(1422, 'Bachelor of Science in Information Technology (Management)', 'BSc Information Tech (Mgt)'),
+(1423, 'Bachelor of Science in Information Technology (Internet Systems)', 'BSc Information Tech (IS)'),
+(1424, 'Bachelor of Science in Information Technology', 'BSc Info Tech (pre-RAY)'),
+(1425, 'Master of Engineering in Software Engineering', 'MEng Software Engineering'),
+(1426, 'Postgraduate Certificate in Computer Services Management', 'PgCert Computer Services Mgt'),
+(1427, 'Postgraduate Diploma in Computer Services Management', 'PgDip Computer Services Mgt'),
+(1428, 'Master of Science in Computer Services Management', 'MSc Computer Services Mgt'),
+(1429, 'Bachelor of Science in Computer Science (Multimedia Systems)', 'BSc Computer Sc (Multi Sys)'),
+(1430, 'Bachelor of Science in Computer Science (Artificial Intelligence)', 'BSc Computer Sc (Art Int)'),
+(1431, 'Postgraduate Certificate in Information Technology (E-Learning)', 'PgCert Information Tech (E-L)'),
+(1432, 'Postgraduate Diploma in Information Technology (E-Learning)', 'PgDip Information Tech (E-L)'),
+(1433, 'Master of Science in Information Technology (E-Learning)', 'MSc Information Tech (E-L)'),
+(1434, 'Postgraduate Certificate in Mobile and Handheld Applications', 'PgCert Mobile & Handheld Apps'),
+(1435, 'Postgraduate Diploma in Mobile and Handheld Applications', 'PgDip Mobile & Handheld Apps'),
+(1436, 'Master of Science in Mobile and Handheld Applications', 'MSc Mobile & Handheld Apps'),
+(1437, 'Postgraduate Certificate in Software Engineering', 'MSc Mobile & Handheld Apps'),
+(1438, 'Postgraduate Diploma in Software Engineering', 'PgDip Software Engineering'),
+(1439, 'Master of Science in Software Engineering', 'MSc Software Engineering'),
+(1440, 'Postgraduate Certificate in Computer Systems Management', 'PgCert Computer Systems Mgt'),
+(1441, 'Postgraduate Diploma in Computer Systems Management', 'PgDip Computer Systems Mgt'),
+(1442, 'Master of Science in Computer Systems Management', 'MSc Computer Systems Mgt'),
+(1443, 'Doctor of Science', 'Doctor of Science'),
+(1444, 'Postgraduate Certificate in Intelligent Systems', 'PgCert Intelligent Systems'),
+(1445, 'Postgraduate Diploma in Intelligent Systems', 'PgDip Intelligent Systems'),
+(1446, 'Master of Science in Intelligent Systems', 'MSc Intelligent Systems'),
+(1447, 'Postgraduate Certificate in Computing', 'PgCert Computing'),
+(1448, 'Postgraduate Diploma in Computing', 'PgDip Computing'),
+(1449, 'Master of Science in Computing', 'MSc Computing'),
+(1450, 'Postgraduate Certificate in Creative Software Systems', 'PgCert Creative Software Sys'),
+(1451, 'Postgraduate Diploma in Creative Software Systems', 'PgDip Creative Software Sys'),
+(1452, 'Master of Science in Creative Software Systems', 'MSc Creative Software Sys'),
+(1453, 'Postgraduate Certificate in Information Technology (Software Engineering)', 'PgCert Info Tech (SE)'),
+(1454, 'Postgraduate Diploma in Information Technology (Software Engineering)', 'PgDip Info Tech (SE)'),
+(1455, 'Master of Science in Information Technology (Software Engineering)', 'MSc Info Tech (SE)'),
+(1456, 'Visiting Scholar (Computer Science)', 'Visiting Scholar (Comp Sci)'),
+(1457, 'Postgraduate Certificate in Intelligent Web Technology', 'PgCert Intelligent Web Tech'),
+(1458, 'Postgraduate Diploma in Intelligent Web Technology', 'PgDip Intelligent Web Tech'),
+(1459, 'Master of Science in Intelligent Web Technology', 'MSc Intelligent Web Tech'),
+(1460, 'Postgraduate Certificate in Web Entrepreneurship', 'PgCert Web Entrepreneurship'),
+(1461, 'Postgraduate Diploma in Web Entrepreneurship', 'PgDip Web Entrepreneurship'),
+(1462, 'Master of Science in Web Entrepreneurship', 'MSc Web Entrepreneurship'),
+(1463, 'Postgraduate Certificate in Bioinformatics', 'PgCert Bioinformatics'),
+(1464, 'Postgraduate Diploma in Bioinformatics', 'PgDip Bioinformatics'),
+(1465, 'Master of Science in Bioinformatics', 'MSc Bioinformatics'),
+(1466, 'Postgraduate Certificate in Artificial Intelligence', 'PgCert Artificial Intelligence'),
+(1467, 'Postgraduate Diploma in Artificial Intelligence', 'PgDip Artificial Intelligence'),
+(1468, 'Master of Science in Artificial Intelligence', 'MSc Artificial Intelligence'),
+(1469, 'Master of Science in Information Technology (Information Systems)', 'MSc IT (IS)'),
+(1470, 'Bachelor of Science in Actuarial Science and Diploma in Industrial Training', 'BSc Act Sci, Dipl. IT 2'),
+(1471, 'Postgraduate Certificate in Financial Mathematics', 'PgCert Financial Mathematics'),
+(1472, 'Bachelor of Science in Statistics', 'BSc Statistics'),
+(1473, 'Bachelor of Science in Actuarial Science and Diploma in Industrial Training', 'BSc Act Sci, Dipl. IT 1'),
+(1474, 'Bachelor of Science in Statistical Modelling', 'BSc Statistical Modelling'),
+(1475, 'Postgraduate Diploma in Financial Mathematics', 'PgDip Financial Mathematics'),
+(1476, 'Master of Philosophy', 'MPhil (Statistics)'),
+(1477, 'Master of Science in Financial Mathematics', 'MSc Financial Mathematics'),
+(1478, 'Doctor of Philosophy', 'PhD (Statistics)'),
+(1479, 'Postgraduate Certificate in Actuarial Science', 'PgCert Actuarial Science'),
+(1480, 'Bachelor of Science in Actuarial Mathematics and Statistics', 'BSc Act Maths & Stats'),
+(1481, 'Bachelor of Science in Actuarial Science', 'BSc Actuarial Science'),
+(1482, 'Postgraduate Diploma in Actuarial Science', 'PgDip Actuarial Science'),
+(1483, 'Master of Philosophy', 'MPhil (Actuarial Maths)'),
+(1484, 'Master of Science in Actuarial Science', 'MSc Actuarial Science'),
+(1485, 'Master of Science', 'MSc by Research (Act Maths)'),
+(1486, 'Doctor of Philosophy', 'PhD (Actuarial Mathematics)'),
+(1487, 'MACS Study Abroad', 'MACS Study Abroad'),
+(1488, 'Actuarial Mathematics and Statistics (Exchange Student)', 'Actuarial Maths & Stats (Ex)'),
+(1489, 'Bachelor of Science in Financial Mathematics', 'BSc Financial Mathematics'),
+(1490, 'Bachelor of Science in Statistics (Exchange)', 'Statistics (Ex)'),
+(1491, 'Doctor of Philosophy by Published Research', 'PhD by Published Research'),
+(1492, 'Postgraduate Certificate in Actuarial Management', 'PGCert Actuarial Management'),
+(1493, 'Postgraduate Diploma in Actuarial Management', 'PGDip Actuarial Management'),
+(1494, 'Master of Science in Actuarial Management', 'MSc Actuarial Management'),
+(1495, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1496, 'Postgraduate Certificate in Quantitative Financial Engineering', 'PgCert Quantitative Finan. Eng'),
+(1497, 'Postgraduate Diploma in Quantitative Financial Engineering', 'PgDip Quantitative Finan. Eng'),
+(1498, 'Master of Science in Quantitative Financial Engineering', 'MSc Quantitative Financial Eng'),
+(1499, 'Postgraduate Certificate in Actuarial Science and Management', 'PgCert Actuarial Sci and Man'),
+(1500, 'Postgraduate Diploma in Actuarial Science and Management', 'PgDip Actuarial Sci and Man'),
+(1501, 'Master of Science in Actuarial Science and Management', 'MSc Actuarial Sci and Man'),
+(1502, 'Doctor of Letters', 'Doctor of Letters'),
+(1503, 'Certificate in Quantitative Risk Management', 'PgCert Quantitative Risk Mgt'),
+(1504, 'Postgraduate Diploma in Quantitative Risk Management', 'PgDip Quantitative Risk Mgt'),
+(1505, 'Master of Science in Quantitative Risk Management', 'MSc Quantitative Risk Mgt'),
+(1506, 'Postgraduate Certificate in Quantitative Financial Risk Management', 'PGCert Quant Fin Risk Mgmt'),
+(1507, 'Postgraduate Diploma in Quantitative Financial Risk Management', 'PGDip Quant Fin Risk Mgmt'),
+(1508, 'Master of Science in Quantitative Financial Risk Management', 'MSc Quant Fin Risk Mgmt'),
+(1509, 'Doctor of Science', 'Doctor of Science'),
+(1510, 'Visiting Scholar (Actuarial Mathematics and Statistics)', 'Visiting Scholar (AMS)'),
+(1511, 'College Maths (ELRAH)', 'College Maths (ELRAH)'),
+(1512, 'Postgraduate Certificate in Oil and Gas Technology', 'PgCert Oil & Gas Technology'),
+(1513, 'Doctor of Philosophy', 'PhD (Applied Geoscience)'),
+(1514, 'Master of Philosophy', 'MPhil (Applied Geoscience)'),
+(1515, 'Master of Science', 'MSc by Research (Pet Geosci)'),
+(1516, 'Postgraduate Diploma in Petroleum Engineering', 'PgDip Research (Petroleum Eng)'),
+(1517, 'Master of Philosophy', 'MPhil (Petroleum Engineering)'),
+(1518, 'Doctor of Philosophy', 'PhD Pet Geoscience'),
+(1519, 'Master of Science', 'MSc Research (Petroleum Eng)'),
+(1520, 'Doctor of Philosophy', 'PhD (Petroleum Engineering)'),
+(1521, 'Postgraduate Certificate in Reservoir Evaluation and Management', 'PgCert Reservoir Eval & Mgt'),
+(1522, 'Postgraduate Diploma in Reservoir Evaluation and Management', 'PgDip Reservoir Eval & Mgt'),
+(1523, 'Master of Science in Reservoir Evaluation and Management', 'MSc Reservoir Eval & Mgt'),
+(1524, 'Postgraduate Certificate in Petroleum Engineering', 'PgCert Petroleum Engineering'),
+(1525, 'Postgraduate Diploma in Petroleum Engineering', 'PgDip Petroleum Engineering'),
+(1526, 'Master of Science in Petroleum Engineering', 'MSc Petroleum Engineering'),
+(1527, 'Postgraduate Certificate in Petroleum Engineering with Project Management', 'PgCert Petroleum Eng Proj Mgt'),
+(1528, 'Postgraduate Diploma in Petroleum Engineering with Project Management', 'PgDip Petroleum Eng w Proj Mgt'),
+(1529, 'Master of Science in Petroleum Engineering with Project Management', 'MSc Petroleum Eng w Proj Mgt'),
+(1530, 'Master of Science in Oil and Gas Technology', 'MSc Oil & Gas Technology'),
+(1531, 'Postgraduate Diploma in Oil and Gas Technology', 'PgDip Oil & Gas Technology'),
+(1532, 'Postgraduate Certificate in Marine Resource Management', 'PgCert Marine Resource Mgt'),
+(1533, 'Postgraduate Diploma in Marine Resource Management', 'PgDip Marine Resource Mgt'),
+(1534, 'Master of Science in Marine Resource Management', 'MSc Marine Resource Mgt'),
+(1535, 'Postgraduate Certificate in Petroleum Geoscience', 'PG Cert Petroleum Geoscience'),
+(1536, 'Postgraduate Diploma in Petroleum Geoscience', 'PG Dip Petroleum Geoscience'),
+(1537, 'Master of Science in Petroleum Geoscience', 'MSc Petroleum Geoscience'),
+(1538, 'Postgraduate Certificate in Petroleum Engineering', 'PGCert Pet Eng with Uni Tec Pe'),
+(1539, 'Postgraduate Diploma in Petroleum Engineering', 'PGDip Pet Eng with Uni Tech Petr'),
+(1540, 'Master of Science in Petroleum Engineering Joint with University Technology Petronas', 'MSc Pet Eng UTP'),
+(1541, 'Master of Science in Petroleum Engineering', 'MSc Pet Eng with Uni Tech Petr'),
+(1542, 'Non-graduating Petroleum Engineering', 'Non-graduating Petroleum Engin'),
+(1543, 'Postgraduate Certificate in Renewable Energy Development', 'PgCert Renewable Energy Dev'),
+(1544, 'Postgraduate Diploma in Renewable Energy Development', 'PgDip Renewable Energy Dev'),
+(1545, 'Master of Science in Renewable Energy Development', 'MSc Renewable Energy Dev'),
+(1546, 'Doctor of Engineering', 'Doctor of Engineering'),
+(1547, 'Postgraduate Diploma in Applied Petroleum Geoscience', 'PgDip App Petroleum Geoscience'),
+(1548, 'Master of Science in Applied Petroleum Geoscience', 'MSc App Petroleum Geoscience'),
+(1549, 'Doctor of Letters', 'Doctor of Letters'),
+(1550, 'Postgraduate Certificate in Marine Renewable Energy', 'PG Cert Marine Energy'),
+(1551, 'Postgraduate Diploma in Marine Renewable Energy', 'PG Dip Marine Energy'),
+(1552, 'Master of Science in Marine Renewable Energy', 'MSc Marine Renewable Energy'),
+(1553, 'Post Graduate Certificate in Petroleum Engineering', 'PGCert Petrol Eng (Joint UQ)'),
+(1554, 'Post Graduate Diploma in Petroleum Engineering', 'PGDip Petroleum Eng (Joint UQ)'),
+(1555, 'Master of Science in Petroleum Engineering', 'MSc Petroleum Eng (Joint UQ)'),
+(1556, 'Doctor of Science', 'Doctor of Science'),
+(1557, 'Visiting Scholar (Petroleum Engineering)', 'Visiting Scholar (Pet Eng)'),
+(1558, 'Doctor of Philosophy', 'Doctor of Philosophy'),
+(1559, 'Master of Business Administration', 'Master of Business Admin'),
+(1560, 'Postgraduate Certificate in Marketing', 'PgCert in Marketing'),
+(1561, 'Postgraduate Diploma in in Marketing', 'PgDip in Marketing'),
+(1562, 'Master of Science in Marketing', 'MSc in Marketing'),
+(1563, 'Postgraduate Certificate in Human Resource Management', 'PgCert in Human Res Mgt'),
+(1564, 'Postgraduate Diploma in Human Resource Management', 'PgDip in Human Res Mgt'),
+(1565, 'Master of Science in Human Resource Management', 'MSc in Human Res Mgt'),
+(1566, 'Postgraduate Certificate in Financial management', 'PgCert in Financial Mgt'),
+(1567, 'Postgraduate Diploma in Financial management', 'PgDip in Financial Mgt'),
+(1568, 'Master of Science in Financial management', 'MSc in Financial Mgt'),
+(1569, 'Postgraduate Certificate in Strategic Planning', 'PgCert in Strategic Planning'),
+(1570, 'Postgraduate Diploma in Strategic Planning', 'PgDip in Strategic Planning'),
+(1571, 'Master of Science in Strategic Planning', 'MSc in Strategic Planning'),
+(1572, 'Doctor of Business Administration', 'Doctor of Business Admin'),
+(1573, 'Master of Science in Strategic Focus', 'MSc in Strategic Focus'),
+(1574, 'Postgraduate Certificate in Project Management for the Oil and Gas Industry', 'PgCert Project Mgt Oil Gas Ind'),
+(1575, 'Postgraduate Certificate in Project Management for the Oil and Gas Industry', 'PgCert Mgt Oil & Gas Industry'),
+(1576, 'Postgraduate Diploma in Project Management for the Oil and Gas Industry', 'PgDip Mgt Oil & Gas Industry'),
+(1577, 'Master of Science in Project Management for the Oil and Gas Industry', 'MSc Mgt Oil & Gas Industry'),
+(1578, 'Master of Business Administration - Duel Degree', 'Master of Business Admin Duel'),
+(1579, 'Postgraduate Certificate in Academic Practice', 'PgCert in Academic Practice'),
+(1580, 'Postgraduate Certificate in Academic Practice', 'Cert Academic Prac.'),
+(1581, 'Post Graduate Certificate in Enhancing Learning & Teaching', 'PGCert Enhancing Learn & Teach'),
+(1582, 'Certificate of Higher Education in Science', 'Foundation in Science'),
+(1583, 'Certificate of Higher Education in Business and Design', 'Foundation in Business');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `qualification_subject`
+--
+
+CREATE TABLE `qualification_subject` (
+  `fk_qualification_id` int(11) NOT NULL,
+  `fk_subject_id` int(11) NOT NULL,
+  `grade` enum('A','B','C','D','E','F') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `qualificationSubjectDB`
+-- Table structure for table `skill`
 --
 
-CREATE TABLE `qualificationSubjectDB` (
-  `qualificationSubject_id` int(11) NOT NULL,
-  `qualificationSubject_fk_qualification_id` int(11) NOT NULL,
-  `QualificationSubject_fk_subject_id_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `skillDB`
---
-
-CREATE TABLE `skillDB` (
+CREATE TABLE `skill` (
   `skill_id` int(11) NOT NULL,
   `skill_name` varchar(50) NOT NULL,
-  `skill_description` varchar(250) NOT NULL
+  `skill_description` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subjectDB`
+-- Table structure for table `subjects`
 --
 
-CREATE TABLE `subjectDB` (
+CREATE TABLE `subjects` (
   `subject_id` int(11) NOT NULL,
-  `subject_name` varchar(50) NOT NULL,
-  `subject_description` varchar(250) NOT NULL
+  `subject_name` varchar(100) NOT NULL,
+  `subject_description` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_description`) VALUES
+(1, 'Accounting & Finance', ''),
+(2, 'Art & Design', ''),
+(3, 'Biological Sciences', ''),
+(4, 'Building', ''),
+(5, 'Business Studies', ''),
+(6, 'Chemical Engineering', ''),
+(7, 'Chemistry', ''),
+(8, 'Civil Engineering', ''),
+(9, 'Computer Science', ''),
+(10, 'Economics', ''),
+(11, 'Electrical & Electronic Engineering', ''),
+(12, 'Food Science', ''),
+(13, 'French', ''),
+(14, 'General Engineering', ''),
+(15, 'German', ''),
+(16, 'Iberian Languages', ''),
+(17, 'Law', ''),
+(18, 'Mathematics', ''),
+(19, 'Mechanical Engineering', ''),
+(20, 'Physics', ''),
+(21, 'Astronomy', ''),
+(22, 'Psycology', ''),
+(23, 'Sports Science', ''),
+(24, 'Town & Country Plan & Landscape', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `universityDB`
+-- Table structure for table `user`
 --
 
-CREATE TABLE `universityDB` (
-  `university_id` int(11) NOT NULL,
-  `university_name` varchar(50) NOT NULL,
-  `university_description` varchar(250) NOT NULL,
-  `univserity_fk_subject_id` int(11) NOT NULL,
-  `university_gpa` decimal(3,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `universityQualificationDB`
---
-
-CREATE TABLE `universityQualificationDB` (
-  `universityQualification_id` int(11) NOT NULL,
-  `universityQualifcation_fk_university_id` int(11) NOT NULL,
-  `qualification_id_fk` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userdb`
---
-
-CREATE TABLE `userdb` (
+CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
-  `user_username` varchar(50) NOT NULL,
+  `user_username` varchar(15) NOT NULL,
   `user_password` varchar(255) NOT NULL,
-  `user_email` varchar(50) NOT NULL,
+  `user_email` varchar(20) NOT NULL,
   `user_valid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `userdb`
---
-
-INSERT INTO `userdb` (`user_id`, `user_username`, `user_password`, `user_email`, `user_valid`) VALUES
-(1, 'username', '$2y$10$3VIZiLjfvr.4NMsUndrykOHim0Uxw.3EG8cIHNcQqEC81lodZzKce', 'username@gmail.com', 0),
-(2, 'username2', '$2y$10$WI1l.9p3fuqfA44KjVxz1.LUp52jqcFtjGmUYI2dJFVbEcxyZ6e5C', 'username2@gmail.com', 0),
-(3, 'username3', '$2y$10$xkj.FOCPxe8jaO7Wbw7qz.o0E7m1PK5h6sS8CxBc1Hc.S9AddPTKG', 'username3@gmail.com', 0),
-(4, 'username4', '$2y$10$rpXFBcLOL4RZ.OzLTiqGFO7jZKXWJRkCYCAUsj4BFfm5bBLTZdmLu', 'username4@gmail.com', 0),
-(5, 'username5', '$2y$10$2l1oroSa86L6BoQ1yCBKZOqX.21ZKNgiU6THR5RirJ9mtfyFOVfJC', 'username5@gmail.com', 0),
-(6, 'username6', '$2y$10$NEe8Z4S9uHyEluTUzW7Qw.6JAc/Xi3qBLirEwjOT2lJH8Id68GbIW', 'username6@gmail.com', 0),
-(7, 'username7', '$2y$10$45YDkiFyVR9ccaLMld2edOS5A42DpgrI6Fizy5YlVaZ4Ko5f4ZZGu', 'username7@gmail.com', 0),
-(8, 'rsureen', '$2y$10$yYo2zYMRJ375UHMJ1Qcbz.QC7I8.ZOzSI/o4ZSD/jMUQIclPBQPri', 'rsureen@yahoo.com', 0);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userDetailDB`
+-- Table structure for table `userdetail`
 --
 
-CREATE TABLE `userDetailDB` (
+CREATE TABLE `userdetail` (
   `userDetail_id` int(11) NOT NULL,
-  `userDetail_firstName` text NOT NULL,
-  `userDetail_lastName` text NOT NULL,
-  `userDetail_nationality` text NOT NULL,
-  `userDetail_status` enum('High School Student','Under Graduate Student','Post Graduate Student','Unemployed','Employed') NOT NULL,
-  `userDetail_fk_user_id` int(11) NOT NULL,
-  `userDetail_dob` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `userDetailDB`
---
-
-INSERT INTO `userDetailDB` (`userDetail_id`, `userDetail_firstName`, `userDetail_lastName`, `userDetail_nationality`, `userDetail_status`, `userDetail_fk_user_id`, `userDetail_dob`) VALUES
-(1, 'aCOOL', 'asds', 'algerian', 'Under Graduate Student', 1, '2016-02-03');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userGradeDB`
---
-
-CREATE TABLE `userGradeDB` (
-  `userGrade_id` int(11) NOT NULL,
-  `userGrade_fk_userQualification_id` int(11) NOT NULL,
-  `userGrade_fk_userDetail_id` int(11) NOT NULL,
-  `userGrade_fk_subject_id` int(11) NOT NULL,
-  `userGrade_grade` enum('A (or more than A)','B','C','D','E','less than E') NOT NULL
+  `userDetail_firstName` varchar(30) NOT NULL,
+  `userDetail_lastName` varchar(30) NOT NULL,
+  `userDetail_profilePicture` varchar(64) NOT NULL,
+  `userDetail_gender` enum('Male','Female') NOT NULL,
+  `userDetail_ethnicity` enum('White/Caucasian','Black/African','Hispanic/Latino','Asian','Native American','Middle Eastern','East Indian','Pacific Islander','Mixed Race') NOT NULL,
+  `userDetail_DOB` date NOT NULL,
+  `userDetail_status` enum('High School Student','Under Graduate','Post Graduate','Employed','Unemployed') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usermentorDB`
+-- Table structure for table `userskill`
 --
 
-CREATE TABLE `usermentorDB` (
-  `userMentor_id` int(11) NOT NULL,
-  `userMentor_mentor_fk_userDetail_id` int(11) NOT NULL,
-  `userMentor_user_fk_userDetail_id` int(11) NOT NULL,
-  `userMentor_valid` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userQualificationDB`
---
-
-CREATE TABLE `userQualificationDB` (
-  `userQualification_id` int(11) NOT NULL,
-  `userQualification_fk_userDetail_id` int(11) NOT NULL,
-  `userQualification_fk_qualification_id` int(11) NOT NULL,
-  `userQualification_overallGrade` enum('A (or more than A)','B','C','D','E','less than E') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userskillDB`
---
-
-CREATE TABLE `userskillDB` (
+CREATE TABLE `userskill` (
   `userSkill_id` int(11) NOT NULL,
-  `userSkill_fk_userDetail_id` int(11) NOT NULL,
+  `userSkill_fk_user_id` int(11) NOT NULL,
   `userSkill_fk_skill_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userSubjectDB`
+-- Table structure for table `user_qualification`
 --
 
-CREATE TABLE `userSubjectDB` (
-  `userSubject_id` int(11) NOT NULL,
-  `userDetail_id_fk` int(11) NOT NULL,
-  `subject_id_fk` int(11) NOT NULL
+CREATE TABLE `user_qualification` (
+  `user_qualification_id` int(11) NOT NULL,
+  `fk_user_id` int(11) NOT NULL,
+  `fk_qualification_id` int(11) NOT NULL,
+  `overallGrade` enum('A','B','C','D','E','F') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workExpDB`
+-- Table structure for table `workexperience`
 --
 
-CREATE TABLE `workExpDB` (
-  `workExp_id` int(11) NOT NULL,
-  `workExp_fk_userDetail_id` int(11) NOT NULL,
-  `workExp_fk_job_id` int(11) NOT NULL,
-  `workExp_startDate` date NOT NULL,
-  `workExp_endDate` date NOT NULL,
-  `workExp_position` varchar(150) NOT NULL,
-  `workExp_salary` decimal(10,0) NOT NULL
+CREATE TABLE `workexperience` (
+  `workExperience_id` int(11) NOT NULL,
+  `workExperience_fk_user_id` int(11) NOT NULL,
+  `workExperience_fk_job_id` int(11) NOT NULL,
+  `workExperience_startDate` date NOT NULL,
+  `workExperience_endDate` date NOT NULL,
+  `workExperience_position` varchar(50) NOT NULL,
+  `workExperience_salary` decimal(65,30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -258,31 +1938,184 @@ CREATE TABLE `workExpDB` (
 --
 
 --
--- Indexes for table `userdb`
+-- Indexes for table `educational_institutions`
 --
-ALTER TABLE `userdb`
+ALTER TABLE `educational_institutions`
+  ADD PRIMARY KEY (`institute_id`);
+
+--
+-- Indexes for table `institute_qualification`
+--
+ALTER TABLE `institute_qualification`
+  ADD KEY `FK_myKey11` (`fk_institute_id`),
+  ADD KEY `FK_myKey12` (`fk_qualification_id`);
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`job_id`);
+
+--
+-- Indexes for table `qualifications`
+--
+ALTER TABLE `qualifications`
+  ADD PRIMARY KEY (`qualification_id`);
+
+--
+-- Indexes for table `qualification_subject`
+--
+ALTER TABLE `qualification_subject`
+  ADD KEY `FK_myKey8` (`fk_subject_id`),
+  ADD KEY `FK_myKey13` (`fk_qualification_id`);
+
+--
+-- Indexes for table `skill`
+--
+ALTER TABLE `skill`
+  ADD PRIMARY KEY (`skill_id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`subject_id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- Indexes for table `userDetailDB`
+-- Indexes for table `userdetail`
 --
-ALTER TABLE `userDetailDB`
+ALTER TABLE `userdetail`
   ADD PRIMARY KEY (`userDetail_id`);
+
+--
+-- Indexes for table `userskill`
+--
+ALTER TABLE `userskill`
+  ADD PRIMARY KEY (`userSkill_id`),
+  ADD KEY `FK_myKey` (`userSkill_fk_user_id`),
+  ADD KEY `FK_myKey2` (`userSkill_fk_skill_id`);
+
+--
+-- Indexes for table `user_qualification`
+--
+ALTER TABLE `user_qualification`
+  ADD PRIMARY KEY (`user_qualification_id`),
+  ADD KEY `FK_myKey5` (`fk_user_id`),
+  ADD KEY `FK_myKey10` (`fk_qualification_id`);
+
+--
+-- Indexes for table `workexperience`
+--
+ALTER TABLE `workexperience`
+  ADD PRIMARY KEY (`workExperience_id`),
+  ADD KEY `FK_myKey3` (`workExperience_fk_job_id`),
+  ADD KEY `FK_myKey4` (`workExperience_fk_user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `userdb`
+-- AUTO_INCREMENT for table `educational_institutions`
 --
-ALTER TABLE `userdb`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `educational_institutions`
+  MODIFY `institute_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 --
--- AUTO_INCREMENT for table `userDetailDB`
+-- AUTO_INCREMENT for table `jobs`
 --
-ALTER TABLE `userDetailDB`
-  MODIFY `userDetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `jobs`
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `qualifications`
+--
+ALTER TABLE `qualifications`
+  MODIFY `qualification_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1584;
+--
+-- AUTO_INCREMENT for table `skill`
+--
+ALTER TABLE `skill`
+  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `subject_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `userdetail`
+--
+ALTER TABLE `userdetail`
+  MODIFY `userDetail_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `userskill`
+--
+ALTER TABLE `userskill`
+  MODIFY `userSkill_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `user_qualification`
+--
+ALTER TABLE `user_qualification`
+  MODIFY `user_qualification_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `workexperience`
+--
+ALTER TABLE `workexperience`
+  MODIFY `workExperience_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `institute_qualification`
+--
+ALTER TABLE `institute_qualification`
+  ADD CONSTRAINT `FK_myKey11` FOREIGN KEY (`fk_institute_id`) REFERENCES `educational_institutions` (`institute_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_myKey12` FOREIGN KEY (`fk_qualification_id`) REFERENCES `qualifications` (`qualification_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `qualification_subject`
+--
+ALTER TABLE `qualification_subject`
+  ADD CONSTRAINT `FK_myKey13` FOREIGN KEY (`fk_qualification_id`) REFERENCES `qualifications` (`qualification_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_myKey8` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `userdetail`
+--
+ALTER TABLE `userdetail`
+  ADD CONSTRAINT `userdetail_ibfk_1` FOREIGN KEY (`userDetail_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `userskill`
+--
+ALTER TABLE `userskill`
+  ADD CONSTRAINT `FK_myKey` FOREIGN KEY (`userSkill_fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_myKey2` FOREIGN KEY (`userSkill_fk_skill_id`) REFERENCES `skill` (`skill_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_qualification`
+--
+ALTER TABLE `user_qualification`
+  ADD CONSTRAINT `FK_myKey10` FOREIGN KEY (`fk_qualification_id`) REFERENCES `qualifications` (`qualification_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_myKey5` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `workexperience`
+--
+ALTER TABLE `workexperience`
+  ADD CONSTRAINT `FK_myKey3` FOREIGN KEY (`workExperience_fk_job_id`) REFERENCES `jobs` (`job_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_myKey4` FOREIGN KEY (`workExperience_fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

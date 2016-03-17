@@ -5,7 +5,7 @@
         <div id="profile_view">
             <img src="http://www.linkedinsider.com.au/wp-content/uploads/2014/09/profile.png" class="img-responsive profile-display-frame" alt="">
             <h3><span id="userDetail_firstName"></span>&nbsp;&nbsp;<span id="userDetail_lastName"></span></h3>
-            <p id="userDetail_status"></p>
+            <p id="userDetail_minQualification"></p>
         </div>
         <button class="btn btn-default btn-sm" id="change_view_editProfile"><span id="editIcon" class="glyphicon glyphicon-edit"></span></button>
     </div>
@@ -84,13 +84,15 @@
                 <div class="row">
                     <div class="col-lg-12 text-center"><p>Qualifications</p></div>
                     <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div hidden class="well col-lg-12" id="add_qualification"></div>
+                    <!--qualifications will be viewed here-->
                     <div id="qualification_list"></div>
                     <!--add-->
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="thumbnail">
                             <div class="caption text-center">
                                 <h3>Add Qualification</h3>
-                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
+                                <button type="button" id="display_add_qualification" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +103,7 @@
             <div role="tabpanel" class="tab-pane fade" id="manage_skills">
                 <div class="row">
                     <div class="col-lg-12 text-center"><p>Skills</p></div>
-                    <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div class="col-lg-12" id="skill_error_well"><h3 id="skill_error"></h3></div>
                     <div id="skill_list"></div>
                     <!--add-->
                     <div class="col-lg-4 col-md-4 col-sm-6">
@@ -119,7 +121,7 @@
             <div role="tabpanel" class="tab-pane fade" id="manage_jobs">
                 <div class="row">
                     <div class="col-lg-12 text-center"><p>Jobs</p></div>
-                    <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <div class="col-lg-12" id="jobs_error_well"><h3 id="jobs_error"></h3></div>
                     <div id="job_list"></div>
                     <!--add-->
                     <div class="col-lg-4 col-md-4 col-sm-6">
@@ -137,7 +139,7 @@
         </div>
     </div>
 </div> 
-<!-- /container -->  
+<!-- /container -->
 <script>
 $(document).ready(function(){
     $(".nav-tabs a").click(function(){

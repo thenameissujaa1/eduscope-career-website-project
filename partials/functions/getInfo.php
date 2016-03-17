@@ -24,7 +24,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
     
     require_once 'config.php';
     
-    // Get the type of database that needs to be accessed, eg. userDB, userDetailDB.. etc. 
+    // Get the type of database that needs to be accessed, eg. user, userDetailDB.. etc. 
     $type = $_GET['type'];
     $user_id = $_SESSION['loggedin_user'];
     
@@ -35,11 +35,14 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
     // Set response
     $response['status'] = 1;
     
-    // UserDB contains sensitive information and requires precaution
+    // user contains sensitive information and requires precaution
     if($type == 'user'){
-        $sql = 'SELECT user_username, user_email FROM userDB WHERE user_id = '.$user_id;
+        $sql = 'SELECT user_username, user_email FROM user WHERE user_id = '.$user_id;
     }else{
-        $sql = 'SELECT * FROM '.$type.'DB WHERE '.$type.'_fk_user_id = '.$user_id;
+        if($type == 'userDetail')
+            $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_id = '.$user_id;
+        else
+            $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
     
     // Get the results

@@ -2,6 +2,7 @@
     Author: Balraj
     app.js links the application with the backend, sending and recieving data that is to be viewed
     on the front end. 
+    It is completely written in JavaScript with jQuery library.
     
     data.status holds the status of the response as follows..
     0 : user not logged in
@@ -11,20 +12,21 @@
 
 // When the page load, perform given actions
 $(window).load(function(){
-    updateView('profile');
-    $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
-        injectData(data, 'user');
-    }, 'json');
-    $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
-        if(data.userDetail === null){
-            $( "#change_view_editProfile" ).trigger( "click" );
-        }else{
-            injectData(data, 'userDetail');
-        }
-    }, 'json');
+    $('#content').load('partials/views/profile.html',function(){
+        $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
+            injectData(data, 'user');
+        }, 'json');
+        $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
+            if(data.userDetail === null){
+                $( "#change_view_editProfile" ).trigger( "click" );
+            }else{
+                injectData(data, 'userDetail');
+            }
+        }, 'json');
+    });
 });
 
-        /* ~~~~~~~~~~~~~~~~~ PROFILE ONCLICK - CHANGE VIEW ~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~ PROFILE ONCLICK - CHANGE VIEW ~~~~~~~~~~~~~~~~~~~~~~ */
         
 // Onclick functions for the views
 $(document).on('click','#change_view_editProfile',function(){
@@ -39,20 +41,20 @@ $(document).on('click','#change_view_editProfile',function(){
                         $('#editProfile_firstName').val(data.userDetail.userDetail_firstName);
                         $('#editProfile_lastName').val(data.userDetail.userDetail_lastName);
                         i = 0;
-                        switch(data.userDetail.userDetail_status){
-                            case 'High School Student':
+                        switch(data.userDetail.userDetail_minQualification){
+                            case 'School':
                                 i = 1;
                                 break;
-                            case 'Under Graduate Student':
+                            case 'High School':
                                 i = 2;
                                 break;                                
-                            case 'Post Graduate Student':
+                            case 'Bachlors':
                                 i = 3;
                                 break;  
-                            case 'Unemployed':
+                            case 'Masters':
                                 i = 4;
                                 break;
-                            case 'Employed':
+                            case 'Phd':
                                 i = 5;
                                 break;  
                         }
@@ -84,7 +86,14 @@ $(document).on('click','#change_view_editProfile',function(){
     }
 })
 
-        /*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
+// Adding qualifications
+$(document).on('click','#display_add_qualification',function(){
+    $('#add_qualification').load('partials/views/addQualification.html', function(){
+        $('#add_qualification').slideDown(500);
+    })
+})
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
         
 function initalize_editProfileValidator(){
     var editProfile_validator = new FormValidator('editProfile_form', [{
@@ -141,7 +150,37 @@ function initalize_editProfileValidator(){
         }
     });
 }
-         /* ~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ~~~~~~~~~~~~~~~~~~~~~ NAVBAR ~~~~~~~~~~~~~~~~~~*/
+$(document).on('click','#nav-mentor',function(){
+    $('#content, #footer').fadeOut(0,function(){
+        $('#content').load('partials/views/mentor.html',function(){
+            $('#content, #footer').fadeIn(500);
+        });
+    })
+})
+
+// Switching back to profile view
+$(document).on('click','#nav-profile',function(){
+    $('#content, #footer').fadeOut(0,function(){
+        $('#content').load('partials/views/profile.html',function(){
+            $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
+                injectData(data, 'user');
+                $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
+                    if(data.userDetail === null){
+                        $( "#change_view_editProfile" ).trigger( "click" );
+                    }else{
+                        injectData(data, 'userDetail');
+                    }
+                    $('#content, #footer').fadeIn(500);
+                }, 'json');
+            }, 'json');
+        });       
+    })
+
+})
+
+/* ~~~~~~~~~~~~~~~~~~~~~ COMMON FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
 
 /*  This function, on call, fixes the footer depending on the height of the
@@ -163,7 +202,11 @@ function fixFooter(){
 
 function load_commonViews(){
     $('footer').attr('id','footer');
-    $('#header').load('partials/views/navbar_profile.html');
+    $('#header').load('partials/views/navbar_profile.html', function(){
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    });
     $('footer').load('partials/views/footer.html');
     //fixFooter();
 }
@@ -178,7 +221,7 @@ function inject_userDetail(data){
         injectToID('userDetail_lastName', data.userDetail_lastName);
         injectToID('userDetail_nationality', data.userDetail_nationality);
         injectToID('userDetail_age', data.userDetail_age);
-        injectToID('userDetail_status', data.userDetail_status);
+        injectToID('userDetail_minQualification', data.userDetail_minQualification);
     }
     // ?? profile pic
 }
@@ -232,7 +275,7 @@ function injectToID(element, data){
 }
 
 /*
-    data : the html content to be displayed
+    view : the html content to be displayed
     NOTE: Always update the view first and then inject the data
 */
 function updateView(view){

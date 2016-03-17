@@ -48,13 +48,13 @@ if( array_key_exists('signup_email',$_POST)
         }else{
             
             // SQL for selecting our user
-            $stmt_sql = "SELECT * FROM userDB WHERE user_email = ?";
+            $stmt_sql = "SELECT * FROM user WHERE user_email = ?";
             
             // Get the result set for the query
             $stmt_result = execute_single_variable_prepared_stmt($mysqli,$stmt_sql,$email,'s');
             
             // SQL for selecting our user
-            $stmt_sql = "SELECT * FROM userDB WHERE user_username = ?";
+            $stmt_sql = "SELECT * FROM user WHERE user_username = ?";
             
             // Get the result set for the query
             $stmt_result_2 = execute_single_variable_prepared_stmt($mysqli,$stmt_sql,$username,'s');
@@ -88,7 +88,7 @@ if( array_key_exists('signup_email',$_POST)
                             $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
                             // The query, we won't use the functions here becuse there are 3 variables
-                            $stmt_sql = 'INSERT INTO userDB (user_email, user_username, user_password) VALUES (?,?,?)';
+                            $stmt_sql = 'INSERT INTO user (user_email, user_username, user_password) VALUES (?,?,?)';
 
                             // Prepare the statement to sanetize the sql data
                             $stmt_query = $mysqli->prepare($stmt_sql);
@@ -98,6 +98,9 @@ if( array_key_exists('signup_email',$_POST)
 
                             // Execute statement
                             $stmt_query->execute();
+                            
+                            // Close the statement
+                            $stmt_query->close();
                                                 
                             $response = "success";
                             
