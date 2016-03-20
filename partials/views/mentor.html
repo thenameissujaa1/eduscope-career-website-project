@@ -1,43 +1,111 @@
+<style type="text/css">
+body{
+    margin-top:50px;
+} 
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px;
+    padding: 10px;
+}
+</style>
 <div id="mentor">
-      <div class="container">
-        <div class="center">
-    <h2>Mentors<h2>
-    <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for mentors">
-      <span class="input-group-btn">
-        <span class="glyphicon glyphicon-search"></span>
-        <button class="btn btn-default" type="button">Submit</button>
-      </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
-</div><!-- /.row -->
-<!--ADD search functions here-->
+  <br>
+    <ol class="breadcrumb">
+  <li><a href="#">Profile</a></li>
+  <li class="active">Mentors</li>
+</ol>
+
+    <center><h1> Mentors </h1></center>
+    <br>
+    <div class="container">
+    <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+        <div class="input-group">
+                
+                <input type="hidden" name="search_param" value="all" id="search_param">         
+                <input type="text" class="form-control" name="x" placeholder="Search for mentors">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+  </div>
 </div>
+ 
+<!--ADD search functions here-->
 
-<p><span class="glyphicons glyphicon-user-add"></span> Add Mentor</p>
+<ul class="list-inline">
+<div class="col-lg-4 col-md-4 col-sm-4">
 
-<p><span class="glyphicons glyphicon-check"></span> Mentor request accepted</p>
+                              <div class="center">
+                              <!--INSERT GLYPHICONS-->
+                                <li><p>Add mentor</p></li>
+                                <!--Link backend here-->
+                            </div>
+                        </div>
+                                    
+                              <div class="col-lg-4 col-md-4 col-sm-4">
+                              <div class="center">
+                                <!--INSERT GLYPHICONS-->
+                                <li><p>Mentor request accepted</p></li>
+                                <!--Link backend here-->
+                            </div>
+                        </div>
+                      </div>
+                    </div>
 
-<p><span class="halflings halfling-comments"></span> Comments on user pathways</p>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                      <div class="center">
+                                <!--INSERT GLYPHICONS-->
+                                <li><p>Comment on user pathways</p></li>
+                                <!--Link backend here-->
+                            
+                        
+               
+                  </div>
+                </div>
+                  </ul>
 
-<div role="tabpanel" class="tab-pane text-center fade" id="mentors">
+<div class="tab-content">
+            <!--Resources: main-->
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="thumbnail">
                             <div class="caption">
-                                <h3>The users whom you are mentoring:</h3>
+                              <div class="center">
+                              <span class="glyphicons glyphicon-user-add">
+                                <center><p>The Users whom you are mentoring:</p></center>
+                                <!--Link backend here-->
                                 <!--ADD DB entries here-->
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="thumbnail">
                             <div class="caption">
-                                <h3>Your mentors:</h3>
-                               <!--ADD DB entries here-->
+                              <div class="center">
+                              <span class="glyphicons glyphicon-user-add">
+                                <center><p>Your mentors:</p></center>
+                                <!--Link backend here-->
+                                <!--Add DB entries here here-->
                             </div>
                         </div>
                     </div>
                   </div>
-</div>
+                </div>
+              </div>
+
+
+<script> 
+$(document).ready(function(e){
+    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+    e.preventDefault();
+    var param = $(this).attr("href").replace("#","");
+    var concept = $(this).text();
+    $('.search-panel span#search_concept').text(concept);
+    $('.input-group #search_param').val(param);
+  });
+});</script>
