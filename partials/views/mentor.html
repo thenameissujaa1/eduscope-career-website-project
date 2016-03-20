@@ -1,50 +1,43 @@
 <div id="mentor">
-<div class="box">
-  <div class="container-4">
-  	<h2>Mentors<h2>
-      <span class="glyphicons glyphicons-search"></span>
-      <form action="#search">
-  <input type="search" id="search" placeholder="Search For Mentors">
-  <input type="submit">
-</form>
-  </div>
+      <div class="container">
+        <div class="center">
+    <h2>Mentors<h2>
+    <div class="col-lg-6">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for mentors">
+      <span class="input-group-btn">
+        <span class="glyphicon glyphicon-search"></span>
+        <button class="btn btn-default" type="button">Submit</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+<!--ADD search functions here-->
 </div>
 
-<p><span class="glyphicons glyphicons-user-add"></span> Add Mentor</p>
+<p><span class="glyphicons glyphicon-user-add"></span> Add Mentor</p>
 
-<p><span class="halflings halflings-group"></span> Mentor request accepted</p>
+<p><span class="glyphicons glyphicon-check"></span> Mentor request accepted</p>
 
-<p><span class="halflings halflings-comments"></span> Comments on user pathways</p>
+<p><span class="halflings halfling-comments"></span> Comments on user pathways</p>
 
-<h3> Users whom you are mentoring: </h3>
-<dl>
-  <dt><img src="img/fatema.jpg" alt="fatema" width="42" height="42"></dt>
-  <dd> Fatema</dd>
-  <dd><a href="">View profile</a></dd>
-  <dd><span class="glyphicons glyphicons-remove-sign"></span> Remove</dd>
-</dl>
-
-<dl>
-  <dt><img src="img/Habiba.jpg" alt="habiba" width="42" height="42"></dt>
-  <dd>Habiba</dd>
-  <dd><a href="">View profile</a></dd>
-  <dd><span class="glyphicons glyphicons-remove-sign"></span> Remove</dd>
-</dl>
-
-
-<h3> Your mentors: </h3>
-<dl>
-  <dt><img src="img/hani.jpg" alt="hani" width="42" height="42"></dt>
-  <dd> Hani</dd>
-  <dd><a href="">View profile</a></dd>
-  <dd><span class="glyphicons glyphicons-remove-sign"></span> Remove</dd>
-</dl>
-
-<dl>
-  <dt><img src="img/hind.jpg" alt="hind" width="42" height="42"></dt>
-  <dd>Hind</dd>
-  <dd><a href="">View profile</a></dd>
-  <dd><span class="glyphicons glyphicons-remove-sign"></span> Remove</dd>
-</dl>
-
+<div role="tabpanel" class="tab-pane text-center fade" id="mentors">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>The users whom you are mentoring:</h3>
+                                <!--ADD DB entries here-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3>Your mentors:</h3>
+                               <!--ADD DB entries here-->
+                            </div>
+                        </div>
+                    </div>
+                  </div>
 </div>

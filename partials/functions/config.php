@@ -1,7 +1,7 @@
 <?php 
 
 $hostname = 'localhost';
-$port = '8000';
+$port = '3306';
 $username = 'root';
 $password = '';
 $db = 'eduscope';
