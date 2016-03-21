@@ -11,6 +11,12 @@ session_start();
     0 : user not logged in
     1 : user logged in, but no profile details found, first time login
     2 : user logged in, profile details found
+    
+    Alternatively, you can also get a list of things without concering the user id
+    getInfo?type=list&from=tableName
+    type : list | This will tell the script that you want a list of things
+    from : <table name> | This will be the table you would like to get 
+    
 */
 
 $response = array();
@@ -36,19 +42,42 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
     $response['status'] = 1;
     
     // user contains sensitive information and requires precaution
-    if($type == 'user'){
-        $sql = 'SELECT user_username, user_email FROM user WHERE user_id = '.$user_id;
-    }else{
-        if($type == 'userDetail')
+    switch($type){
+        case 'user':
+            $sql = 'SELECT user_username, user_email FROM user WHERE user_id = '.$user_id;
+            // Get the results
+            $result = $mysqli->query($sql);
+            $response[$type] = $result->fetch_assoc();
+            send_response($response);
+            break;
+        case 'userDetail':
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_id = '.$user_id;
-        else
+            // Get the results
+            $result = $mysqli->query($sql);
+            $response[$type] = $result->fetch_assoc();
+            send_response($response);
+            break;
+        case 'list':
+            $from = $_GET['from'];
+            switch($from){
+                case 'subjects':
+                    $sql = 'SELECT * FROM '.$from;
+                    $i = 0;
+                    $result = $mysqli->query($sql);
+                    while($row = $result->fetch_assoc()){
+                        $response[$i] = $row;
+                        $i++;
+                    }
+                    send_response($response);
+                    break;
+                default:
+                        $response['status'] = 0;
+                        send_response($response);
+            }
+            break;
+        default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
-    
-    // Get the results
-    $result = $mysqli->query($sql);
-    $response[$type] = $result->fetch_assoc();
-    send_response($response);
 
 }
 
@@ -61,7 +90,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list)$/", $type, $match)){
         return true;
     }else{
         return false;
