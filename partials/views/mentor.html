@@ -1,22 +1,27 @@
 <div id="mentor">
   <br>
 
-    <div class="text-center"><h1> Mentors </h1></div>
+    <div class="text-center">
+        <h1> Mentors </h1></div>
     <br>
     <div class="container">
-    <div class="row">    
-        <div class="col-xs-8 col-xs-offset-2">
-        <div class="input-group">
-                
-                <input type="hidden" name="search_param" value="all" id="search_param">         
-                <input type="text" class="form-control" name="x" placeholder="Search for mentors">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
+        <div class="row">
+            <div class="col-xs-8 col-xs-offset-2">
+                <!--Search bar-->
+                <form name="userSearch" id="userSearch" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Search for mentors">
+                        <span class="input-group-btn">
+                            <button id="userSearch_submit" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </form>
+                <!--All errors go here after submitting the search-->
+                <div class="well" hidden id="userSearch_validation_errors"></div>
+                <div class="well" hidden id="searchResults"></div>
             </div>
         </div>
-  </div>
-</div>
+    </div>
  
 <!--ADD search functions here-->
 
@@ -88,15 +93,8 @@
 </div>
 
 <script> 
-$(document).ready(function(e){
-    $('.search-panel .dropdown-menu').find('a').click(function(e) {
-    e.preventDefault();
-    var param = $(this).attr("href").replace("#","");
-    var concept = $(this).text();
-    $('.search-panel span#search_concept').text(concept);
-    $('.input-group #search_param').val(param);
-  });
+$(document).ready(function(){
+    fixFooter();
+    initalize_userSearchValidator();
 });
-
-fixFooter();
 </script>

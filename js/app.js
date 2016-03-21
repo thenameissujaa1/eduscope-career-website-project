@@ -187,6 +187,48 @@ $(document).on('click','#nav-profile',function(){
 
 })
 
+/* ~~~~~~~~~~~~~~~~~~~~~ MENTOR PAGE ~~~~~~~~~~~~~~~~~~~~~~ */
+
+// search bar
+function initalize_userSearchValidator(){
+    var userSearch_validator = new FormValidator('userSearch', [{
+        name: 'query',
+        display: 'Query',
+        rules: 'required|min_length[3]|max_length[25]'
+    }],function(errors, event){
+        if(errors.length > 0){
+            var errorString = '';
+            for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                errorString += errors[i].message + '<br/>';
+            }
+            $('#userSearch_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
+        }else{
+            event.preventDefault(); // Prevent submitting form
+            var postData = $('#userSearch').serializeArray(); // Aquire form data in a JSON
+            if($('#userSearch_validation_errors').hasClass('custom-well-failure'))
+                $('#userSearch_validation_errors').hide(250).html(''); // Hide errors if they are visible
+            $.post('partials/functions/Search.php?type=user',postData,function(data){
+                dataString = '';
+                if(data.status == 1){
+                    // The html for each object will be defined in data string.
+                    if('user' in data){
+                        for(i = 0; i < data.user.length; i++){
+                            dataString += data.user[i].user_username+"<br>";
+                        }
+                    }else{
+                        dataString = 'Unable to find the user';
+                    }
+                }else{
+                    dataString = 'Invalid query';
+                }
+                // Display the html
+                $('#searchResults').show(250).html(dataString);
+            })
+        }
+    })
+}
+
+
 /* ~~~~~~~~~~~~~~~~~~~~~ COMMON FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
 
