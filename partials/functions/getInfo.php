@@ -66,7 +66,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                     $i = 0;
                     $result = $mysqli->query($sql);
                     while($row = $result->fetch_assoc()){
-                        $response[$i] = $row;
+                        $response[$from][$i] = $row;
                         $i++;
                     }
                     send_response($response);
@@ -75,7 +75,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                         $response['status'] = 0;
                         send_response($response);
             }
-            break;
+            break; 
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
