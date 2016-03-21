@@ -60,6 +60,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
         case 'list':
             $from = $_GET['from'];
             switch($from){
+                case 'qualifications':
                 case 'subjects':
                     $sql = 'SELECT * FROM '.$from;
                     $i = 0;
