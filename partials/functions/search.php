@@ -29,7 +29,7 @@ send_response($response);
 
 // This function checks if the query is alpha numeric
 function checkQuery($query){
-    if(preg_match("/[^a-z_\-0-9]/i", $query, $match)){
+    if(preg_match("/[^a-zA-Z0-9]/i", $query, $match)){
         return false;
     }else{
         return true;
