@@ -13,9 +13,15 @@ session_start();
     2 : user logged in, profile details found
     
     Alternatively, you can also get a list of things without concering the user id
-    getInfo?type=list&from=tableName
+    getInfo.php?type=list&from=tableName
     type : list | This will tell the script that you want a list of things
     from : <table name> | This will be the table you would like to get 
+    
+    You can also get info of another user by setting the type as profile and the user as the username of the profile
+    for example..
+    getInfo.php?type=profile&user=username
+    type : profile | This will tell the script to get profile details of a specified user
+    user : <username> | The user name to look at
     
 */
 
@@ -75,7 +81,26 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                         $response['status'] = 0;
                         send_response($response);
             }
-            break; 
+            break;
+        case 'profile':
+            $user = $_GET['user'];
+            // Check if the username is alphanumeric
+            if(preg_match("/[^a-zA-Z0-9]/i", $user, $match)){
+                $response['status'] = 0;
+                send_response($response);
+            }else{
+                // First we get the user_id
+                $sql = 'SELECT user_id FROM user WHERE user_username = "'.$user.'"';
+                $result = $mysqli->query($sql);
+                $user_id = $result->fetch_assoc(); // fetches as an array
+                // Then we get the user detail of the user id, using user_id[key]
+                $sql = 'SELECT * FROM userDetail WHERE userDetail_id = '.$user_id['user_id'];
+                $result = $mysqli->query($sql);
+                // Store and send response
+                $response[$type] = $result->fetch_assoc();
+                send_response($response);
+            }
+            break;
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
@@ -91,7 +116,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile)$/", $type, $match)){
         return true;
     }else{
         return false;
