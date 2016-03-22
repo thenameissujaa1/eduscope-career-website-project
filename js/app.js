@@ -189,7 +189,7 @@ $(document).on('click','#nav-profile',function(){
 
 /* ~~~~~~~~~~~~~~~~~~~~~ MENTOR PAGE ~~~~~~~~~~~~~~~~~~~~~~ */
 
-// search bar
+// ON CLICK SEARCH AND SEARCH VALIDATION
 function initalize_userSearchValidator(){
     var userSearch_validator = new FormValidator('userSearch', [{
         name: 'query',
@@ -201,9 +201,12 @@ function initalize_userSearchValidator(){
             for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
                 errorString += errors[i].message + '<br/>';
             }
+            $('#searchResults').hide(250).html('');
+            $('#profileViewer').hide(250).html('');
             $('#userSearch_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
         }else{
             event.preventDefault(); // Prevent submitting form
+            $('#profileViewer').hide(250).html('');
             var postData = $('#userSearch').serializeArray(); // Aquire form data in a JSON
             if($('#userSearch_validation_errors').hasClass('custom-well-failure'))
                 $('#userSearch_validation_errors').hide(250).html(''); // Hide errors if they are visible
@@ -213,7 +216,7 @@ function initalize_userSearchValidator(){
                     // The html for each object will be defined in data string.
                     if('user' in data){
                         for(i = 0; i < data.user.length; i++){
-                            dataString += data.user[i].user_username+"<br>";
+                            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.user[i].user_username+'" class="list-group-item">'+data.user[i].user_username+'</a>';
                         }
                     }else{
                         dataString = 'Unable to find the user';
@@ -228,6 +231,32 @@ function initalize_userSearchValidator(){
     })
 }
 
+// On click of a profile
+$(document).on('click','#viewProfile_btn', function(){
+    $('#searchResults').hide(250);
+    var user = $(this).data('user');
+    $('#profileViewer').load('partials/views/profile_viewer.html',function(){
+        $.get('partials/functions/getInfo.php?type=profile&user='+user, function(data){
+            if(data.status == 0){
+                $('#profile_error').html('Error Loading profile');
+            }else{
+                if(data.profile === null){
+                    $('#profile_error').html('Profile not ready yet.');
+                }else{
+                    inject_userDetail(data.profile);
+                }
+            }
+            $('#profileViewer').show(250);
+        })
+    })
+})
+
+// On click of the back button (check profile_viewer.html)
+$(document).on('click','#cancelProfileView', function(){
+    $('#profileViewer').hide(250, function(){
+        $('#searchResults').show(250);
+    }).html('');
+})
 
 /* ~~~~~~~~~~~~~~~~~~~~~ COMMON FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
