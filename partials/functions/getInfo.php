@@ -144,8 +144,8 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                             $result = $mysqli->query($sql);
                             if($result->num_rows > 0){
                                 $response['relationStatus'] = 1;
-                                $reponse['relation'] = 'This User is already your mentor';
-                                send_response($reponse);
+                                $response['relation'] = 'This User is already your mentor';
+                                send_response($response);
                             }else{
                                 $response['relationStatus'] = 2;
                                 $response['relation'] = 'This User is not your mentor';
