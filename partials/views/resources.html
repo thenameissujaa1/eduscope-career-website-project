@@ -15,13 +15,20 @@
                         <span id="search_concept">Filter by</span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="##view_c">Case Studies</a></li>
-                      <li><a href="##view_fl">Fields </a></li>
-                      <li><a href="##view_j">Jobs </a></li>
-                      <li><a href="##view_p">Programms </a></li>
-                      <li><a href="##view_u">Universities </a></li>
-                      <li class="divider"></li>
-                      <li><a href="#all">Anything</a></li>
+                      <form action="">
+<li><input type="checkbox" name="casestudies" value="jobs" > Case Studies <li> <a href="#view_c"></a></li>
+<li role="separator" class="divider"></li>
+<li><input type="checkbox" name="fields" value="fields" > Fields <li> <a href="#view_f"></a></li>
+<li role="separator" class="divider"></li>
+<li><input type="checkbox" name="jobs" value="jobs" > Jobs <li> <a href="#view_j"></a></li>
+<li role="separator" class="divider"></li>
+<li><input type="checkbox" name="programmes" value="programmes" > Programmes <li> <a href="#view_p"></a></li>
+<li role="separator" class="divider"></li>
+<li><input type="checkbox" name="universities" value="universities" > Universities <li> <a href="#view_u"></a></li>
+<li role="separator" class="divider"></li>
+
+                                                            
+                                        </form>                   <!-- END Loop -->
                     </ul>
                 </div>
                 <input type="hidden" name="search_param" value="all" id="search_param">         
