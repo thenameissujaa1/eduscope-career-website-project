@@ -158,14 +158,39 @@ function initalize_editProfileValidator(){
 $(document).on('click','#nav-mentor',function(){
     $('#content, #footer').fadeOut(0,function(){
         $('#content').load('partials/views/mentor.html',function(){
-            $('#content, #footer').fadeIn(500);
+            // get a list of mentors
+            $.get('partials/functions/getInfo.php?type=mymentors', function(data){
+                if('mentors' in data){
+                    var dataString = '';
+                    for(i = 0; i < data.mentors.length; i++){
+                        dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.mentors[i].user_username+'" class="list-group-item">'+data.mentors[i].user_username+' : '+data.mentors[i].userDetail_firstName+' '+data.mentors[i].userDetail_lastName+'</a>';
+                    }
+                    $('#mymentors').html(dataString);
+                }else{
+                    // TODO: Display "oh no, It seems like you don't have a mentor"
+                }
+                $.get('partials/functions/getInfo.php?type=myusers', function(data){
+                    if('users' in data){
+                        var dataString = '';
+                        for(i = 0; i < data.users.length; i++){
+                            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.users[i].user_username+'" class="list-group-item">'+data.users[i].user_username+' : '+data.users[i].userDetail_firstName+' '+data.users[i].userDetail_lastName+'</a>';  
+                        }
+                        $('#myusers').html(dataString);
+                    }else{
+                        // TODO: Display "oh no, It seems like you are not mentoring any users"
+                    }
+                    $('#content, #footer').fadeIn(500);
+                })
+            })
         });
     })
 })
 
 $(document).on('click','#nav-resources',function(){
     $('#content, #footer').fadeOut(0,function(){
+        // Load the resources
         $('#content').load('partials/views/resources.html',function(){
+            // Fade in and display
             $('#content, #footer').fadeIn(500);
         })
     })  

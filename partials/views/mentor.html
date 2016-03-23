@@ -25,77 +25,65 @@
         </div>
     </div>
     <hr>
+    
 <!--Notification areas-->
+<!--
 <ul class="list-inline">
     <div class="col-lg-4 col-md-4 col-sm-4">
 
         <div class="center">
-            <!--INSERT GLYPHICONS-->
+
             <li>
                 <p>Add mentor</p>
             </li>
-            <!--Link backend here-->
+
         </div>
     </div>
 
     <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="center">
-            <!--INSERT GLYPHICONS-->
+
             <li>
                 <p>Mentor request accepted</p>
             </li>
-            <!--Link backend here-->
+
         </div>
     </div>
 
     <div class="col-lg-4 col-md-4 col-sm-4">
         <div class="center">
-            <!--INSERT GLYPHICONS-->
+
             <li>
                 <p>Comment on user pathways</p>
             </li>
-            <!--Link backend here-->
+
         </div>
     </div>
-    </ul>
+    </ul-->
 
 <div class="tab-content">
     <!--Resources: main-->
     <div class="row">
         <!--col 1-->
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="thumbnail">
-                <div class="caption">
-                    <div class="center">
-                        <span class="glyphicons glyphicon-user-add"></span>
-                        <p class="text-center">The Users whom you are mentoring:</p>
-                        <!--Link backend here-->
-                        <!--ADD DB entries here-->
-                    </div>
-                </div>
-            </div>
+            <span class="glyphicons glyphicon-user-add"></span>
+            <h3 class="text-center">Your mentors</h3>
+            <!--List of mentors go here-->
+            <div class="list-group custom-margin-top-20" id="mymentors"></div>
         </div>
         <!--col 2-->
         <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="thumbnail">
-                <div class="caption">
-                    <div class="center">
-                        <span class="glyphicons glyphicon-user-add"></span>
-                        <center>
-                            <p>Your mentors:</p>
-                        </center>
-                        <!--Link backend here-->
-                        <!--Add DB entries here here-->
-                    </div>
-                </div>
-            </div>
+            <span class="glyphicons glyphicon-user-add"></span>
+            <h3 class="text-center">Users whom you are mentoring</h3>
+            <!--Link backend here-->
+            <!--Add DB entries here here-->
+            <div class="list-group custom-margin-top-20" id="myusers"></div>
         </div>
     </div>
 </div>
 
 <script> 
 $(document).ready(function(){
-
     initalize_userSearchValidator();
 });
 </script>
