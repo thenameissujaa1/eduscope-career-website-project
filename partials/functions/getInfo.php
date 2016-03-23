@@ -41,6 +41,27 @@ session_start();
     relation : <string> | The message to be sent depending on the relation, 3 cases user sends to themselves, or the other user is already a mentor, or the other
     user's request is pending, or the sending user is not linked with the receiving user.
     
+    TYPE: mymentors
+    This will retrive a list of mentors of the loggedin user
+    URL: getInfo.php?type=mymentors
+    RESPONSE: 
+    status : (0|1) | 0 for failure and 1 for success
+    mentors : <array> | An array of mentors containg JSON objects with properties
+       - user_username
+       - userDetail_firstName
+       - userDetail_lastName
+    To access ith element, data.mentors[i].<property>
+       
+    TYPE: myusers
+    This will retrive a list of users metored by the loggedin user
+    URL: getInfo.php?type=myusers
+    RESPONSE: 
+    status : (0|1) | 0 for failure and 1 for success
+    mentors : <array> | An array of users containg JSON objects with properties
+       - user_username
+       - userDetail_firstName
+       - userDetail_lastName
+    To access ith element, data.mentors[i].<property>
 */
 
 $response = array();
@@ -163,6 +184,26 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 }
             }
             break;
+        case 'mymentors':
+            $sql = 'SELECT user_username, userDetail_firstName, userDetail_lastName FROM user,userDetail,userMentor WHERE fk_mentor_id = user_id AND fk_mentor_id = userDetail_id AND fk_user_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            $i = 0;
+            while($row = $result->fetch_assoc()){
+                $response['mentors'][$i] = $row;
+                $i++;
+            }
+            send_response($response);
+            break;
+        case 'myusers':
+            $sql = 'SELECT user_username, userDetail_firstName, userDetail_lastName FROM user,userDetail,userMentor WHERE fk_user_id = user_id AND fk_user_id = userDetail_id AND fk_mentor_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            $i = 0;
+            while($row = $result->fetch_assoc()){
+                $response['users'][$i] = $row;
+                $i++;
+            }
+            send_response($response);
+            break;
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
@@ -178,7 +219,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers)$/", $type, $match)){
         return true;
     }else{
         return false;
