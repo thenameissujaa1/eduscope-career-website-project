@@ -162,6 +162,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                     send_response($response);
                 }
             }
+            break;
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
