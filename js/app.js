@@ -64,12 +64,14 @@ $(document).on('click','#change_view_editProfile',function(){
                     }
                 }, 'json');
                 $('#profile_view').slideDown(250, function(){
+                    $('#profileBtn_text').html(' Cancel changes');
                     $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');  
                     $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
                 });
             });
         });
-    }else{        
+    }else{
+        $('#profileBtn_text').html(' Edit Profile');        
         $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
         $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
         $('#profile_view').slideUp(250, function(){
