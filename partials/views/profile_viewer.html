@@ -2,15 +2,19 @@
 <img src="http://www.linkedinsider.com.au/wp-content/uploads/2014/09/profile.png" class="img-responsive profile-display-frame" alt="">
 <!--firstname and lastname-->
 <h3 class="text-center"><span id="userDetail_firstName"></span>&nbsp;&nbsp;<span id="userDetail_lastName"></span></h3>
-<!--
-    Extra info will come here
+
+<div id="relationStatus">
+    <!--
+    Extra info will come here in <p> tag
     1. Pending Confirmation
     2. User is already a mentor
--->
-
-<!--Buttons will go here, for send invitation, or cancel invitation-->
+    -->
+    <div id="relationText" class="alert text-center"></div>
+</div>
 
 <!--any errors will be displayed here-->
-<p id="profile_error"></p>
+<p id="profile_error" class="text-center"></p>
 <hr>
+<!--Buttons will go here based on relation status, for send invitation, or cancel invitation-->
+<div id="request_buttons" class="pull-right"></div>
 <button class="btn btn-sm btn-warning" id="cancelProfileView"><span class="glyphicon glyphicon-arrow-left"></span></button>

@@ -5,7 +5,7 @@
     It is completely written in JavaScript with jQuery library.
     
     data.status holds the status of the response as follows..
-    0 : user not logged in
+    0 : user not logged in or an Error
     1 : user logged in, but no profile details found, first time login
     2 : user logged in, profile details found
 */
@@ -130,6 +130,7 @@ function initalize_editProfileValidator(){
             var postData = $('#editProfile_form').serializeArray();
             $.post('partials/functions/editProfile.php', postData, function(data){
                 if(data == "success"){
+                    $('#profileBtn_text').html(' Edit Profile');
                     $('#editIcon').toggleClass('glyphicon-remove').toggleClass('glyphicon-edit');
                     $('#change_view_editProfile').toggleClass('btn-danger').toggleClass('btn-default'); 
                     $('#profile_view').slideUp(250, function(){
@@ -237,18 +238,47 @@ function initalize_userSearchValidator(){
 $(document).on('click','#viewProfile_btn', function(){
     $('#searchResults').hide(250);
     var user = $(this).data('user');
+    // Load the profile view
     $('#profileViewer').load('partials/views/profile_viewer.html',function(){
+        // Get profile info
         $.get('partials/functions/getInfo.php?type=profile&user='+user, function(data){
+            // If Error loading profile
             if(data.status == 0){
                 $('#profile_error').html('Error Loading profile');
+                $('#profileViewer').show(250);
             }else{
+                // If profile is not ready
                 if(data.profile === null){
                     $('#profile_error').html('Profile not ready yet.');
+                    $('#profileViewer').show(250);
                 }else{
+                    // Inject data
                     inject_userDetail(data.profile);
+                    // Get relation of the user and potential mentor
+                    $.get('partials/functions/getInfo.php?type=relation&receiver='+data.profile.userDetail_id, function(data){
+                        $('#relationText').html(data.relation);
+                        // Render html depending on the response
+                        switch(data.relationStatus){
+                            case 0:
+                                $('#relationText').addClass('alert-danger');
+                                break;
+                            case 1:
+                                $('#relationText').addClass('alert-success');
+                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
+                                break;
+                            case 2:
+                                $('#relationText').addClass('alert-warning');
+                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
+                                break;
+                            case 3:
+                                $('#relationText').addClass('alert-info');
+                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
+                                break;
+                        }
+                        $('#profileViewer').show(250);
+                    });
                 }
             }
-            $('#profileViewer').show(250);
         })
     })
 })
