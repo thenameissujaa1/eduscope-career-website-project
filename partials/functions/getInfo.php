@@ -34,13 +34,18 @@ session_start();
     receiver : <id> | The user_id of the reciever
     Response is sent as..
     RelationStatus : (0|1|2|3) | 
-    2 means user is not a mentor
-    1 means user is already mentor, 
-    3 means request pending, 
-    0 means user is sending request to self
+        2 means user is not a mentor
+        1 means user is already mentor, 
+        3 means request pending, 
+        0 means user is sending request to self
     relation : <string> | The message to be sent depending on the relation, 3 cases user sends to themselves, or the other user is already a mentor, or the other
     user's request is pending, or the sending user is not linked with the receiving user.
-    
+    oppositeRelationStatus : (0|1|2) |
+        0 : user is not related to them
+        1 : user is the user who they mentor
+        2 : user is a user who would like to be mentored and has sent a request
+    oppositeRelation : <string> | The string will be based on the relation status
+
     TYPE: mymentors
     This will retrive a list of mentors of the loggedin user
     URL: getInfo.php?type=mymentors
@@ -167,8 +172,8 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                     if($receiver_id['user_id'] == $user_id){
                         $response['relationStatus'] = 0;
                         $response['relation'] = 'Can\'t send request to self';
-                        send_response($response);
                     }else{
+                        // Check for relation status
                         $sql = 'SELECT * FROM request_pending WHERE fk_sender_user_id = '.$user_id.' AND fk_acceptor_user_id = '.$receiver_id['user_id'];
                         $result = $mysqli->query($sql);
                         if($result->num_rows == 0){
@@ -177,23 +182,41 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                             if($result->num_rows > 0){
                                 $response['relationStatus'] = 1;
                                 $response['relation'] = 'This User is already your mentor';
-                                send_response($response);
                             }else{
                                 $response['relationStatus'] = 2;
                                 $response['relation'] = 'This User is not your mentor';
-                                send_response($response);
                             }
                         }else{
                             $response['relationStatus'] = 3;
                             $response['relation'] = 'Mentor request pending';
-                            send_response($response);
+                        }
+                        // Check for opposite relation status (i.e. the user's relation with the logged in user)
+                        $sql = 'SELECT * FROM request_pending WHERE fk_acceptor_user_id = '.$user_id.' AND fk_sender_user_id = '.$receiver_id['user_id'];
+                        $result = $mysqli->query($sql);
+                        if($result->num_rows == 0){
+                            // check if the user is already a mentor
+                            $sql = 'SELECT * FROM userMentor WHERE fk_mentor_id = '.$user_id.' AND fk_user_id = '.$receiver_id['user_id'];
+                            $result = $mysqli->query($sql);
+                            if($result->num_rows == 0){
+                                // User is not related
+                                $response['oppositeRelationStatus'] = 0;
+                                $response['oppositeRelation'] = 'This user is not related at all';
+                            }else{
+                                // User is already being mentored
+                                $response['oppositeRelationStatus'] = 1;
+                                $response['oppositeRelation'] = 'This user is being mentored by you';
+                            }
+                        }else{
+                            // User has got a request from the user, awaiting confirmation
+                            $response['oppositeRelationStatus'] = 2;
+                            $response['oppositeRelation'] = 'This user has sent you a mentor request';
                         }
                     }
                 }else{
                     $response['status'] = 0;
-                    send_response($response);
                 }
             }
+            send_response($response);
             break;
         case 'mymentors':
             $sql = 'SELECT user_username, userDetail_firstName, userDetail_lastName FROM user,userDetail,userMentor WHERE fk_mentor_id = user_id AND fk_mentor_id = userDetail_id AND fk_user_id = '.$user_id;
