@@ -158,6 +158,22 @@ function initalize_editProfileValidator(){
 $(document).on('click','#nav-mentor',function(){
     $('#content, #footer').fadeOut(0,function(){
         $('#content').load('partials/views/mentor.html',function(){
+            // get a list of requests (this is async)
+            $.get('partials/functions/getInfo.php?type=myrequests', function(data){
+                if('requests' in data){
+                    $('')
+                    var dataString = '';
+                    for(i = 0; i < data.requests.length; i++){
+                        dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.requests[i].user_username+'" class="list-group-item">'+data.requests[i].user_username+' : '+data.requests[i].userDetail_firstName+' '+data.requests[i].userDetail_lastName+'</a>';
+                    }
+                    $('#notifications .list-group').html(dataString);
+                    $('#notifications .badge').html(data.requests.length);
+                    $('#notifications').show(250);
+                }else{
+                    if($('#notifications').is(':visible'))
+                        $('#notifications').hide(250);
+                }
+            })
             // get a list of mentors
             $.get('partials/functions/getInfo.php?type=mymentors', function(data){
                 if('mentors' in data){
@@ -259,9 +275,10 @@ function initalize_userSearchValidator(){
     })
 }
 
-// On click of a profile
+// On click of a profile (this will open profile_viewer.html)
 $(document).on('click','#viewProfile_btn', function(){
-    $('#searchResults').hide(250);
+    if($('#searchResults').is(':visible'))
+        $('#searchResults').hide(250);
     var user = $(this).data('user');
     // Load the profile view
     $('#profileViewer').load('partials/views/profile_viewer.html',function(){
@@ -282,22 +299,38 @@ $(document).on('click','#viewProfile_btn', function(){
                     // Get relation of the user and potential mentor
                     $.get('partials/functions/getInfo.php?type=relation&receiver='+data.profile.userDetail_id, function(data){
                         $('#relationText').html(data.relation);
-                        // Render html depending on the response
+                        // Render html depending on the response (check getInfo.php)
+                        switch(data.oppositeRelationStatus){
+                            case 1:
+                                $('#oppositeRelationText').html(data.oppositeRelation);
+                                $('#oppositeRelationText').addClass('alert-success');
+                                $('#request_buttons').append('<button id="viewPathway" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-road"></span> View pathway</button>&nbsp;');
+                                break;
+                            case 2:
+                                $('#oppositeRelationText').html(data.oppositeRelation);
+                                $('#oppositeRelationText').addClass('alert-info');
+                                var htmlString = '<button id="acceptRequest" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok"></span> Accept</button>';
+                                htmlString += '&nbsp;';
+                                htmlString += '<button id="declineRequest" data-user="'+user+'" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline</button>';
+                                htmlString += '&nbsp;';
+                                $('#request_buttons').append(htmlString);
+                                break;
+                        }
                         switch(data.relationStatus){
                             case 0:
                                 $('#relationText').addClass('alert-danger');
                                 break;
                             case 1:
                                 $('#relationText').addClass('alert-success');
-                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
+                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
                                 break;
                             case 2:
                                 $('#relationText').addClass('alert-warning');
-                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
+                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
                                 break;
                             case 3:
                                 $('#relationText').addClass('alert-info');
-                                $('#request_buttons').html('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
+                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
                                 break;
                         }
                         $('#profileViewer').show(250);
@@ -311,7 +344,8 @@ $(document).on('click','#viewProfile_btn', function(){
 // On click of the back button (check profile_viewer.html)
 $(document).on('click','#cancelProfileView', function(){
     $('#profileViewer').hide(250, function(){
-        $('#searchResults').show(250);
+        if($('#searchResults').children().length > 0)
+            $('#searchResults').show(250);
     }).html('');
 })
 

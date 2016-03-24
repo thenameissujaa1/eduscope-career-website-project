@@ -18,8 +18,19 @@
                 </form>
                 <!--All errors go here after submitting the search-->
                 <div class="well custom-margin-top-20" hidden id="userSearch_validation_errors"></div>
+                <!--Serach results will be displaye here-->
                 <div class="list-group custom-margin-top-20" hidden id="searchResults"></div>
+                <!--Profile information will be displayed here-->
                 <div class="well custom-margin-top-20" hidden id="profileViewer"></div>
+                <!--Notifications will be displayed here-->
+                <div class="panel panel-primary custom-margin-top-20" id="notifications">
+                    <div class="panel-heading">Updates <span class="badge"></span></div>
+                    <div class="panel-body">
+                        <p>Mentor requests</p>
+                        <div class="list-group"></div>
+                    </div>
+                </div>
+                <!--./#notifications-->
             </div>
             <div class="col-sm-2"></div>
         </div>
@@ -81,7 +92,7 @@
         </div>
     </div>
 </div>
-
+<br>
 <script> 
 $(document).ready(function(){
     initalize_userSearchValidator();
