@@ -61,7 +61,18 @@ session_start();
        - user_username
        - userDetail_firstName
        - userDetail_lastName
-    To access ith element, data.mentors[i].<property>
+    To access ith element, data.users[i].<property>
+    
+    TYPE: myrequests
+    This will give a list of users that have sent the logged in user a mentor request.
+    URL: getInfo.php?type=myrequests
+    RESPONSE:
+    status : (0|1) | 0 for failure and 1 for success
+    requests : <array> | An array of users containg JSON objects with properties
+        - user_username
+        - userDetail_firstName
+        - userDetail_lastName
+    To access ith element, data.requests[i].<property>
 */
 
 $response = array();
@@ -69,7 +80,7 @@ $response = array();
 if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == false){
     
     $response['status'] = 0;
-    $response['error'] = 'User not logged in';
+    $response['error'] = 'User not logged in or type check failed';
     send_response($response);
 
 }else{
@@ -204,6 +215,15 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
             }
             send_response($response);
             break;
+        case 'myrequests':
+            $sql = 'SELECT user_username, userDetail_firstName, userDetail_lastName FROM user,userDetail,request_pending WHERE fk_sender_user_id = user_id AND fk_sender_user_id = userDetail_id AND fk_acceptor_user_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            $i = 0;
+            while($row = $result->fetch_assoc()){
+                $response['requests'][$i] = $row;
+                $i++;
+            }
+            send_response($response);
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
@@ -219,7 +239,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests)$/", $type, $match)){
         return true;
     }else{
         return false;
