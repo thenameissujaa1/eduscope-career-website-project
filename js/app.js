@@ -349,6 +349,71 @@ $(document).on('click','#cancelProfileView', function(){
     }).html('');
 })
 
+/* On click of one of the action buttons
+    username is passed along with each button..
+    oppositeRelation: Post relation actions
+    1. viewPathway
+    2. acceptRequest
+    3. declineRequest
+    ---
+    relation: Pre relation actions
+    1. mentor_remove (this is post relation action)
+    2. mentor_add
+    3. mentor_cancel_request
+*/
+
+$(document).on('click','#mentor_add, #mentor_remove, #mentor_cancel_request, #acceptRequest, #declineRequest',function(){
+    var user = $(this).data('user');
+    $.post('partials/functions/mentorActions.php',{action : this.id, receiver : user},function(data){
+        if(data.status == 1){
+            $('#profileViewer').hide(250, function(){
+                // update profile_viewer.html contents
+                $.get('partials/functions/getInfo.php?type=relation&receiver='+data.receiver_id, function(data){
+                    $('#relationText').html(data.relation);
+                    $('#request_buttons').html(''); // Empty the request buttons
+                    // Render html depending on the response (check getInfo.php)
+                    switch(data.oppositeRelationStatus){
+                        case 1:
+                            $('#oppositeRelationText').html(data.oppositeRelation);
+                            $('#oppositeRelationText').addClass('alert-success');
+                            $('#request_buttons').append('<button id="viewPathway" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-road"></span> View pathway</button>&nbsp;');
+                            break;
+                        case 2:
+                            $('#oppositeRelationText').html(data.oppositeRelation);
+                            $('#oppositeRelationText').addClass('alert-info');
+                            var htmlString = '<button id="acceptRequest" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok"></span> Accept</button>';
+                            htmlString += '&nbsp;';
+                            htmlString += '<button id="declineRequest" data-user="'+user+'" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline</button>';
+                            htmlString += '&nbsp;';
+                            $('#request_buttons').append(htmlString);
+                            break;
+                    }
+                    switch(data.relationStatus){
+                        case 0:
+                            $('#relationText').addClass('alert-danger');
+                            break;
+                        case 1:
+                            $('#relationText').addClass('alert-success');
+                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
+                            break;
+                        case 2:
+                            $('#relationText').addClass('alert-warning');
+                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
+                            break;
+                        case 3:
+                            $('#relationText').addClass('alert-info');
+                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
+                            break;
+                    }
+                    $('#profileViewer').show(250);
+                }) //.get
+            }) //.hide
+        }else{
+            $('#profile_error').html(data.error);
+        } //.else
+    }) //.post
+}) //.document
+
 /* ~~~~~~~~~~~~~~~~~~~~~ COMMON FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
 
