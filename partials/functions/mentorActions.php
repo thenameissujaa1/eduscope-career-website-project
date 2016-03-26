@@ -3,7 +3,32 @@
 /*  
     This script will "do" an action described by the post data, below is a list of supported actions and what these action mean and do 
     
+    Parameters passed:
+    1. action : (mentor_add|mentor_cancel_request|mentor_remove|acceptRequest|declineRequest)
+    2. receiver : <user_username>
     
+    IMPORTANT: user must be logged in! Status 0 is replied if the user is not logged in
+    
+    Example: mentorActions.php
+    Post data as JSON: {action: 'mentor_add',receiver: 'username'}
+    
+    Response:
+    1. status : (0|1)
+    2. (only if status is 0) error : string
+    3. (only if status is 1) receiver_id : <user_id|userDetail_id>
+    
+    Response data as JSON: 
+        {"status" : 0, "error" : "error string"}
+        or
+        {"status" : 1, "receiver_id" : 1}
+        
+   Supported Actions:
+   1. mentor_add : This will send the receiver a mentor request
+   2. mentor_cancel_request : This will cancel the mentor request that was sent to the receiver
+   3. mentor_remove : This will remove the receiver as the mentor (given that they were already a mentor)
+   4. acceptRequest : When a user receives a request, they can accept it or decline it. 
+   5. declineRequest : When a user receives a request, they can accept it or decline it. 
+   
 */
 
 session_start();
@@ -59,11 +84,11 @@ if(isset($_SESSION['loggedin_user']) == false
                         $response['receiver_id'] = $receiver_id;
                     }else{
                         $response['status'] = 0;
-                        $response['error'] = 'Failed to perform action, server might be down';
+                        $response['error'] = 'Error while performing action (Accept Request 2)';
                     }
                 }else{
                     $response['status'] = 0;
-                    $response['error'] = 'Failed to perform action, server might be down';
+                    $response['error'] = 'Error while performing action (Accept Request 1)';
                 }
                 break;
             case 'declineRequest':
@@ -84,7 +109,7 @@ if(isset($_SESSION['loggedin_user']) == false
                     $response['receiver_id'] = $receiver_id;
                 }else{
                     $response['status'] = 0;
-                    $response['error'] = 'Failed to perform action, server might be down';
+                    $response['error'] = 'Error while performing action';
                 } 
         }
 
