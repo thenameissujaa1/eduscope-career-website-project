@@ -160,45 +160,17 @@ $(document).on('click','#nav-mentor',function(){
         $('#content').load('partials/views/mentor.html',function(){
             // get a list of requests (this is async)
             $.get('partials/functions/getInfo.php?type=myrequests', function(data){
-                if('requests' in data){
-                    $('')
-                    var dataString = '';
-                    for(i = 0; i < data.requests.length; i++){
-                        dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.requests[i].user_username+'" class="list-group-item">'+data.requests[i].user_username+' : '+data.requests[i].userDetail_firstName+' '+data.requests[i].userDetail_lastName+'</a>';
-                    }
-                    $('#notifications .list-group').html(dataString);
-                    $('#notifications .badge').html(data.requests.length);
-                    $('#notifications').show(250);
-                }else{
-                    if($('#notifications').is(':visible'))
-                        $('#notifications').hide(250);
-                }
+                updateNotifications(data);
             })
             // get a list of mentors
             $.get('partials/functions/getInfo.php?type=mymentors', function(data){
-                if('mentors' in data){
-                    var dataString = '';
-                    for(i = 0; i < data.mentors.length; i++){
-                        dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.mentors[i].user_username+'" class="list-group-item">'+data.mentors[i].user_username+' : '+data.mentors[i].userDetail_firstName+' '+data.mentors[i].userDetail_lastName+'</a>';
-                    }
-                    $('#mymentors').html(dataString);
-                }else{
-                    // TODO: Display "oh no, It seems like you don't have a mentor"
-                }
+                updateMyMentors(data);
                 $.get('partials/functions/getInfo.php?type=myusers', function(data){
-                    if('users' in data){
-                        var dataString = '';
-                        for(i = 0; i < data.users.length; i++){
-                            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.users[i].user_username+'" class="list-group-item">'+data.users[i].user_username+' : '+data.users[i].userDetail_firstName+' '+data.users[i].userDetail_lastName+'</a>';  
-                        }
-                        $('#myusers').html(dataString);
-                    }else{
-                        // TODO: Display "oh no, It seems like you are not mentoring any users"
-                    }
+                    updateMyUsers(data);
                     $('#content, #footer').fadeIn(500);
                 })
             })
-        });
+        })
     })
 })
 
@@ -298,41 +270,7 @@ $(document).on('click','#viewProfile_btn', function(){
                     inject_userDetail(data.profile);
                     // Get relation of the user and potential mentor
                     $.get('partials/functions/getInfo.php?type=relation&receiver='+data.profile.userDetail_id, function(data){
-                        $('#relationText').html(data.relation);
-                        // Render html depending on the response (check getInfo.php)
-                        switch(data.oppositeRelationStatus){
-                            case 1:
-                                $('#oppositeRelationText').html(data.oppositeRelation);
-                                $('#oppositeRelationText').addClass('alert-success');
-                                $('#request_buttons').append('<button id="viewPathway" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-road"></span> View pathway</button>&nbsp;');
-                                break;
-                            case 2:
-                                $('#oppositeRelationText').html(data.oppositeRelation);
-                                $('#oppositeRelationText').addClass('alert-info');
-                                var htmlString = '<button id="acceptRequest" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok"></span> Accept</button>';
-                                htmlString += '&nbsp;';
-                                htmlString += '<button id="declineRequest" data-user="'+user+'" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline</button>';
-                                htmlString += '&nbsp;';
-                                $('#request_buttons').append(htmlString);
-                                break;
-                        }
-                        switch(data.relationStatus){
-                            case 0:
-                                $('#relationText').addClass('alert-danger');
-                                break;
-                            case 1:
-                                $('#relationText').addClass('alert-success');
-                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
-                                break;
-                            case 2:
-                                $('#relationText').addClass('alert-warning');
-                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
-                                break;
-                            case 3:
-                                $('#relationText').addClass('alert-info');
-                                $('#request_buttons').append('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
-                                break;
-                        }
+                        renderProfileViewer(data,user);
                         $('#profileViewer').show(250);
                     });
                 }
@@ -369,42 +307,19 @@ $(document).on('click','#mentor_add, #mentor_remove, #mentor_cancel_request, #ac
             $('#profileViewer').hide(250, function(){
                 // update profile_viewer.html contents
                 $.get('partials/functions/getInfo.php?type=relation&receiver='+data.receiver_id, function(data){
-                    $('#relationText').html(data.relation);
                     $('#request_buttons').html(''); // Empty the request buttons
-                    // Render html depending on the response (check getInfo.php)
-                    switch(data.oppositeRelationStatus){
-                        case 1:
-                            $('#oppositeRelationText').html(data.oppositeRelation);
-                            $('#oppositeRelationText').addClass('alert-success');
-                            $('#request_buttons').append('<button id="viewPathway" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-road"></span> View pathway</button>&nbsp;');
-                            break;
-                        case 2:
-                            $('#oppositeRelationText').html(data.oppositeRelation);
-                            $('#oppositeRelationText').addClass('alert-info');
-                            var htmlString = '<button id="acceptRequest" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok"></span> Accept</button>';
-                            htmlString += '&nbsp;';
-                            htmlString += '<button id="declineRequest" data-user="'+user+'" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline</button>';
-                            htmlString += '&nbsp;';
-                            $('#request_buttons').append(htmlString);
-                            break;
-                    }
-                    switch(data.relationStatus){
-                        case 0:
-                            $('#relationText').addClass('alert-danger');
-                            break;
-                        case 1:
-                            $('#relationText').addClass('alert-success');
-                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
-                            break;
-                        case 2:
-                            $('#relationText').addClass('alert-warning');
-                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
-                            break;
-                        case 3:
-                            $('#relationText').addClass('alert-info');
-                            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
-                            break;
-                    }
+                    renderProfileViewer(data,user);
+                    // get a list of requests (this is async)
+                    $.get('partials/functions/getInfo.php?type=myrequests', function(data){
+                        updateNotifications(data);
+                    })
+                    // get a list of mentors
+                    $.get('partials/functions/getInfo.php?type=mymentors', function(data){
+                        updateMyMentors(data);
+                        $.get('partials/functions/getInfo.php?type=myusers', function(data){
+                            updateMyUsers(data);
+                        })
+                    })
                     $('#profileViewer').show(250);
                 }) //.get
             }) //.hide
@@ -414,7 +329,97 @@ $(document).on('click','#mentor_add, #mentor_remove, #mentor_cancel_request, #ac
     }) //.post
 }) //.document
 
-/* ~~~~~~~~~~~~~~~~~~~~~ COMMON FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~ COMMON MENTOR FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ 
+    For all the functions below , use $.get(url, function(data)) to perform AJAX request
+    renderProfileViewer(data,user) : data from getInfo.php?type=relation&user=n (where n is a user_id), user is the reciever (eg. when sending a mentor request, user will be the receiver)
+                                     user element must in the data-user tag, such as <a data-user="username" href="#">click here</a>, which can retrieved in jQuery later on click of that element..
+                                     $(document).on('click','#viewProfile_btn', function(){
+                                        var user = $(this).data('user');
+                                        ...
+    renderMyMentors(data) : data from getInfo.php?type=mymentors
+    renderMyUsers(data) : data from getInfo.php?type=myusers
+    updateNotifications(data) : data from getInfo.php?type=myrequests
+*/
+
+function renderProfileViewer(data,user){
+    // Render html depending on the response (check getInfo.php)
+    $('#relationText').html(data.relation);
+    switch(data.oppositeRelationStatus){
+        case 1:
+            $('#oppositeRelationText').html(data.oppositeRelation);
+            $('#oppositeRelationText').addClass('alert-success');
+            $('#request_buttons').append('<button id="viewPathway" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-road"></span> View pathway</button>&nbsp;');
+            break;
+        case 2:
+            $('#oppositeRelationText').html(data.oppositeRelation);
+            $('#oppositeRelationText').addClass('alert-info');
+            var htmlString = '<button id="acceptRequest" data-user="'+user+'" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-ok"></span> Accept</button>';
+            htmlString += '&nbsp;';
+            htmlString += '<button id="declineRequest" data-user="'+user+'" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span> Decline</button>';
+            htmlString += '&nbsp;';
+            $('#request_buttons').append(htmlString);
+            break;
+    }
+    switch(data.relationStatus){
+        case 0:
+            $('#relationText').addClass('alert-danger');
+            break;
+        case 1:
+            $('#relationText').addClass('alert-success');
+            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_remove" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-minus"></span> Remove mentor</button>');
+            break;
+        case 2:
+            $('#relationText').addClass('alert-warning');
+            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_add" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-plus"></span> Add as mentor</button>');
+            break;
+        case 3:
+            $('#relationText').addClass('alert-info');
+            $('#request_buttons').append('<button data-user="'+user+'" id="mentor_cancel_request" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-remove"></span> Cancel request</button>');
+            break;
+    }
+}
+
+function updateNotifications(data){
+    if('requests' in data){
+        var dataString = '';
+        for(i = 0; i < data.requests.length; i++){
+            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.requests[i].user_username+'" class="list-group-item">'+data.requests[i].user_username+' : '+data.requests[i].userDetail_firstName+' '+data.requests[i].userDetail_lastName+'</a>';
+        }
+        $('#notifications .list-group').html(dataString);
+        $('#notifications .badge').html(data.requests.length);
+        $('#notifications').show(250);
+    }else{
+        if($('#notifications').is(':visible'))
+            $('#notifications').hide(250);
+    }
+}
+
+function updateMyMentors(data){
+    if('mentors' in data){
+        var dataString = '';
+        for(i = 0; i < data.mentors.length; i++){
+            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.mentors[i].user_username+'" class="list-group-item">'+data.mentors[i].user_username+' : '+data.mentors[i].userDetail_firstName+' '+data.mentors[i].userDetail_lastName+'</a>';
+        }
+        $('#mymentors').html(dataString);
+    }else{
+        $('#mymentors').html('<div class="alert alert-warning text-center">Your mentor list is empty!</div>');
+    }
+}
+
+function updateMyUsers(data){
+    if('users' in data){
+        var dataString = '';
+        for(i = 0; i < data.users.length; i++){
+            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.users[i].user_username+'" class="list-group-item">'+data.users[i].user_username+' : '+data.users[i].userDetail_firstName+' '+data.users[i].userDetail_lastName+'</a>';  
+        }
+        $('#myusers').html(dataString);
+    }else{
+        // TODO: Display "oh no, It seems like you are not mentoring any users"
+        $('#myusers').html('<div class="alert alert-warning text-center">Your user list is empty!</div>');
+    }
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~ COMMON GENERAL FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~ */
 
 
 /*  This function, on call, fixes the footer depending on the height of the
