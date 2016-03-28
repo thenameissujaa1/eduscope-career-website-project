@@ -91,7 +91,9 @@ $(document).on('click','#change_view_editProfile',function(){
 // Adding qualifications
 $(document).on('click','#display_add_qualification',function(){
     $('#add_qualification').load('partials/views/addQualification.html', function(){
-        $('#add_qualification').slideDown(500);
+        $.getScript("js/qualificationForm.js", function(){
+            $('#add_qualification').slideDown(500);
+        })
     })
 })
 

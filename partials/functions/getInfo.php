@@ -254,6 +254,8 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
 
 }
 
+$mysqli->close();
+
 /*  This function takes a response and simply echos it for the app.js to read
     $data : Array - array $response from the php file 
 */

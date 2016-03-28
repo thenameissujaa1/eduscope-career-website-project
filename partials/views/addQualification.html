@@ -1,4 +1,95 @@
+<!-- we load qualificationForms.js on load of this page via app.js, Check qualificationForms.js -->
+
 <h3 class="text-center">You are now adding a qulification</h3>
 <hr>
 
-
+<!-- FORM starts here  -->
+<form class="form-horizontal" name="qualification_form" id="qualification_form">
+    
+    <!-- Form details
+    The form details will be sent as POST data to the server in the following structure..
+    name                values                  description
+    type                school, university      type of the table we want to insert data in, the server will read this first to determine which fields to look for
+    school_name         text limit:50
+    grad_year           YYYY                    graduation year
+    qualification       year11, year12, year13
+    t_subjects          integer (1-10)          total subjects the student has taken
+    subject_name_n      text limit:50           Name of the subject, n is the nth element of that kind
+    subject_score_n     number limit:100        Score aquired
+    -->
+    
+    <!-- Select Basic -->
+    <fieldset>
+        <div class="form-group">
+        <label class="col-sm-4 control-label" for="type">Type</label>
+            <div class="col-sm-4 col-xs-12">
+                <select id="type" name="type" class="form-control" required>
+                <option selected="true" style="display:none;">Select type</option>
+                <option value="school">School (GCSE, Scottish Highers, A levels)</option>
+                <option value="university">University (Bachelors, Masters, PhD)</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- School form -->
+        <div hidden id="type_school">
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="school_name">School Name</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" class="form-control" id="school_name" name="school_name" placeholder="eg. Cambridge School">
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="grad_year">Graduation Year</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="month" class="form-control" id="grad_year" name="grad_year">
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="qualification">Qualification</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="qualification" name="qualification" class="form-control">
+                    <option selected="true" disabled style="display:none;">Select Qualification</option>
+                    <option value="year11">GCSE or similar</option>
+                    <option value="year12">AS levels or similar</option>
+                    <option value="year13">A levels or similar</option>
+                    </select>
+                    <span class="help-block">Qualification you have obtained during year 11, 12 and/or 13</span>
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="t_subjects">Number of subjects taken</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="t_subjects" name="t_subjects" class="form-control">
+                    <option selected="true" disabled style="display:none;">No. of subjects taken</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    </select>
+                </div>
+            </div>
+            <!-- Subjects data will go here, check js/qualificationForm.js -->
+            <div hidden id="subject_form_group"></div>
+        </div>
+        
+        <!-- University form -->
+        <div hidden id="type_university"></div>
+        
+        <!-- All the user errors will go here -->
+        <div hidden class="well custom-well-failure" id="qualification_form_errors"></div>
+        
+        <hr>
+        
+        <div class="text-center col-xs-12">
+            <input class="btn btn-primary" id="qualification_submit" type="submit" name="submit" value="Add"/>
+            &nbsp;
+            <button class="btn btn-danger" id="qualification_cancel">Cancel</button>
+        </div>
+    </fieldset>
+</form>
