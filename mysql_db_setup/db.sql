@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 29, 2016 at 09:11 PM
+-- Generation Time: Mar 29, 2016 at 10:47 PM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -408,8 +408,8 @@ CREATE TABLE `user_school_qualification` (
   `id` int(11) NOT NULL,
   `fk_user_id` int(11) NOT NULL,
   `school_name` text NOT NULL,
-  `grad_year` date NOT NULL,
-  `qualification` enum('GCSE or similar','AS levels or similar','A levels or similar','') NOT NULL
+  `grad_year` year(4) NOT NULL,
+  `qualification` enum('GCSE or similar','AS levels or similar','A levels or similar') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -417,7 +417,9 @@ CREATE TABLE `user_school_qualification` (
 --
 
 INSERT INTO `user_school_qualification` (`id`, `fk_user_id`, `school_name`, `grad_year`, `qualification`) VALUES
-(2, 2, 'Cambridge School', '0000-00-00', '');
+(7, 2, 'My school', 1998, 'GCSE or similar'),
+(8, 2, 'My school', 1999, 'AS levels or similar'),
+(9, 2, 'My school', 1999, 'A levels or similar');
 
 -- --------------------------------------------------------
 
@@ -436,7 +438,11 @@ CREATE TABLE `user_school_qualification_subjects` (
 --
 
 INSERT INTO `user_school_qualification_subjects` (`fk_user_school_qualification_id`, `fk_subject_id`, `score`) VALUES
-(2, 3, 50);
+(7, 3, 59),
+(7, 5, 60),
+(8, 3, 59),
+(8, 5, 60),
+(9, 9, 60);
 
 -- --------------------------------------------------------
 
@@ -552,14 +558,16 @@ ALTER TABLE `user_qualification`
 -- Indexes for table `user_school_qualification`
 --
 ALTER TABLE `user_school_qualification`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `fk_user_id_2` (`fk_user_id`,`qualification`),
+  ADD KEY `fk_user_id` (`fk_user_id`);
 
 --
 -- Indexes for table `user_school_qualification_subjects`
 --
 ALTER TABLE `user_school_qualification_subjects`
-  ADD UNIQUE KEY `fk_user_school_qualification_id` (`fk_user_school_qualification_id`),
-  ADD KEY `fk_subject_id` (`fk_subject_id`);
+  ADD UNIQUE KEY `fk_user_school_qualification_i_2` (`fk_user_school_qualification_id`,`fk_subject_id`),
+  ADD KEY `subject` (`fk_subject_id`);
 
 --
 -- Indexes for table `user_skill`
@@ -625,7 +633,7 @@ ALTER TABLE `user_qualification`
 -- AUTO_INCREMENT for table `user_school_qualification`
 --
 ALTER TABLE `user_school_qualification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user_skill`
 --
@@ -678,14 +686,14 @@ ALTER TABLE `user_qualification`
 -- Constraints for table `user_school_qualification`
 --
 ALTER TABLE `user_school_qualification`
-  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_id` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user_school_qualification_subjects`
 --
 ALTER TABLE `user_school_qualification_subjects`
-  ADD CONSTRAINT `fk_subject_id` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`),
-  ADD CONSTRAINT `fk_user_school_qualification_id` FOREIGN KEY (`fk_user_school_qualification_id`) REFERENCES `user_school_qualification` (`id`);
+  ADD CONSTRAINT `qualification` FOREIGN KEY (`fk_user_school_qualification_id`) REFERENCES `user_school_qualification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `subject` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_skill`

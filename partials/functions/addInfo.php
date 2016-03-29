@@ -8,13 +8,20 @@ $response = array();
 // Backend validation of data
 if(array_key_exists('table',$_POST)){
     $table = $_POST['table'];
+    
     if(preg_match('/^(user_school_qualification)$/',$table,$match)){
+        
         switch($table){
+            
             case 'user_school_qualification':
+                
                 if(array_key_exists('type',$_POST)){
                     $type = $_POST['type'];
+                    
                     switch($type){
+                        
                         case 'school':
+                            
                             if(array_key_exists('school_name',$_POST)
                                 && array_key_exists('grad_year',$_POST)
                                 && array_key_exists('qualification',$_POST)
@@ -25,7 +32,9 @@ if(array_key_exists('table',$_POST)){
                                     $t_subjects = $_POST['t_subjects'];
                                     // TODO: Add Regex check for each field
                                     $check = false;
+                                    
                                     for($i = 1; $i <= $t_subjects; $i++){
+                                        
                                         if(array_key_exists('subject_name_'.$i,$_POST) && array_key_exists('subject_score_'.$i,$_POST)){
                                             // TODO: Check if the subjects are not repeated and if they are not out of bounds
                                             $check = true;
@@ -35,6 +44,7 @@ if(array_key_exists('table',$_POST)){
                                             $check = false;
                                         }
                                     }
+                                    
                                     if($check){
                                         $response['status'] = 1;
                                     }else{
@@ -71,28 +81,42 @@ if(array_key_exists('table',$_POST)){
 if($response['status'] == 1){
     switch($table){
         case 'user_school_qualification':
-            $stmt_sql = 'INSERT INTO user_school_qualification (fk_user_id,school_name,grad_year,qualification) VALUES (?,?,?,?)';
-            $stmt_query = $mysqli->prepare($stmt_sql);
-            $stmt_query->bind_param('issi',$_SESSION['loggedin_user'],$school_name,$grad_year,$qualification);
-            if($stmt_query->execute()){
-                $sql = 'SELECT id FROM user_school_qualification WHERE fk_user_id = '.$_SESSION['loggedin_user'];
-                $result = $mysqli->query($sql);
-                $result = $result->fetch_assoc();
-                $usqid = $result['id'];
-                for($i = 0; $i < count($subject_names); $i++){
+            // TODO: Check if the qualification already exists in the table
+            $sql = 'SELECT id FROM user_school_qualification WHERE fk_user_id = '.$_SESSION['loggedin_user'].' AND qualification = '.$qualification;
+            $result = $mysqli->query($sql);
+            // if result is not there then proceed or else give error
+            if($result->num_rows == 0){    
+                $stmt_sql = 'INSERT INTO user_school_qualification (fk_user_id,school_name,grad_year,qualification) VALUES (?,?,?,?)';
+                $stmt_query = $mysqli->prepare($stmt_sql);
+                $stmt_query->bind_param('issi',$_SESSION['loggedin_user'],$school_name,$grad_year,$qualification);
+                
+                if($stmt_query->execute()){
+                    $sql = 'SELECT id FROM user_school_qualification WHERE fk_user_id = '.$_SESSION['loggedin_user'].' AND qualification = '.$qualification;
+                    $result = $mysqli->query($sql);
+                    $resultArr = $result->fetch_assoc();
+                    $usqid = $resultArr['id'];
                     $stmt_sql = 'INSERT INTO user_school_qualification_subjects (fk_user_school_qualification_id,fk_subject_id,score) VALUES (?,?,?)';
                     $stmt_query = $mysqli->prepare($stmt_sql);
-                    $stmt_query->bind_param('iii',$usqid,$subject_names[$i],$subject_scores[$i]);
-                    if($stmt_query->execute()){
-                        // do nothing
-                    }else{
-                        $response['status'] = 0;
-                        $response['error'] = 'Unable to process request (02)';
+                   
+                    for($i = 0; $i < $t_subjects; $i++){
+                        $stmt_query->bind_param('iii',$usqid,$subject_names[$i],$subject_scores[$i]);
+                   
+                        if($stmt_query->execute()){
+                            // do nothing
+                        }else{
+                            echo("Error description: " . mysqli_error($mysqli));
+                            $response['status'] = 0;
+                            $response['error'] = 'Unable to process request (02)';
+                        }
                     }
+                }else{
+                    echo("Error description: " . mysqli_error($mysqli));
+                    $response['status'] = 0;
+                    $response['error'] = 'Unable to process request (01)';
                 }
             }else{
                 $response['status'] = 0;
-                $response['error'] = 'Unable to process request (01)';
+                $response['error'] = 'An entry for similar qualification already exists';
             }
         break;
     }

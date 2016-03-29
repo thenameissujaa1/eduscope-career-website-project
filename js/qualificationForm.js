@@ -72,9 +72,10 @@ $(document).on('click',"#qualification_submit",function(){
     switch(type){
         case 'school':
             postData.push({"name":"table","value":"user_school_qualification"});
-            console.log(JSON.stringify(postData));
             $.post('partials/functions/addInfo.php', postData, function(data){
                 if(data.status != 0){
+                    if($('#qualification_form_errors').is(':visible'))
+                        $('#qualification_form_errors').hide(250);
                     $('#add_qualification').slideUp(250, function(){
                         $('#add_qualification').html('');
                     });
