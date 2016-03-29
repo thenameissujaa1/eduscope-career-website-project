@@ -25,8 +25,11 @@ $('#qualification_form #type').change(function() {
 
 $(document).ready(function(){
     $.get('partials/functions/getResource.php?type=subjects', function(data){
-        if(data.status != 0)
+        if(data.status != 0){
             subjects = data.subjects;
+        }else{
+            $('#qualification_form_errors').html(data.error).show(250); 
+        }  
     })
 })
 
@@ -45,13 +48,14 @@ $('#qualification_form #t_subjects').change(function(){
         html += '</select></div></div>';
         html += '<div class="form-group">';
         html += '<div class="col-sm-4 col-sm-offset-4 col-xs-12">';
-        html += '<input type="number" min="0" max="100" id="subject_score_'+i+'" name="subject_score_'+i+'" class="form-control" placeholder="Subject score">';
+        html += '<input type="number" min="0" max="100" id="subject_score_'+i+'" name="subject_score_'+i+'" class="form-control" placeholder="Subject score"></input>';
         html += '</div></div>';
     }
-    html += '<div class="col-sm-4"></div><div class="col-sm-4 col-xs-12"><span help-block">If your subject is not present, please choose a similar subject. If you have grades, then choose the avarage of the extremes of your grade, for e.g. A would be 85 (because extremes are 80~90)</span></div>';
+    html += '<div class="row"><div class="col-sm-4 col-sm-offset-4 col-xs-12"><span help-block">If your subject is not present, please choose a similar subject. If you have grades, then choose the avarage of the extremes of your grade, for e.g. A would be 85 (because extremes are 80~90)</span></div></div>';
     $('#subject_form_group').html(html);
     if($('#subject_form_group').is(':hidden'))
         $('#subject_form_group').show(250);
+    $( "#qualification_submit" ).prop( "disabled", false );
 })
 
 $(document).on('click',"#qualification_cancel",function(){
@@ -59,4 +63,27 @@ $(document).on('click',"#qualification_cancel",function(){
     $('#add_qualification').slideUp(250, function(){
         $('#add_qualification').html('');
     });
+})
+
+$(document).on('click',"#qualification_submit",function(){
+    event.preventDefault();
+    var type = $('#qualification_form #type').val();
+    var postData = $('#qualification_form').serializeArray();
+    switch(type){
+        case 'school':
+            postData.push({"name":"table","value":"user_school_qualification"});
+            console.log(JSON.stringify(postData));
+            $.post('partials/functions/addInfo.php', postData, function(data){
+                if(data.status != 0){
+                    $('#add_qualification').slideUp(250, function(){
+                        $('#add_qualification').html('');
+                    });
+                }else{
+                    $('#qualification_form_errors').html(data.error).show(250); 
+                }
+            })
+        break;
+        case 'university':
+        break;
+    }
 })
