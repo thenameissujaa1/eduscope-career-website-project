@@ -79,13 +79,16 @@ if(array_key_exists('table',$_POST)){
 
 // Insertion of data and update of user score
 if($response['status'] == 1){
+    
     switch($table){
+        
         case 'user_school_qualification':
             // TODO: Check if the qualification already exists in the table
             $sql = 'SELECT id FROM user_school_qualification WHERE fk_user_id = '.$_SESSION['loggedin_user'].' AND qualification = '.$qualification;
             $result = $mysqli->query($sql);
+            //echo $result->num_rows;
             // if result is not there then proceed or else give error
-            if($result->num_rows == 0){    
+            if($result->num_rows <= 0){    
                 $stmt_sql = 'INSERT INTO user_school_qualification (fk_user_id,school_name,grad_year,qualification) VALUES (?,?,?,?)';
                 $stmt_query = $mysqli->prepare($stmt_sql);
                 $stmt_query->bind_param('issi',$_SESSION['loggedin_user'],$school_name,$grad_year,$qualification);
@@ -102,15 +105,31 @@ if($response['status'] == 1){
                         $stmt_query->bind_param('iii',$usqid,$subject_names[$i],$subject_scores[$i]);
                    
                         if($stmt_query->execute()){
-                            // do nothing
+                            // Update the user scores for subjects
+                            $sql = 'SELECT * FROM user_subject_score WHERE fk_user_id ='.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject_names[$i];
+                            $result = $mysqli->query($sql);
+                            if($result->num_rows <= 0){
+                                // insert
+                                $sql = 'INSERT INTO user_subject_score (fk_user_id,fk_subject_id,score) VALUES ('.$_SESSION['loggedin_user'].','.$subject_names[$i].','.$subject_scores[$i].')';
+                                $mysqli->query($sql);
+                                // TODO add error handling
+                            }else{
+                                // update
+                                $resultArr = $result->fetch_assoc();
+                                $score = intval($resultArr['score']);
+                                $score += intval($subject_scores[$i]);
+                                $sql = 'UPDATE user_subject_score SET score = \''.$score.'\' WHERE fk_user_id = '.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject_names[$i];
+                                $mysqli->query($sql);
+                                // TODO add error handling
+                            }
                         }else{
-                            echo("Error description: " . mysqli_error($mysqli));
+                            //echo("Error description: " . mysqli_error($mysqli));
                             $response['status'] = 0;
                             $response['error'] = 'Unable to process request (02)';
                         }
                     }
                 }else{
-                    echo("Error description: " . mysqli_error($mysqli));
+                    //echo("Error description: " . mysqli_error($mysqli));
                     $response['status'] = 0;
                     $response['error'] = 'Unable to process request (01)';
                 }
