@@ -14,12 +14,16 @@ $('#qualification_form #type').change(function() {
                 $('#type_university').hide(250);
             if($('#type_school').is(':hidden'))
                 $('#type_school').show(250);
+            if($('#qualification_form_errors').is(':visible'))
+                $('#qualification_form_errors').html('').hide(250);
             break;
         case 'university':
             if($('#type_school').is(':visible'))
                 $('#type_school').hide(250);
             if($('#type_university').is(':hidden'))
                 $('#type_university').show(250);
+            if($('#qualification_form_errors').is(':visible'))
+                $('#qualification_form_errors').html('').hide(250);
             // load university in uni_name select form
             $.get('partials/functions/getResource.php?type=universities', function(data){
                 if(data.status != 0){
