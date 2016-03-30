@@ -11,11 +11,15 @@
     name                values                  description
     type                school, university      type of the table we want to insert data in, the server will read this first to determine which fields to look for
     school_name         text limit:50
-    grad_year           YYYY                    graduation year
-    qualification       year11, year12, year13
+    grad_year           YYYY                    graduation year (for both school and university)
+    qualification       1, 2, 3
     t_subjects          integer (1-10)          total subjects the student has taken
-    subject_name_n      text limit:50           Name of the subject, n is the nth element of that kind
-    subject_score_n     number limit:100        Score aquired
+    subject_name_%i     list of subjects from db   Name of the subject, %i is the nth element of that kind
+    subject_score_%i    number limit:100        Score aquired
+    uni_name            text limit:50
+    qualification       text limit:50
+    qualification_type  dropdown values: Bachelors, Masters, PhD
+    qualification_field list of subjects from db
     -->
     
     <!-- Select Basic -->
@@ -61,16 +65,16 @@
             <label class="col-sm-4 control-label" for="t_subjects">Number of subjects taken</label>
                 <div class="col-sm-4 col-xs-12">
                     <select id="t_subjects" name="t_subjects" class="form-control">
-                    <option selected="true" disabled style="display:none;">No. of subjects taken</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
+                        <option selected="true" disabled style="display:none;">No. of subjects taken</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
                     </select>
                 </div>
             </div>
@@ -79,7 +83,17 @@
         </div>
         
         <!-- University form -->
-        <div hidden id="type_university"></div>
+        <div hidden id="type_university">
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="uni_name">University</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="uni_name" name="uni_name" class="form-control">
+                        <option selected="true" disabled style="display:none;">Select a university</option>
+                    </select>
+                    <span class="help-block">Please contact us if you are unable to find your university</span>
+                </div>
+            </div>
+        </div>
         
         <div class="text-center col-xs-12">
             <hr>

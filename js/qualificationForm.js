@@ -4,6 +4,7 @@
 */
 
 var subjects = [];
+var unis = [];
 
 $('#qualification_form #type').change(function() {
     var type = $(this).val();
@@ -19,6 +20,18 @@ $('#qualification_form #type').change(function() {
                 $('#type_school').hide(250);
             if($('#type_university').is(':hidden'))
                 $('#type_university').show(250);
+            // load university in uni_name select form
+            $.get('partials/functions/getResource.php?type=universities', function(data){
+                if(data.status != 0){
+                    var html = '';
+                    for(i = 0; i < data.universities.length; i++){
+                        html += '<option value='+data.universities[i].id+'>'+data.universities[i].name+'</option>';
+                    }
+                    $('#uni_name').append(html);
+                }else{
+                    $('#qualification_form_errors').html(data.error).show(250);
+                }
+            })
             break;
     }
 });
