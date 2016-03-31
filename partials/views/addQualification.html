@@ -10,15 +10,21 @@
     The form details will be sent as POST data to the server in the following structure..
     name                values                  description
     type                school, university      type of the table we want to insert data in, the server will read this first to determine which fields to look for
+    > FOR SCHOOL
     school_name         text limit:50
     grad_year           YYYY                    graduation year (for both school and university)
     qualification       1, 2, 3
     t_subjects          integer (1-10)          total subjects the student has taken
     subject_name_%i     list of subjects from db   Name of the subject, %i is the nth element of that kind
     subject_score_%i    number limit:100        Score aquired
+    > FOR UNI
     uni_name            list limit:50
     qualification       list qualification
-    programme           list programme
+    grad_year           list programme
+    + ADDITIONAL FOR CUSTOM UNI
+    qual_name
+    qual_short_name
+    subject
      -->
     
     <!-- Select Basic -->
@@ -45,7 +51,7 @@
             <div class="form-group">
             <label class="col-sm-4 control-label" for="grad_year">Graduation Year</label>
                 <div class="col-sm-4 col-xs-12">
-                    <input type="number" class="form-control" id="grad_year" name="grad_year">
+                    <input type="number" class="form-control" id="grad_year" name="grad_year" placeholder="eg. 2010">
                 </div>
             </div>
             <div class="form-group">
@@ -96,7 +102,7 @@
             <div class="form-group">
             <label class="col-sm-4 control-label" for="grad_year">Graduation Year</label>
                 <div class="col-sm-4 col-xs-12">
-                    <input type="number" class="form-control" id="grad_year" name="grad_year">
+                    <input type="number" class="form-control" id="grad_year" name="grad_year" placeholder="eg. 2010">
                 </div>
             </div>
             <div class="form-group">
@@ -116,13 +122,21 @@
                         </select>
                     </div>
                 </div>
-                <hr>
+                <hr style="width: 50px">
                 <h3 class="text-center">..or add a qualification</h3>
                 <div class="form-group">
-                <label class="col-sm-4 control-label" for="uni_name">Qualification name</label>
-                    <div class="col-sm-4 col-xs-12">
-                        <input type="text" id="uni_name" name="uni_name" class="form-control">
-                    </div>
+                <label class="col-sm-4 control-label" for="qual_name">Qualification name</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" id="qual_name" name="qual_name" class="form-control" placeholder="eg. Bachelors in Computer Systems (Honors)">
+                    <span class="help-block">You can type the full name here such as Bachelors in x or Masters in y (Honors), etc.</span>
+                </div>
+                </div>
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="qual_short_name">short name</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" id="qual_short_name" name="qual_short_name" class="form-control" placeholder="eg. BSc in Computer Systems (Hons)">
+                    <span class="help-block">Short name for your qualification, e.g. BSc in a or BA in b or MSc in c</span>
+                </div>
                 </div>
                 <div class="form-group">
                 <label class="col-sm-4 control-label" for="subject">Qualification field</label>
@@ -130,6 +144,7 @@
                         <select type="text" id="subject" name="subject" class="form-control">
                             <option selected="true" disabled style="display:none;">field of your qualification</option>
                         </select>
+                        <span class="help-block">Note: Admins will verify the qualification added is real by cross checking with the university. if verficaition fails, the admins will remove this qualification.</span>
                     </div>
                 </div>
             </div>
