@@ -4,7 +4,6 @@
 */
 
 var subjects = [];
-var unis = [];
 
 $(document).ready(function(){
     $.get('partials/functions/getResource.php?type=subjects', function(data){
@@ -14,6 +13,7 @@ $(document).ready(function(){
             $('#qualification_form_errors').html(data.error).show(250); 
         }  
     })
+
 })
 
 $(document).on('change','#qualification_form #type',function() {
@@ -26,6 +26,7 @@ $(document).on('change','#qualification_form #type',function() {
                 $('#type_school').show(250);
             if($('#qualification_form_errors').is(':visible'))
                 $('#qualification_form_errors').html('').hide(250);
+            $( "#qualification_submit" ).prop( "disabled", true);
             break;
         case 'university':
             if($('#type_school').is(':visible'))
@@ -45,7 +46,21 @@ $(document).on('change','#qualification_form #type',function() {
                 }else{
                     $('#qualification_form_errors').html(data.error).show(250);
                 }
+                // render programme options
+                $.get('partials/functions/getResource.php?type=qualifications',function(data){
+                    if(data.status != 0){
+                        var html = '';
+                        console.log(data);
+                        for(i = 0; i < data.qualifications.length; i++){
+                            html += '<option value='+data.qualifications[i].id+'>'+data.qualifications[i].name+'</option>';
+                        }
+                        $('#type_university #qualification').append(html);
+                    }else{
+                        $('#qualification_form_errors').html(data.error).show(250); 
+                    }
+                })
             })
+            $( "#qualification_submit" ).prop( "disabled", false);
             break;
     }
 });

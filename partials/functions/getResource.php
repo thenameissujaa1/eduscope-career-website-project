@@ -47,7 +47,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(subjects|universities)$/", $type, $match)){
+    if(preg_match("/^(subjects|universities|qualifications)$/", $type, $match)){
         return true;
     }else{
         return false;
