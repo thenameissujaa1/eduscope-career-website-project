@@ -54,14 +54,14 @@ $(document).on('change','#qualification_form #type',function() {
 $(document).on('change','#qualification_form #qualification',function(){
     var q = $(this).val();
     if(q <= 1){
-        if($('#t_subjects_div').is(':visible')){
+        if($('#t_subjects_div').is(':visible'))
             $('#t_subjects_div').hide(250);
-        }
+        if($('#subject_form_group').is(':visible'))
+            $('#subject_form_group').hide(250);
         $( "#qualification_submit" ).prop( "disabled", false );
     }else{
-        if($('#t_subjects_div').is(':hidden')){
+        if($('#t_subjects_div').is(':hidden'))
             $('#t_subjects_div').show(250);
-        }
         $( "#qualification_submit" ).prop( "disabled", true );
     }
 })
