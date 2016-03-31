@@ -27,16 +27,23 @@ if(checkType($_GET['type']) == false){
     $response['status'] = 1;
     
     $sql = 'SELECT * FROM '.$type;
+    
+    if($type == "qualification_types"){
+        $sql = 'select type from qualifications group by type';
+    }
+    
     $result = $mysqli->query($sql);
     $i = 0;
     while($row = $result->fetch_assoc()){
         $response[$type][$i] = $row;
         $i++;
     }
+    
+    $mysqli->close();
 }
 
 send_response($response);
-$mysqli->close();
+
 
 /*  This function takes a response and simply echos it for the app.js to read
     $data : Array - array $response from the php file 
@@ -47,7 +54,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(subjects|universities)$/", $type, $match)){
+    if(preg_match("/^(subjects|universities|qualifications|qualification_types)$/", $type, $match)){
         return true;
     }else{
         return false;

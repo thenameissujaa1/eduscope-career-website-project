@@ -4,7 +4,6 @@
 */
 
 var subjects = [];
-var unis = [];
 
 $(document).ready(function(){
     $.get('partials/functions/getResource.php?type=subjects', function(data){
@@ -14,6 +13,7 @@ $(document).ready(function(){
             $('#qualification_form_errors').html(data.error).show(250); 
         }  
     })
+
 })
 
 $(document).on('change','#qualification_form #type',function() {
@@ -26,6 +26,7 @@ $(document).on('change','#qualification_form #type',function() {
                 $('#type_school').show(250);
             if($('#qualification_form_errors').is(':visible'))
                 $('#qualification_form_errors').html('').hide(250);
+            $( "#qualification_submit" ).prop( "disabled", true);
             break;
         case 'university':
             if($('#type_school').is(':visible'))
@@ -37,21 +38,54 @@ $(document).on('change','#qualification_form #type',function() {
             // load university in uni_name select form
             $.get('partials/functions/getResource.php?type=universities', function(data){
                 if(data.status != 0){
-                    var html = '';
+                    var html = '<option selected="true" disabled style="display:none;">Select a university</option>';
                     for(i = 0; i < data.universities.length; i++){
                         html += '<option value='+data.universities[i].id+'>'+data.universities[i].name+'</option>';
                     }
-                    $('#uni_name').append(html);
+                    $('#uni_name').html(html);
                 }else{
                     $('#qualification_form_errors').html(data.error).show(250);
                 }
+                // render qualification types
+                $.get('partials/functions/getResource.php?type=qualification_types',function(data){
+                    if(data.status != 0){
+                        var html = '<option selected="true" disabled style="display:none;">Choose a qualification type</option>';
+                        for(i = 0; i < data.qualification_types.length; i++){
+                            html += '<option value="'+data.qualification_types[i].type+'">'+data.qualification_types[i].type+'</option>';
+                        }
+                        $('#type_university #type').html(html);
+                    }else{
+                        $('#qualification_form_errors').html(data.error).show(250); 
+                    }
+                })
             })
+            $( "#qualification_submit" ).prop( "disabled", false);
             break;
     }
 });
 
+// Render the qualifications after selection of a type.
+$(document).on('change','#type_university #type', function(){
+    var type = $(this).val();
+        // Render qualifications
+        $.get('partials/functions/getResource.php?type=qualifications',function(data){
+            if(data.status != 0){
+                var html = '<option selected="true" disabled style="display:none;">Select your qualification</option>';
+                for(i = 0; i < data.qualifications.length; i++){
+                    if(data.qualifications[i].type === type)
+                        html += '<option value="'+data.qualifications[i].id+'">'+data.qualifications[i].name+'</option>';
+                }
+                $('#type_university #qualification').html(html);
+            }else{
+                $('#qualification_form_errors').html(data.error).show(250); 
+            }
+            if($('#qualification_select').is(':hidden'))
+            $('#qualification_select').show(250);
+        })
+})
+
 // If it's GCSE/S4 then no need of taking the subjects
-$(document).on('change','#qualification_form #qualification',function(){
+$(document).on('change','#qualification_form #type_school #qualification',function(){
     var q = $(this).val();
     if(q <= 1){
         if($('#t_subjects_div').is(':visible'))
@@ -118,6 +152,18 @@ $(document).on('click',"#qualification_submit",function(){
             })
         break;
         case 'university':
+            postData.push({"name":"table","value":"user_uni_qualification"});
+            $.post('partials/functions/addInfo.php', postData, function(data){
+                if(data.status != 0){ 
+                    if($('#qualification_form_errors').is(':visible'))
+                        $('#qualification_form_errors').hide(250);
+                    $('#add_qualification').slideUp(250, function(){
+                        $('#add_qualification').html('');
+                    });
+                }else{
+                    $('#qualification_form_errors').html(data.error).show(250); 
+                }
+            })
         break;
     }
 })

@@ -16,10 +16,8 @@
     t_subjects          integer (1-10)          total subjects the student has taken
     subject_name_%i     list of subjects from db   Name of the subject, %i is the nth element of that kind
     subject_score_%i    number limit:100        Score aquired
-    uni_name            text limit:50
-    qualification       text limit:50
-    qualification_type  dropdown values: Bachelors, Masters, PhD
-    qualification_field list of subjects from db
+    uni_name            list limit:50
+    qualification       list qualification
     -->
     
     <!-- Select Basic -->
@@ -92,7 +90,29 @@
                     <select id="uni_name" name="uni_name" class="form-control">
                         <option selected="true" disabled style="display:none;">Select a university</option>
                     </select>
-                    <span class="help-block">Please contact us if you are unable to find your university</span>
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="grad_year">Graduation Year</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="number" class="form-control" id="grad_year" name="grad_year">
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-4 control-label" for="type">Type</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="type" name="type" class="form-control">
+                        <option selected="true" disabled style="display:none;">Choose a qualification type</option>
+                    </select>
+                </div>
+            </div>
+            <div hidden class="form-group" id="qualification_select">
+            <label class="col-sm-4 control-label" for="qualification">Qualification</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="qualification" name="qualification" class="form-control">
+                        <option selected="true" disabled style="display:none;">Select your qualification</option>
+                    </select>
+                    <span class="help-block">Please contact us if you are unable to find your university and/or your qualification</span>
                 </div>
             </div>
         </div>
