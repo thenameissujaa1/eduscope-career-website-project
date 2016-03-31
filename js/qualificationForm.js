@@ -47,14 +47,14 @@ $(document).on('change','#qualification_form #type',function() {
                     $('#qualification_form_errors').html(data.error).show(250);
                 }
                // render programme options
-                $.get('partials/functions/getResource.php?type=qualifications',function(data){
+                $.get('partials/functions/getResource.php?type=qualification_types',function(data){
                     if(data.status != 0){
-                        var html = '';
-                        console.log(data);
-                        for(i = 0; i < data.qualifications.length; i++){
-                            html += '<option value='+data.qualifications[i].id+'>'+data.qualifications[i].name+'</option>';
+                        var html = '<option selected="true" disabled style="display:none;">Choose a qualification type</option>';
+                        var types = data.qualification_types;
+                        for(i = 0; i < types.length; i++){
+                            html += '<option value='+types[i].type+'>'+types[i].type+'</option>';
                         }
-                        $('#type_university #qualification').append(html);
+                        $('#type_university #type').html(html);
                     }else{
                         $('#qualification_form_errors').html(data.error).show(250); 
                     }
@@ -77,6 +77,11 @@ $(document).on('change','#type_university #type', function(){
                         html += '<option value="'+data.qualifications[i].id+'">'+data.qualifications[i].name+'</option>';
                 }
                 $('#type_university #qualification').html(html);
+                html = '<option selected="true" disabled style="display:none;">field of your qualification</option>'
+                for(i = 0; i < subjects.length; i++){
+                    html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+'</option>';
+                }
+                $('#type_university #subject').html(html);
             }else{
                 $('#qualification_form_errors').html(data.error).show(250); 
             }

@@ -107,22 +107,30 @@
                     </select>
                 </div>
             </div>
-            <div hidden class="form-group" id="qualification_select">
-            <label class="col-sm-4 control-label" for="qualification">Qualification</label>
-                <div class="col-sm-4 col-xs-12">
-                    <select id="qualification" name="qualification" class="form-control">
-                        <option selected="true" disabled style="display:none;">Select your qualification</option>
-                    </select>
-                    <span class="help-block">Please contact us if you are unable to find your university and/or your qualification</span>
+            <div hidden id="qualification_select">
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="qualification">Qualification</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <select id="qualification" name="qualification" class="form-control">
+                            <option selected="true" disabled style="display:none;">Select your qualification</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-            <label class="col-sm-4 control-label" for="qualification">Qualification</label>
-                <div class="col-sm-4 col-xs-12">
-                    <select id="qualification" name="qualification" class="form-control">
-                        <option selected="true" disabled style="display:none;">Select your programme</option>
-                    </select>
-                    <span class="help-block">Please contact us if you are unable to find your programme</span>
+                <hr>
+                <h3 class="text-center">..or add a qualification</h3>
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="uni_name">Qualification name</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <input type="text" id="uni_name" name="uni_name" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                <label class="col-sm-4 control-label" for="subject">Qualification field</label>
+                    <div class="col-sm-4 col-xs-12">
+                        <select type="text" id="subject" name="subject" class="form-control">
+                            <option selected="true" disabled style="display:none;">field of your qualification</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
