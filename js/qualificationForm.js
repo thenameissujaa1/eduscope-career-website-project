@@ -6,7 +6,17 @@
 var subjects = [];
 var unis = [];
 
-$('#qualification_form #type').change(function() {
+$(document).ready(function(){
+    $.get('partials/functions/getResource.php?type=subjects', function(data){
+        if(data.status != 0){
+            subjects = data.subjects;
+        }else{
+            $('#qualification_form_errors').html(data.error).show(250); 
+        }  
+    })
+})
+
+$(document).on('change','#qualification_form #type',function() {
     var type = $(this).val();
     switch (type) {
         case 'school':
@@ -40,17 +50,23 @@ $('#qualification_form #type').change(function() {
     }
 });
 
-$(document).ready(function(){
-    $.get('partials/functions/getResource.php?type=subjects', function(data){
-        if(data.status != 0){
-            subjects = data.subjects;
-        }else{
-            $('#qualification_form_errors').html(data.error).show(250); 
-        }  
-    })
+// If it's GCSE/S4 then no need of taking the subjects
+$(document).on('change','#qualification_form #qualification',function(){
+    var q = $(this).val();
+    if(q <= 1){
+        if($('#t_subjects_div').is(':visible')){
+            $('#t_subjects_div').hide(250);
+        }
+        $( "#qualification_submit" ).prop( "disabled", false );
+    }else{
+        if($('#t_subjects_div').is(':hidden')){
+            $('#t_subjects_div').show(250);
+        }
+        $( "#qualification_submit" ).prop( "disabled", true );
+    }
 })
 
-$('#qualification_form #t_subjects').change(function(){
+$(document).on('change','#qualification_form #t_subjects',function(){
     var t = $(this).val();
     var html = '';
     for(var i = 1; i <= t; i++){
@@ -65,7 +81,7 @@ $('#qualification_form #t_subjects').change(function(){
         html += '</select></div></div>';
         html += '<div class="form-group">';
         html += '<div class="col-sm-4 col-sm-offset-4 col-xs-12">';
-        html += '<input type="number" min="0" max="100" id="subject_score_'+i+'" name="subject_score_'+i+'" class="form-control" placeholder="Subject score"></input>';
+        html += '<input type="text" id="subject_score_'+i+'" name="subject_score_'+i+'" class="form-control" placeholder="Subject grade"></input>';
         html += '</div></div>';
     }
     html += '<div class="row"><div class="col-sm-4 col-sm-offset-4 col-xs-12"><span help-block">If your subject is not present, please choose a similar subject. If you have grades, then choose the avarage of the extremes of your grade, for e.g. A would be 85 (because extremes are 80~90)</span></div></div>';
