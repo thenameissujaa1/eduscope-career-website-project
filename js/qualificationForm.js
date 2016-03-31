@@ -46,14 +46,15 @@ $(document).on('change','#qualification_form #type',function() {
                 }else{
                     $('#qualification_form_errors').html(data.error).show(250);
                 }
-                // render qualification types
-                $.get('partials/functions/getResource.php?type=qualification_types',function(data){
+               // render programme options
+                $.get('partials/functions/getResource.php?type=qualifications',function(data){
                     if(data.status != 0){
-                        var html = '<option selected="true" disabled style="display:none;">Choose a qualification type</option>';
-                        for(i = 0; i < data.qualification_types.length; i++){
-                            html += '<option value="'+data.qualification_types[i].type+'">'+data.qualification_types[i].type+'</option>';
+                        var html = '';
+                        console.log(data);
+                        for(i = 0; i < data.qualifications.length; i++){
+                            html += '<option value='+data.qualifications[i].id+'>'+data.qualifications[i].name+'</option>';
                         }
-                        $('#type_university #type').html(html);
+                        $('#type_university #qualification').append(html);
                     }else{
                         $('#qualification_form_errors').html(data.error).show(250); 
                     }
