@@ -54,7 +54,7 @@ $(document).on('change','#qualification_form #type',function() {
                         for(i = 0; i < types.length; i++){
                             html += '<option value='+types[i].type+'>'+types[i].type+'</option>';
                         }
-                        $('#type_university #type').html(html);
+                        $('#type_university #qual_type').html(html);
                     }else{
                         $('#qualification_form_errors').html(data.error).show(250); 
                     }
@@ -66,7 +66,7 @@ $(document).on('change','#qualification_form #type',function() {
 });
 
 // Render the qualifications after selection of a type.
-$(document).on('change','#type_university #type', function(){
+$(document).on('change','#type_university #qual_type', function(){
     var type = $(this).val();
         // Render qualifications
         $.get('partials/functions/getResource.php?type=qualifications',function(data){
