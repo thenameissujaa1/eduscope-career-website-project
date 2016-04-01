@@ -22,6 +22,8 @@
                 </div>
                 <!--Serach results will be displayed here-->
                 <div class="list-group custom-margin-top-20" hidden id="searchResults"></div>
+                <!--All errors go here after submitting the search-->
+                <div class="well custom-margin-top-20" hidden id="resourcesSearch_validation_errors"></div>
                 <!--
                 <input type="hidden" name="search_param" value="all" id="search_param">         
                 <input type="text" class="form-control" name="x" placeholder="Search term...">
@@ -164,7 +166,7 @@ $(document).ready(function(e){
         $('.input-group #search_param').val(param);
     });
 });
-<!--ADD search fuction in js-->
+
 $(document).ready(function(){
     initalize_resourcesSearchValidator();
 });

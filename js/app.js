@@ -255,6 +255,53 @@ function initalize_userSearchValidator(){
     })
 }
 
+
+/* ~~~~~~~~~~~~~~~~~~~~~ RESOURCES PAGE ~~~~~~~~~~~~~~~~~~~~~~ */
+
+// ON CLICK SEARCH AND SEARCH VALIDATION
+//Change Backend functions
+function initalize_resourcesSearchValidator(){
+    var resourcesSearch_validator = new FormValidator('resourcesSearch', [{
+        name: 'query',
+        display: 'Query',
+        rules: 'required|min_length[3]|max_length[25]'
+    }],function(errors, event){
+        if(errors.length > 0){
+            var errorString = '';
+            for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                errorString += errors[i].message + '<br/>';
+            }
+            $('#searchResults').hide(250).html('');
+            $('#userSearch_validation_errors').show(250).addClass('custom-well-failure').html(errorString);
+        }else{
+            event.preventDefault(); // Prevent submitting form
+            var postData = $('#userSearch').serializeArray(); // Aquire form data in a JSON
+            if($('#resourcesSearch_validation_errors').hasClass('custom-well-failure'))
+                $('#resourcesSearch_validation_errors').hide(250).html(''); // Hide errors if they are visible
+            //Change from here
+            $.post('partials/functions/Search.php?type=user',postData,function(data){
+                dataString = '';
+                if(data.status == 1){
+                    // The html for each object will be defined in data string.
+                    if('user' in data){
+                        for(i = 0; i < data.user.length; i++){
+                            dataString += '<a id="viewProfile_btn" href="#" data-user="'+data.user[i].user_username+'" class="list-group-item">'+data.user[i].user_username+'</a>';
+                        }
+                    }else{
+                        dataString = 'Unable to find matching result';
+                    }
+                }else{
+                    dataString = 'Invalid query';
+                }
+                // Display the html
+                $('#searchResults').show(250).html(dataString);
+            })
+        }
+    })
+}
+
+
+
 // On click of a profile (this will open profile_viewer.html)
 $(document).on('click','#viewProfile_btn', function(){
     if($('#searchResults').is(':visible'))
