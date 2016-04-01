@@ -7,35 +7,28 @@
 </div>
 <br>
      <div class="container">
-    <div class="row">    
-        <div class="col-xs-8 col-xs-offset-2">
-            <div class="input-group">
-                <div class="input-group-btn search-panel">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span id="search_concept">Filter by</span> <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                      <form action="">
-<li><input type="checkbox" name="casestudies" value="jobs" > Case Studies <li> <a href="#view_c"></a></li>
-<li role="separator" class="divider"></li>
-<li><input type="checkbox" name="fields" value="fields" > Fields <li> <a href="#view_f"></a></li>
-<li role="separator" class="divider"></li>
-<li><input type="checkbox" name="jobs" value="jobs" > Jobs <li> <a href="#view_j"></a></li>
-<li role="separator" class="divider"></li>
-<li><input type="checkbox" name="programmes" value="programmes" > Programmes <li> <a href="#view_p"></a></li>
-<li role="separator" class="divider"></li>
-<li><input type="checkbox" name="universities" value="universities" > Universities <li> <a href="#view_u"></a></li>
-<li role="separator" class="divider"></li>
-
-                                                            
-                                        </form>                   <!-- END Loop -->
-                    </ul>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <!--Search bar-->
+                <form name="resourcesSearch" id="resourcesSearch" enctype="multipart/form-data">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="query" placeholder="Search by keyword">
+                        <span class="input-group-btn">
+                                <button id="resourceSearch_submit" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </form>                  
                 </div>
+                <!--Serach results will be displayed here-->
+                <div class="list-group custom-margin-top-20" hidden id="searchResults"></div>
+                <!--
                 <input type="hidden" name="search_param" value="all" id="search_param">         
                 <input type="text" class="form-control" name="x" placeholder="Search term...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
+            -->
             </div>
         </div>
     </div>
@@ -171,5 +164,10 @@ $(document).ready(function(e){
         $('.input-group #search_param').val(param);
     });
 });
+<!--ADD search fuction in js-->
+$(document).ready(function(){
+    initalize_resourcesSearchValidator();
+});
+
 </script>
 
