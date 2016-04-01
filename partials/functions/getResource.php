@@ -32,11 +32,24 @@ if(checkType($_GET['type']) == false){
         $sql = 'select type from qualifications group by type';
     }
     
+    if($type == 'case_studies'){
+        $sql = 'select case_studies.*,jobs.title as job_title,qualifications.short_title as qualification FROM case_studies,jobs,qualifications where jobs.id = fk_job_id and qualifications.id = fk_qualification_id';
+    }
+    
+    if($type = 'jobs'){
+        $sql = 'select jobs.*,subject_name from jobs,subjects where subject_id = fk_subject_id';
+    }
+    
     $result = $mysqli->query($sql);
-    $i = 0;
-    while($row = $result->fetch_assoc()){
-        $response[$type][$i] = $row;
-        $i++;
+    if($result != false){
+        $i = 0;
+        while($row = $result->fetch_assoc()){
+            $response[$type][$i] = $row;
+            $i++;
+        }
+    }else{
+        $response['status'] = 0;
+        $response['error'] = 'Sorry we couldn\'t handle your request';
     }
     
     $mysqli->close();
@@ -54,7 +67,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(subjects|universities|qualifications|qualification_types)$/", $type, $match)){
+    if(preg_match("/^(subjects|universities|qualifications|qualification_types|jobs|case_studies)$/", $type, $match)){
        return true;
     }else{
         return false;
