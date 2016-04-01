@@ -282,9 +282,9 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
             send_response($response);
             break;
         case 'myquals':
-            $sql_school = 'SELECT school_name,grad_year,qualification FROM user_school_qualification WHERE fk_user_id = '.$user_id;
-            $sql_school_subs = 'SELECT qualification,subject_name,score FROM user_school_qualification,user_school_qualification_subjects,subjects WHERE user_school_qualification.id = fk_user_school_qualification_id AND subject_id = fk_subject_id AND fk_user_id = '.$user_id;
-            $sql_uni = 'SELECT universities.name as uni_name,qualifications.name,qualifications.short_title,qualifications.type,subject_name,grad_year FROM user_uni_qualification,universities,qualifications,subjects WHERE subject_id = fk_subject_id AND universities.id = fk_uni_id AND qualifications.id = fk_qualification_id AND fk_user_id = '.$user_id;
+            $sql_school = 'SELECT school_name,id,grad_year,qualification FROM user_school_qualification WHERE fk_user_id = '.$user_id;
+            $sql_school_subs = 'SELECT fk_user_school_qualification_id as school_qualification_id,fk_subject_id as subject_id,qualification,subject_name,score FROM user_school_qualification,user_school_qualification_subjects,subjects WHERE user_school_qualification.id = fk_user_school_qualification_id AND subject_id = fk_subject_id AND fk_user_id = '.$user_id;
+            $sql_uni = 'SELECT universities.id as uni_id, universities.name as uni_name,qualifications.id as qual_id, qualifications.name,qualifications.short_title,qualifications.type,subject_name,grad_year FROM user_uni_qualification,universities,qualifications,subjects WHERE subject_id = fk_subject_id AND universities.id = fk_uni_id AND qualifications.id = fk_qualification_id AND fk_user_id = '.$user_id;
             $result_school = $mysqli->query($sql_school);
             $result_school_subs = $mysqli->query($sql_school_subs);
             $result_uni = $mysqli->query($sql_uni);
@@ -324,7 +324,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
             }
         break;
         case 'myjobs':
-            $sql = 'select company_name,company_location,start_year,end_year,jobs.title,subject_name from jobs,subjects,user_jobs where jobs.id = fk_job_id and subject_id = fk_subject_id and fk_user_id = '.$user_id;
+            $sql = 'select fk_job_id as job_id,company_name,company_location,start_year,end_year,jobs.title,subject_name from jobs,subjects,user_jobs where jobs.id = fk_job_id and subject_id = fk_subject_id and fk_user_id = '.$user_id;
             $result = $mysqli->query($sql);
             if($result != false){
                 $i = 0;

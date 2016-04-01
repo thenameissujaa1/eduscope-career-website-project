@@ -131,7 +131,7 @@ function updateQualifications(){
                     html += '<div class="caption text-center">';
                     html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
                     html += '<h3>'+school[i].qualification+'</h3><h5>'+school[i].grad_year+'</h5>';
-                    html += '<button class="btn btn-primary btn-lg" data-school="'+i+'">View</button>';
+                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-school="'+i+'">View</button>';
                     html += '</div></div></div>';
                 }
                 for(i = 0; i < uni.length; i++){
@@ -140,7 +140,7 @@ function updateQualifications(){
                     html += '<div class="caption text-center">';
                     html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
                     html += '<h3>'+uni[i].short_title+'</h3><h5>'+uni[i].grad_year+'</h5><h4>'+uni[i].subject_name+'</h4>';
-                    html += '<button class="btn btn-primary btn-lg" data-uni="'+i+'">View</button>';
+                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-uni="'+i+'">View</button>';
                     html += '</div></div></div>';
                 }
                 for(i = 0; i < jobs.length; i++){
@@ -149,16 +149,82 @@ function updateQualifications(){
                     html += '<div class="caption text-center">';
                     html += '<h2><span class="glyphicon glyphicon-briefcase"></span></h2>';
                     html += '<h3>'+jobs[i].title+'</h3><h5>'+jobs[i].start_year+'-'+jobs[i].end_year+'</h5><h4>'+jobs[i].subject_name+'</h4>';
-                    html += '<button class="btn btn-primary btn-lg" data-job="'+i+'">View</button>';
+                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-job="'+i+'">View</button>';
                     html += '</div></div></div>';
                 }
                 $('#manage_qualifications #qualification_list').html(html);
             })
         }else{
-            // error msg.
+            $('#manage_qualifications #qualification_error').html(data.error);
         }
     })
 }
+
+// on click of open_qualification_viewer
+$(document).on('click','#open_qualification_viewer',function(){
+    // n is the nth element of type t (school/uni/job)
+    n = $(this).data('school');
+    t = 'school';
+    if(n === undefined){
+        n = $(this).data('uni');
+        t = 'uni';
+        if(n === undefined){
+            n = $(this).data('job');
+            t = 'job';
+        }
+    }
+    if($('#qualification_viewer').is(':visible'))
+        $('#qualification_viewer').slideUp(250);
+    $('#qualification_viewer').promise().done(function(){
+        $('#qualification_viewer').load('partials/views/qualificationViewer.html',function(){
+        switch(t){
+            case 'school':
+                $('#qv_heading').html(school[n].qualification);
+                $('#qv_heading_2').html(school[n].school_name);
+                $('#qv_date').html(school[n].grad_year);
+                if(school[n].qualification != 'GCSE/S4'){
+                    var table = '<br><table class="table table-hover table-bordered">';
+                    table += '<thead><td>Subject</td><td>Score</td></thead><tbody>';
+                    for(i = 0; i < school_subs.length; i++)
+                        table += '<tr><td>'+school_subs[i].subject_name+'</td><td>'+school_subs[i].score+'</td></tr>';
+                    table += '</tbody></table>';
+                    $('#qv_marksheet').html(table);
+                }
+            break;
+            case 'uni':
+                $('#qv_heading').html(uni[n].short_title);
+                $('#qv_heading_2').html(uni[n].name);
+                $('#qv_date').html(uni[n].uni_name+' '+uni[n].grad_year);
+                $('#qv_message').html(uni[n].subject_name);
+            break;
+            case 'job':
+                $('#qv_heading').html(jobs[n].title);
+                $('#qv_heading_2').html(jobs[n].company_name+', '+jobs[n].company_location);
+                $('#qv_date').html(jobs[n].start_year+'-'+jobs[n].end_year);
+                $('#qv_message').html(jobs[n].subject_name);
+            break;
+        }
+        if($('#qualification_viewer').is(':hidden'))
+            $('#qualification_viewer').slideDown(250);  
+        });
+    })
+})
+
+// on close of the viewer
+$(document).on('click','#close_qualification_viewer',function(){
+    $('#qualification_viewer').slideUp(250, function(){
+        $(this).html('');
+    });
+})
+
+// on delete of a qualification
+$(document).on('click','#delete_qualification',function(){
+    /*
+        select the required ids based on current n and t and post the data
+    */
+    
+})
+
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
         
