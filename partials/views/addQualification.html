@@ -19,9 +19,11 @@
     subject_score_%i    number limit:100        Score aquired
     > FOR UNI
     uni_name            list limit:50
-    qualification       list qualification
-    grad_year           list programme
-    + ADDITIONAL FOR CUSTOM UNI
+    grad_year
+    qual_type
+    : for standard qualification..
+    qualification       list qualification // This wont be there if it's a custom uni'
+    : for custom qualifications
     qual_name
     qual_short_name
     subject

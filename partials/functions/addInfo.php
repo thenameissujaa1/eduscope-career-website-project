@@ -9,7 +9,7 @@ $response = array();
 if(array_key_exists('table',$_POST)){
     $table = $_POST['table'];
     
-    if(preg_match('/^(user_school_qualification)$/',$table,$match)){
+    if(preg_match('/^(user_school_qualification|user_uni_qualification)$/',$table,$match)){
         
         switch($table){
             
@@ -71,6 +71,31 @@ if(array_key_exists('table',$_POST)){
                     $response['status'] = 0;
                     $response['error'] = "Error processing request (03)";
                 }
+            break;
+            case 'user_uni_qualification':
+                if(array_key_exists('uni_name',$_POST)
+                    && array_key_exists('grad_year',$_POST)){
+                        $uni_name = $_POST['uni_name'];
+                        $grad_year = $_POST['grad_year'];
+                        if(array_key_exists('qualification',$_POST)){
+                            $response['status'] = 1;
+                            $qualification = $_POST['qualification'];
+                        }else{
+                            if(array_key_exists('qual_name',$_POST)
+                                && array_key_exists('qual_short_name',$_POST)
+                                && array_key_exists('subject',$_POST)
+                                && array_key_exists('qual_type',$_POST)){
+                                    $response['status'] = 1;
+                                    $qual_name = $_POST['qual_name'];
+                                    $qual_short_name = $_POST['qual_short_name'];
+                                    $subject = $_POST['subject'];
+                                    $qual_type = $_POST['qual_type'];
+                                }else{
+                                    $response['status'] = 0;
+                                    $response['error'] = 'Incorrect fields for university qualifications';
+                                }
+                        }
+                    }
             break;
         }//switch end
     }else{
@@ -152,6 +177,66 @@ if($response['status'] == 1){
                 $response['status'] = 0;
                 $response['error'] = 'An entry for similar qualification already exists';
             }
+        break;
+        
+        case 'user_uni_qualification':
+            
+            if(array_key_exists('qualification',$_POST) == false){
+                $stmt_sql = 'INSERT INTO qualifications (name,short_title,type,fk_subject_id) VALUES (?,?,?,?)';
+                $stmt_query = $mysqli->prepare($stmt_sql);
+                $stmt_query->bind_param('sssi',$qual_name,$qual_short_name,$qual_type,$subject);
+                
+                if($stmt_query->execute() == false){
+                    $response['status'] = 0;
+                    $response['error'] = 'There was an error saving your qualification'; 
+                }else{
+                    $sql = 'SELECT * FROM qualifications WHERE name = "'.$qual_name.'" AND type = "'.$qual_type.'" AND fk_subject_id = '.$subject.' AND short_title = "'.$qual_short_name.'"';
+                    $result = $mysqli->query($sql);
+                    
+                    if($result == false){
+                        $response['status'] = 0;
+                        $response['error'] = 'There was an error saving your qualification (1)';
+                    }else{
+                        $resultArr = $result->fetch_assoc();
+                        $qualification = $resultArr['id'];
+                    }
+                }
+            }
+            // TODO DO a regex check on all fields related to university qualification
+            if($qualification > 1){
+                $stmt_sql = 'INSERT INTO user_uni_qualification (fk_user_id,fk_qualification_id,fk_uni_id,grad_year) VALUES (?,?,?,?)';
+                $stmt_query = $mysqli->prepare($stmt_sql);
+                $stmt_query->bind_param('iiii',$_SESSION['loggedin_user'],$qualification,$uni_name,$grad_year);
+                
+                if($stmt_query->execute() == false){
+                    $response['status'] = 0;
+                    $response['error'] = 'There was a problem adding your qualification, please try again.';
+                    echo mysqli_error($mysqli);
+                }else{
+                    $sql = 'SELECT fk_subject_id FROM qualifications WHERE id = '.$qualification;
+                    $result = $mysqli->query($sql);
+                    
+                    if($result == false){
+                        $response['status'] = 0;
+                        $response['error'] = 'There was an error updating one or more fields';
+                    }else{
+                        $resultArr = $result->fetch_assoc();
+                        $subject = $resultArr['fk_subject_id'];
+                        $sql = 'UPDATE user_subject_score SET universities = universities+1 WHERE fk_user_id ='.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject;
+                        
+                        if($mysqli->query($sql) == false){
+                            $sql = 'INSERT INTO user_subject_score (fk_user_id,fk_subject_id,universities) VALUES ('.$_SESSION['loggedin_user'].','.$subject.',1)';
+                            if($mysqli->query($sql) == false){
+                                $response['status'] = 0;
+                                $response['error'] = 'There was an error updating one or more fields (01)';
+                            }
+                        }
+                    }
+                }
+            }else{
+                $response['status'] = 0;
+                $response['error'] = 'There was an error updating your info';   
+            }//./qualification > 1
         break;
     }
 }
