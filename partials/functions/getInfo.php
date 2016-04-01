@@ -40,7 +40,7 @@ session_start();
         0 means user is sending request to self
     relation : <string> | The message to be sent depending on the relation, 3 cases user sends to themselves, or the other user is already a mentor, or the other
     user's request is pending, or the sending user is not linked with the receiving user.
-    oppositeRelationStatus : (0|1|2) |
+    oppositeRelationStatus : (0|1|2) | 
         0 : user is not related to them
         1 : user is the user who they mentor
         2 : user is a user who would like to be mentored and has sent a request
@@ -85,9 +85,32 @@ session_start();
     RESPONSE:
     status: (0|1) | 0 for failure and 1 for success
     school: <array> | An array of school qualifications
+        - school_name
+        - grad_year
+        - qualification
     school_subs: <array> | An array of subjects the user did in school
+        - qualification
+        - subject_name
+        - score
     uni: <array> | An array of university qualifications
+        - uni_name
+        - name | name of the qualification
+        - short_title
+        - type
+        - subject_name
+        - grad_year
     To access the ith element in JS, use data.school[i].id or data.uni[i].id
+    
+    TYPE:myscores
+    This will give score for the user's subjects to know where his acadmeic strength is
+    URL: getInfo.php?type=myscores
+    RESPONSE:
+    status: (0|1) | 0 for failure and 1 for success
+    scores: <array> | An array of scores for the subjects including most of the data
+        - subject_name
+        - score | the ucas score
+        - universities | no. universities the user has attended for this specific subject
+        - jobs | no. of jobs done by the user related to that subject
 */
 
 $response = array();
@@ -261,7 +284,7 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
         case 'myquals':
             $sql_school = 'SELECT school_name,grad_year,qualification FROM user_school_qualification WHERE fk_user_id = '.$user_id;
             $sql_school_subs = 'SELECT qualification,subject_name,score FROM user_school_qualification,user_school_qualification_subjects,subjects WHERE user_school_qualification.id = fk_user_school_qualification_id AND subject_id = fk_subject_id AND fk_user_id = '.$user_id;
-            $sql_uni = 'SELECT universities.name,qualifications.name,qualifications.short_title,grad_year FROM user_uni_qualification,universities,qualifications WHERE universities.id = fk_uni_id AND qualifications.id = fk_qualification_id AND fk_user_id = '.$user_id;
+            $sql_uni = 'SELECT universities.name as uni_name,qualifications.name,qualifications.short_title,qualifications.type,subject_name,grad_year FROM user_uni_qualification,universities,qualifications,subjects WHERE subject_id = fk_subject_id AND universities.id = fk_uni_id AND qualifications.id = fk_qualification_id AND fk_user_id = '.$user_id;
             $result_school = $mysqli->query($sql_school);
             $result_school_subs = $mysqli->query($sql_school_subs);
             $result_uni = $mysqli->query($sql_uni);
@@ -270,16 +293,13 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 $j = 0;
                 $k = 0;
                 while($row = $result_school->fetch_assoc()){
-                    $response['school'][$i] = $row;
-                    $i++;
+                    $response['school'][$i++] = $row;
                 }
                 while($row = $result_school_subs->fetch_assoc()){
-                    $response['school_subs'][$j] = $row;
-                    $j++;
+                    $response['school_subs'][$j++] = $row;
                 }
                 while($row = $result_uni->fetch_assoc()){
-                    $response['uni'][$k] = $row;
-                    $k++;
+                    $response['uni'][$k++] = $row;
                 }
                 $response['status'] = 1;
                 send_response($response);
@@ -288,6 +308,21 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 $response['error'] = 'Error retriving qualifications';
             }
             break;
+        case 'myscores':
+            $sql = 'select subject_name,score,universities,jobs from subjects,user_subject_score where subject_id = fk_subject_id and fk_user_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            if($result != false){
+                $i = 0;
+                while($row = $result->fetch_assoc()){
+                    $response['scores'][$i++] = $row;
+                }
+                $response['status'] = 1;
+                send_response($response);
+            }else{
+                $response['status'] = 0;
+                $response['error'] = 'Error getting user stats';
+            }
+        break;
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
     }
@@ -305,7 +340,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores)$/", $type, $match)){
         return true;
     }else{
         return false;
