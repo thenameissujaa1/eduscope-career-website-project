@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2016 at 05:10 PM
+-- Generation Time: Apr 01, 2016 at 10:55 PM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `case_study`
+-- Table structure for table `case_studies`
 --
 
-CREATE TABLE `case_study` (
+CREATE TABLE `case_studies` (
   `id` int(11) NOT NULL,
   `fk_job_id` int(11) NOT NULL,
   `fk_qualification_id` int(11) NOT NULL,
@@ -36,10 +36,10 @@ CREATE TABLE `case_study` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `case_study`
+-- Dumping data for table `case_studies`
 --
 
-INSERT INTO `case_study` (`id`, `fk_job_id`, `fk_qualification_id`, `employer`, `location`, `salary`) VALUES
+INSERT INTO `case_studies` (`id`, `fk_job_id`, `fk_qualification_id`, `employer`, `location`, `salary`) VALUES
 (1, 109, 74, 'Scottish Government', 'Edinburgh', '16500'),
 (2, 36, 78, 'Clinton House Nursing Home', 'South Lanarkashire', '14000'),
 (3, 44, 109, 'Elipse', 'London', '26000'),
@@ -285,7 +285,8 @@ INSERT INTO `jobs` (`id`, `title`, `description`, `fk_subject_id`, `est_salary`)
 (118, 'Junior Mechanical Engineer', NULL, 19, '18000'),
 (119, 'Software Test Engineer', NULL, 9, '22000'),
 (120, 'Integrity Engineer', NULL, 19, '27000'),
-(122, 'Graduate Developer', NULL, 9, '23000');
+(122, 'Graduate Developer', NULL, 9, '23000'),
+(124, 'Account Man', 'count money', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -903,19 +904,6 @@ INSERT INTO `universities` (`id`, `name`, `2016 Rank`, `Teaching Quality`, `Stud
 -- --------------------------------------------------------
 
 --
--- Table structure for table `university_requirements`
---
-
-CREATE TABLE `university_requirements` (
-  `fk_unversity_id` int(11) NOT NULL,
-  `fk_subject_id` int(11) NOT NULL,
-  `entryPoints` int(11) NOT NULL,
-  `subjectRanking` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user`
 --
 
@@ -987,12 +975,21 @@ CREATE TABLE `userMentor` (
 CREATE TABLE `user_jobs` (
   `fk_user_id` int(11) NOT NULL,
   `fk_job_id` int(11) NOT NULL,
-  `company_name` text NOT NULL,
-  `company_location` text NOT NULL,
-  `salary` decimal(10,0) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL
+  `company_name` text,
+  `company_location` text,
+  `salary` decimal(10,0) DEFAULT NULL,
+  `start_year` year(4) NOT NULL,
+  `end_year` year(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_jobs`
+--
+
+INSERT INTO `user_jobs` (`fk_user_id`, `fk_job_id`, `company_name`, `company_location`, `salary`, `start_year`, `end_year`) VALUES
+(2, 67, 'Farmer Industry', 'Farmville', '5000', 1993, 1996),
+(2, 68, 'McDonalds', 'London', '25000', 2010, 2012),
+(2, 124, 'McDonalds', 'London', '25000', 2013, 2015);
 
 -- --------------------------------------------------------
 
@@ -1039,27 +1036,15 @@ INSERT INTO `user_school_qualification_subjects` (`fk_user_school_qualification_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_skill`
---
-
-CREATE TABLE `user_skill` (
-  `userSkill_id` int(11) NOT NULL,
-  `userSkill_fk_user_id` int(11) NOT NULL,
-  `userSkill_fk_skill_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_subject_score`
 --
 
 CREATE TABLE `user_subject_score` (
   `fk_user_id` int(11) NOT NULL,
   `fk_subject_id` int(11) NOT NULL,
-  `score` int(11) NOT NULL,
-  `universities` int(11) NOT NULL,
-  `jobs` int(11) NOT NULL
+  `score` int(11) DEFAULT NULL,
+  `universities` int(11) DEFAULT NULL,
+  `jobs` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1067,8 +1052,9 @@ CREATE TABLE `user_subject_score` (
 --
 
 INSERT INTO `user_subject_score` (`fk_user_id`, `fk_subject_id`, `score`, `universities`, `jobs`) VALUES
-(2, 1, 140, 2, 0),
-(2, 2, 120, 0, 0);
+(2, 1, 140, 2, 1),
+(2, 2, 120, 0, 0),
+(2, 6, NULL, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -1091,30 +1077,14 @@ INSERT INTO `user_uni_qualification` (`fk_user_id`, `fk_qualification_id`, `fk_u
 (2, 4, 1, 2014),
 (2, 399, 1, 2014);
 
--- --------------------------------------------------------
-
---
--- Table structure for table `workexperience`
---
-
-CREATE TABLE `workexperience` (
-  `workExperience_id` int(11) NOT NULL,
-  `workExperience_fk_user_id` int(11) NOT NULL,
-  `workExperience_fk_job_id` int(11) NOT NULL,
-  `workExperience_startDate` date NOT NULL,
-  `workExperience_endDate` date NOT NULL,
-  `workExperience_position` varchar(50) NOT NULL,
-  `workExperience_salary` decimal(65,30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `case_study`
+-- Indexes for table `case_studies`
 --
-ALTER TABLE `case_study`
+ALTER TABLE `case_studies`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`,`fk_qualification_id`,`fk_job_id`),
   ADD KEY `qualifications` (`fk_qualification_id`),
@@ -1177,7 +1147,7 @@ ALTER TABLE `userMentor`
 -- Indexes for table `user_jobs`
 --
 ALTER TABLE `user_jobs`
-  ADD UNIQUE KEY `fk_user_id` (`fk_user_id`,`fk_job_id`,`start_date`),
+  ADD UNIQUE KEY `fk_user_id` (`fk_user_id`,`fk_job_id`,`start_year`),
   ADD KEY `job` (`fk_job_id`);
 
 --
@@ -1196,14 +1166,6 @@ ALTER TABLE `user_school_qualification_subjects`
   ADD KEY `subject` (`fk_subject_id`);
 
 --
--- Indexes for table `user_skill`
---
-ALTER TABLE `user_skill`
-  ADD PRIMARY KEY (`userSkill_id`),
-  ADD KEY `FK_myKey` (`userSkill_fk_user_id`),
-  ADD KEY `FK_myKey2` (`userSkill_fk_skill_id`);
-
---
 -- Indexes for table `user_subject_score`
 --
 ALTER TABLE `user_subject_score`
@@ -1216,27 +1178,19 @@ ALTER TABLE `user_uni_qualification`
   ADD UNIQUE KEY `fk_user_id` (`fk_user_id`,`fk_qualification_id`,`fk_uni_id`);
 
 --
--- Indexes for table `workexperience`
---
-ALTER TABLE `workexperience`
-  ADD PRIMARY KEY (`workExperience_id`),
-  ADD KEY `FK_myKey3` (`workExperience_fk_job_id`),
-  ADD KEY `FK_myKey4` (`workExperience_fk_user_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `case_study`
+-- AUTO_INCREMENT for table `case_studies`
 --
-ALTER TABLE `case_study`
+ALTER TABLE `case_studies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=998;
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT for table `qualifications`
 --
@@ -1268,23 +1222,13 @@ ALTER TABLE `userdetail`
 ALTER TABLE `user_school_qualification`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
--- AUTO_INCREMENT for table `user_skill`
---
-ALTER TABLE `user_skill`
-  MODIFY `userSkill_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `workexperience`
---
-ALTER TABLE `workexperience`
-  MODIFY `workExperience_id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `case_study`
+-- Constraints for table `case_studies`
 --
-ALTER TABLE `case_study`
+ALTER TABLE `case_studies`
   ADD CONSTRAINT `jobs` FOREIGN KEY (`fk_job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `qualifications` FOREIGN KEY (`fk_qualification_id`) REFERENCES `qualifications` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -1327,13 +1271,6 @@ ALTER TABLE `user_school_qualification_subjects`
   ADD CONSTRAINT `subject` FOREIGN KEY (`fk_subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user_skill`
---
-ALTER TABLE `user_skill`
-  ADD CONSTRAINT `FK_myKey` FOREIGN KEY (`userSkill_fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_myKey2` FOREIGN KEY (`userSkill_fk_skill_id`) REFERENCES `skill` (`skill_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `user_subject_score`
 --
 ALTER TABLE `user_subject_score`
@@ -1344,13 +1281,6 @@ ALTER TABLE `user_subject_score`
 --
 ALTER TABLE `user_uni_qualification`
   ADD CONSTRAINT `user_id` FOREIGN KEY (`fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `workexperience`
---
-ALTER TABLE `workexperience`
-  ADD CONSTRAINT `FK_myKey3` FOREIGN KEY (`workExperience_fk_job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_myKey4` FOREIGN KEY (`workExperience_fk_user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
