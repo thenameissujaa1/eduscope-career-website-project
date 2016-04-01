@@ -1,6 +1,6 @@
 <!-- we load qualificationForms.js on load of this page via app.js, Check qualificationForms.js -->
 
-<h3 class="text-center">You are now adding a qulification</h3>
+<h3 class="text-center">You are now adding your info</h3>
 <hr>
 
 <!-- FORM starts here  -->
@@ -9,7 +9,7 @@
     <!-- Form details
     The form details will be sent as POST data to the server in the following structure..
     name                values                  description
-    type                school, university      type of the table we want to insert data in, the server will read this first to determine which fields to look for
+    type                school, university, job      type of the table we want to insert data in, the server will read this first to determine which fields to look for
     > FOR SCHOOL
     school_name         text limit:50
     grad_year           YYYY                    graduation year (for both school and university)
@@ -27,6 +27,18 @@
     qual_name
     qual_short_name
     subject
+    > FOR JOB
+    company_name
+    company_location
+    salary
+    start_year
+    end_year
+    : for normal job
+    job                 From jobs list
+    : for custom job
+    title
+    description
+    subject
      -->
     
     <!-- Select Basic -->
@@ -38,6 +50,7 @@
                 <option selected="true" style="display:none;">Select type</option>
                 <option value="school">School (GCSE, Scottish Highers, A levels)</option>
                 <option value="university">University (Bachelors, Masters, PhD)</option>
+                <option value="job">Work Experience</option>
                 </select>
             </div>
         </div>
@@ -125,7 +138,7 @@
                     </div>
                 </div>
                 <hr style="width: 50px">
-                <h3 class="text-center">..or add a qualification</h3>
+                <h3 class="text-center">..or add your qualification</h3>
                 <div class="form-group">
                 <label class="col-sm-4 control-label" for="qual_name">Qualification name</label>
                 <div class="col-sm-4 col-xs-12">
@@ -149,6 +162,78 @@
                         </select>
                         <span class="help-block">Note: Admins will verify the qualification by cross checking with the university. if verification fails, the Admins will remove this qualification.</span>
                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Job form-->
+        <div hidden id="type_job">
+            <!--company_name-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="company_name">Company Name</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" class="form-control" id="company_name" name="company_name" placeholder="eg. McDonalds">
+                </div>
+            </div>
+            <!--company_location-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="company_location">Company Location</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" class="form-control" id="company_location" name="company_location" placeholder="eg. London">
+                </div>
+            </div>
+            <!--salary-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="salary">Salary</label>
+                <div class="col-sm-4 col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">£</div>
+                        <input type="text" class="form-control" id="salary" name="salary" placeholder="eg. 25000">
+                    </div>
+                </div>
+            </div>
+            <!--start_year-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="start_year">Start Year</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="number" class="form-control" id="start_year" name="start_year" placeholder="eg. 2010" min="1980" max="2050">
+                </div>
+            </div>
+            <!--end_year-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="end_year">End Year</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="number" class="form-control" id="end_year" name="end_year" placeholder="eg. 2012" min="1980" max="2050">
+                </div>
+            </div>
+            <!--job-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="job">job</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="job" name="job" class="form-control"></select>
+                </div>
+            </div>
+            <hr style="width: 50px">
+            <h3 class="text-center">..or add your job</h3>
+            <!--title-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="title">Title</label>
+                <div class="col-sm-4 col-xs-12">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="eg. Professional Wrestler">
+                </div>
+            </div>
+            <!--description-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="description">Descrption</label>
+                <div class="col-sm-4 col-xs-12">
+                    <textarea class="form-control" id="description" name="description" placeholder="Describe your awesome job!"></textarea>
+                </div>
+            </div>
+            <!--subject-->
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="subject">Related field</label>
+                <div class="col-sm-4 col-xs-12">
+                    <select id="subject" name="subject" class="form-control"></select>
                 </div>
             </div>
         </div>

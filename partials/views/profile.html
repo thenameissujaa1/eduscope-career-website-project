@@ -15,48 +15,9 @@
     <!-- Nav tabs -->
         <ul class="nav nav-tabs " role="tablist">
             <li role="presentation" class="active"><a href="#path" role="tab" data-toggle="tab">Paths</a></li>
-            <li class="dropdown">
-                <a href="#manage" role="tab" data-toggle="tab">Manage<span class="caret" class="dropdown-toggle" data-toggle="dropdown"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#manage_qualifications">Qualifications</a></li>
-                    <li><a href="#manage_skills">Skills</a></li>
-                    <li><a href="#manage_jobs">Jobs</a></li>
-                </ul>
-            </li>
+            <li role="presentation" class=""><a href="#manage_qualifications" id="btn_manage_q" role="tab" data-toggle="tab">Your Qualifications & Jobs</a></li>
         </ul>
         <div class="tab-content">
-            <!--manage:main-->
-            <div role="tabpanel" class="tab-pane text-center fade" id="manage">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>Qualifications</h3>
-                                <p>Add/Edit/Delete your qulifcations</p>
-                                <p><a href="#manage_qualifications" id="btn_manage_q" class="btn btn-primary" role="button">Manage</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>Skills</h3>
-                                <p>Add/Edit/Delete your skills</p>
-                                <p><a href="#manage_skills" id="btn_manage_s" class="btn btn-primary" role="button">Manage</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>Jobs</h3>
-                                <p>Add/Edit/Delete your jobs</p>
-                                <p><a href="#manage_jobs" id="btn_manage_j" class="btn btn-primary" role="button">Manage</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!--paths-->
             <div role="tabpanel" class="tab-pane active text-center fade in" id="path">
@@ -86,8 +47,9 @@
             <!--manage: qualifications-->
             <div role="tabpanel" class="tab-pane fade" id="manage_qualifications">
                 <div class="row">
-                    <div class="col-lg-12 text-center"><p>Qualifications</p></div>
+                    <div class="col-lg-12 text-center"><p>Take your time to add your qualifications and jobs, so we can tune your <b>path to perfection</b></p></div>
                     <div class="col-lg-12" id="qualifications_error_well"><h3 id="qualifications_error"></h3></div>
+                    <!--Form content is loaded here-->
                     <div hidden class="well col-lg-12" id="add_qualification"></div>
                     <!--qualifications will be viewed here-->
                     <div id="qualification_list"></div>
@@ -95,7 +57,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-6">
                         <div class="thumbnail">
                             <div class="caption text-center">
-                                <h3>Add Qualification</h3>
+                                <h3>Add Qualification or Job</h3>
                                 <button type="button" id="display_add_qualification" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
                             </div>
                         </div>
@@ -103,43 +65,6 @@
                     <!--./add-->
                 </div>
             </div>
-            <!--manage: skills-->
-            <div role="tabpanel" class="tab-pane fade" id="manage_skills">
-                <div class="row">
-                    <div class="col-lg-12 text-center"><p>Skills</p></div>
-                    <div class="col-lg-12" id="skill_error_well"><h3 id="skill_error"></h3></div>
-                    <div id="skill_list"></div>
-                    <!--add-->
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="thumbnail">
-                            <div class="caption text-center">
-                                <h3>Add Skill</h3>
-                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--./add-->
-                </div>
-            </div>
-            <!--manage: jobs-->
-            <div role="tabpanel" class="tab-pane fade" id="manage_jobs">
-                <div class="row">
-                    <div class="col-lg-12 text-center"><p>Jobs</p></div>
-                    <div class="col-lg-12" id="jobs_error_well"><h3 id="jobs_error"></h3></div>
-                    <div id="job_list"></div>
-                    <!--add-->
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="thumbnail">
-                            <div class="caption text-center">
-                                <h3>Add Job</h3>
-                                <button type="button" class="btn btn-primary btn-lg">&nbsp;&nbsp;<span class="glyphicon glyphicon-plus" style="font-size: 100px"></span></button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--./add-->
-                </div>
-            </div>
-            <!--./manage-->
         </div>
     </div>
 </div> 

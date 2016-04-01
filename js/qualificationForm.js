@@ -20,25 +20,15 @@ $(document).on('change','#qualification_form #type',function() {
     var type = $(this).val();
     switch (type) {
         case 'school':
-            if($('#type_university').is(':visible'))
-                $('#type_university').hide(250);
-            if($('#type_school').is(':hidden'))
-                $('#type_school').show(250);
-            if($('#qualification_form_errors').is(':visible'))
-                $('#qualification_form_errors').html('').hide(250);
-            $( "#qualification_submit" ).prop( "disabled", true);
+            loadForm('#type_school','#type_university','#type_job',false);
             break;
         case 'university':
-            if($('#type_school').is(':visible'))
-                $('#type_school').hide(250);
-            if($('#type_university').is(':hidden'))
-                $('#type_university').show(250);
-            if($('#qualification_form_errors').is(':visible'))
-                $('#qualification_form_errors').html('').hide(250);
+            loadForm('#type_university','#type_job','#type_school',false);
             // load university in uni_name select form
             $.get('partials/functions/getResource.php?type=universities', function(data){
                 if(data.status != 0){
                     var html = '<option selected="true" disabled style="display:none;">Select a university</option>';
+                    console.log(data);
                     for(i = 0; i < data.universities.length; i++){
                         html += '<option value='+data.universities[i].id+'>'+data.universities[i].name+'</option>';
                     }
@@ -60,10 +50,42 @@ $(document).on('change','#qualification_form #type',function() {
                     }
                 })
             })
-            $( "#qualification_submit" ).prop( "disabled", false);
             break;
+        case 'job':
+            loadForm('#type_job','#type_university','#type_school',false);
+            // load up jobs in the form
+            $.get('partials/functions/getResource.php?type=jobs',function(data){
+            var html = '';
+            if(data.status != 0){
+                html = '<option selected="true" disabled style="display:none;">Select your job</option>';
+                var jobs = data.jobs;
+                for(i = 0; i < jobs.length; i++){
+                    html += '<option value='+jobs[i].id+'>'+jobs[i].title+'</option>';
+                }
+                $('#type_job #job').html(html);
+            }else{
+                $('#qualification_form_errors').html(data.error).show(250); 
+            }
+            html = '<option selected="true" disabled style="display:none;">field of your job</option>'
+            for(i = 0; i < subjects.length; i++){
+                html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+'</option>';
+            }
+            $('#type_job #subject').html(html);
+        })
     }
 });
+
+function loadForm(a,b,c,d){
+    if($(b).is(':visible'))
+        $(b).hide(250);
+    if($(c).is(':visible'))
+        $(c).hide(250);
+    if($(a).is(':hidden'))
+        $(a).show(250);
+    if($('#qualification_form_errors').is(':visible'))
+        $('#qualification_form_errors').html('').hide(250);
+    $( "#qualification_submit" ).prop( "disabled", d);
+}
 
 // Render the qualifications after selection of a type.
 $(document).on('change','#type_university #qual_type', function(){
@@ -74,12 +96,12 @@ $(document).on('change','#type_university #qual_type', function(){
                 var html = '<option selected="true" disabled style="display:none;">Select your qualification</option>';
                 for(i = 0; i < data.qualifications.length; i++){
                     if(data.qualifications[i].type === type)
-                        html += '<option value="'+data.qualifications[i].id+'">'+data.qualifications[i].name+'</option>';
+                        html += '<option value="'+data.qualifications[i].id+'">'+data.qualifications[i].name+' | '+data.qualifications[i].short_title+'</option>';
                 }
                 $('#type_university #qualification').html(html);
-                html = '<option selected="true" disabled style="display:none;">field of your qualification</option>'
+                html = '<option selected="true" disabled style="display:none;">field of your qualification</option>';
                 for(i = 0; i < subjects.length; i++){
-                    html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+' | '+subjects[i].short_title+'</option>';
+                    html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+'</option>';
                 }
                 $('#type_university #subject').html(html);
             }else{
