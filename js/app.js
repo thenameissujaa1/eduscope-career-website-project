@@ -12,6 +12,7 @@
 
 // When the page load, perform given actions
 $(window).load(function(){
+    updateQualifications();
     $('#content').load('partials/views/profile.html',function(){
         $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
             injectData(data, 'user');
@@ -88,7 +89,7 @@ $(document).on('click','#change_view_editProfile',function(){
     }
 })
 
-// Adding qualifications
+// Adding qualifications and jobs
 var qualificationFormReady = false;
 $(document).on('click','#display_add_qualification',function(){
     $('#add_qualification').load('partials/views/addQualification.html', function(){
@@ -102,6 +103,62 @@ $(document).on('click','#display_add_qualification',function(){
         }
     })
 })
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE RENDERS (other than edit profile) ~~~~~~~~~~~~~~~~~~~~~*/
+/*
+    On function call
+    1. Get all the qualifications data via myquals
+    2. Get all the job data via myjobs
+    3. First render qualifications
+    4. Then render jobs
+*/
+
+var school,uni,jobs,school_subs;
+
+function updateQualifications(){
+    $.get('partials/functions/getInfo.php?type=myquals', function(data){
+        if(data.status != 0){
+            school = data.school;
+            uni = data.uni;
+            school_subs = data.school_subs;
+            $.get('partials/functions/getInfo.php?type=myjobs',function(data){
+                jobs = data.jobs;
+                // render school
+                var html = '';
+                for(i = 0; i < school.length; i++){
+                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                    html += '<div class="thumbnail" style="height: 250px">';
+                    html += '<div class="caption text-center">';
+                    html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
+                    html += '<h3>'+school[i].qualification+'</h3><h5>'+school[i].grad_year+'</h5>';
+                    html += '<button class="btn btn-primary btn-lg" data-school="'+i+'">View</button>';
+                    html += '</div></div></div>';
+                }
+                for(i = 0; i < uni.length; i++){
+                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                    html += '<div class="thumbnail" style="height: 250px">';
+                    html += '<div class="caption text-center">';
+                    html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
+                    html += '<h3>'+uni[i].short_title+'</h3><h5>'+uni[i].grad_year+'</h5><h4>'+uni[i].subject_name+'</h4>';
+                    html += '<button class="btn btn-primary btn-lg" data-uni="'+i+'">View</button>';
+                    html += '</div></div></div>';
+                }
+                for(i = 0; i < jobs.length; i++){
+                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                    html += '<div class="thumbnail" style="height: 250px">';
+                    html += '<div class="caption text-center">';
+                    html += '<h2><span class="glyphicon glyphicon-briefcase"></span></h2>';
+                    html += '<h3>'+jobs[i].title+'</h3><h5>'+jobs[i].start_year+'-'+jobs[i].end_year+'</h5><h4>'+jobs[i].subject_name+'</h4>';
+                    html += '<button class="btn btn-primary btn-lg" data-job="'+i+'">View</button>';
+                    html += '</div></div></div>';
+                }
+                $('#manage_qualifications #qualification_list').html(html);
+            })
+        }else{
+            // error msg.
+        }
+    })
+}
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~ EDITPROFILE~~~~~~~~~~~~~~~~~~~~~*/
         

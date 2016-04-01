@@ -179,6 +179,7 @@ $(document).on('click',"#qualification_submit",function(){
             $('#add_qualification').slideUp(250, function(){
                 $('#add_qualification').html('');
             });
+            updateQualifications();
         }else{
             $('#qualification_form_errors').html(data.error).show(250); 
         }
