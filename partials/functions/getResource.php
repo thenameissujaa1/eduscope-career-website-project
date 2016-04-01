@@ -36,7 +36,7 @@ if(checkType($_GET['type']) == false){
         $sql = 'select case_studies.*,jobs.title as job_title,qualifications.short_title as qualification FROM case_studies,jobs,qualifications where jobs.id = fk_job_id and qualifications.id = fk_qualification_id';
     }
     
-    if($type = 'jobs'){
+    if($type == 'jobs'){
         $sql = 'select jobs.*,subject_name from jobs,subjects where subject_id = fk_subject_id';
     }
     
