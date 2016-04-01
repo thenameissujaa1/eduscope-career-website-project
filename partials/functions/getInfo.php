@@ -323,8 +323,23 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 $response['error'] = 'Error getting user stats';
             }
         break;
+        case 'myjobs':
+            $sql = 'select company_name,company_location,start_year,end_year,jobs.title,subject_name from jobs,subjects,user_jobs where jobs.id = fk_job_id and subject_id = fk_subject_id and fk_user_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            if($result != false){
+                $i = 0;
+                while($row = $result->fetch_assoc()){
+                    $response['jobs'][$i++] = $row;
+                }
+                $response['status'] = 1;
+                send_response($response);
+            }else{
+                $response['status'] = 0;
+                $response['error'] = 'Error getting user jobs';
+            }
+        break;
         default: 
-            $sql = 'SELECT * FROM '.$type.' WHERE '.$type.'_fk_user_id = '.$user_id;
+            $sql = 'SELECT * FROM '.$type.' WHERE fk_user_id = '.$user_id;
     }
 
 }
@@ -340,7 +355,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores|myjobs)$/", $type, $match)){
         return true;
     }else{
         return false;
