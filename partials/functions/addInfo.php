@@ -9,11 +9,11 @@ $response = array();
 if(array_key_exists('table',$_POST)){
     $table = $_POST['table'];
     
-    if(preg_match('/^(user_school_qualification|user_uni_qualification)$/',$table,$match)){
+    if(preg_match('/^(school|university|job)$/',$table,$match)){
         
         switch($table){
             
-            case 'user_school_qualification':
+            case 'school':
                 
                 if(array_key_exists('type',$_POST)){
                     $type = $_POST['type'];
@@ -72,7 +72,7 @@ if(array_key_exists('table',$_POST)){
                     $response['error'] = "Error processing request (03)";
                 }
             break;
-            case 'user_uni_qualification':
+            case 'university':
                 if(array_key_exists('uni_name',$_POST)
                     && array_key_exists('grad_year',$_POST)){
                         $uni_name = $_POST['uni_name'];
@@ -97,6 +97,30 @@ if(array_key_exists('table',$_POST)){
                         }
                     }
             break;
+            case 'job':
+                if(checkJobArray(1)){
+                    $company_name = $_POST['company_name'];
+                    $company_location = $_POST['company_location'];
+                    $salary = $_POST['salary'];
+                    $start_year = $_POST['start_year'];
+                    $end_year = $_POST['end_year'];
+                    if(array_key_exists('job',$_POST)){
+                        $job = $_POST['job'];
+                        $response['status'] = 1;
+                    }elseif(checkJobArray(2)){
+                        $title = $_POST['title'];
+                        $description = $_POST['description'];
+                        $subject = $_POST['subject'];
+                        $response['status'] = 1;
+                    }else{
+                        $response['status'] = 0;
+                        $response['error'] = 'Invalid custom job fields';
+                    }
+                }else{
+                    $response['status'] = 0;
+                    $response['error'] = 'Invalid job fields';
+                }
+            break;
         }//switch end
     }else{
         $response['status'] = 0;
@@ -107,12 +131,34 @@ if(array_key_exists('table',$_POST)){
     $response['error'] = "Error processing request (01)";
 }
 
+function checkJobArray($n){
+    if($n == 1){
+    if(array_key_exists('company_name',$_POST)
+        && array_key_exists('company_location',$_POST)
+        && array_key_exists('salary',$_POST)
+        && array_key_exists('start_year',$_POST)
+        && array_key_exists('end_year',$_POST)){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        if(array_key_exists('title',$_POST)
+            && array_key_exists('description',$_POST)
+            && array_key_exists('subject',$_POST)){
+                return true;
+            }else{
+                return false;
+            }
+    }
+}
+
 // Insertion of data and update of user score
 if($response['status'] == 1){
     
     switch($table){
         
-        case 'user_school_qualification':
+        case 'school':
             // TODO: Check if the qualification already exists in the table
             $sql = 'SELECT * FROM user_school_qualification WHERE fk_user_id = '.$_SESSION['loggedin_user'];
             $result = $mysqli->query($sql);
@@ -179,7 +225,7 @@ if($response['status'] == 1){
             }
         break;
         
-        case 'user_uni_qualification':
+        case 'university':
             
             if(array_key_exists('qualification',$_POST) == false){
                 $stmt_sql = 'INSERT INTO qualifications (name,short_title,type,fk_subject_id) VALUES (?,?,?,?)';
@@ -222,10 +268,10 @@ if($response['status'] == 1){
                     }else{
                         $resultArr = $result->fetch_assoc();
                         $subject = $resultArr['fk_subject_id'];
-                        $sql = 'UPDATE user_subject_score SET universities = universities+1 WHERE fk_user_id ='.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject;
+                        $sql = 'INSERT INTO user_subject_score (fk_user_id,fk_subject_id,universities) VALUES ('.$_SESSION['loggedin_user'].','.$subject.',1)';
                         
                         if($mysqli->query($sql) == false){
-                            $sql = 'INSERT INTO user_subject_score (fk_user_id,fk_subject_id,universities) VALUES ('.$_SESSION['loggedin_user'].','.$subject.',1)';
+                            $sql = 'UPDATE user_subject_score SET universities = universities+1 WHERE fk_user_id ='.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject;
                             if($mysqli->query($sql) == false){
                                 $response['status'] = 0;
                                 $response['error'] = 'There was an error updating one or more fields (01)';
@@ -237,6 +283,56 @@ if($response['status'] == 1){
                 $response['status'] = 0;
                 $response['error'] = 'There was an error updating your info';   
             }//./qualification > 1
+        break;
+        
+        case 'job':
+            /*
+                1. Check if job key exists
+                    if false
+                    1. Insert new job into jobs
+                    2. get the job id for the new job
+                2. Insert into user job 
+                3. Get the subject for the job
+                4. Update the subject score
+            */
+            if(array_key_exists('job',$_POST) == false){
+                $stmt_sql = 'INSERT INTO jobs (title,description,fk_subject_id) VALUES (?,?,?)';
+                $stmt_query = $mysqli->prepare($stmt_sql);
+                $stmt_query->bind_param('ssi',$title,$description,$subject);
+                if($stmt_query->execute()){
+                    $sql = 'SELECT id FROM jobs WHERE title = "'.$title.'" and fk_subject_id = '.$subject;
+                    $result = $mysqli->query($sql);
+                    $resultArr = $result->fetch_assoc();
+                    $job = $resultArr['id'];
+                }else{
+                    $response['status'] = 0;
+                    $response['error'] = 'There was an error adding your given job';
+                }
+            }
+            // TODO regex check. 
+            if($job > 1){
+                $stmt_sql = 'INSERT INTO user_jobs (fk_user_id,fk_job_id,company_name,company_location,salary,start_year,end_year) VALUES (?,?,?,?,?,?,?)';
+                $stmt_query = $mysqli->prepare($stmt_sql);
+                $stmt_query->bind_param('iissdii',$_SESSION['loggedin_user'],$job,$company_name,$company_location,$salary,$start_year,$end_year);
+                if($stmt_query->execute()){
+                    $sql = 'SELECT fk_subject_id FROM jobs WHERE id = '.$job;
+                    $result = $mysqli->query($sql);
+                    $resultArr = $result->fetch_assoc();
+                    $subject = $resultArr['fk_subject_id'];
+                    $sql = 'INSERT INTO user_subject_score (fk_user_id,fk_subject_id,jobs) VALUES ('.$_SESSION['loggedin_user'].','.$subject.',1)';
+                 
+                        if($mysqli->query($sql) == false){
+                            $sql = 'UPDATE user_subject_score SET jobs = jobs+1 WHERE fk_user_id ='.$_SESSION['loggedin_user'].' AND fk_subject_id = '.$subject;
+                            if($mysqli->query($sql) == false){
+                                $response['status'] = 0;
+                                $response['error'] = 'There was an error updating one or more fields for your job.';
+                            }
+                        }
+                }else{
+                    $response['status'] = 0;
+                    $response['error'] = 'We couldn\'t add your data, please try again';
+                }
+            }
         break;
     }
 }

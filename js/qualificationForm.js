@@ -28,7 +28,6 @@ $(document).on('change','#qualification_form #type',function() {
             $.get('partials/functions/getResource.php?type=universities', function(data){
                 if(data.status != 0){
                     var html = '<option selected="true" disabled style="display:none;">Select a university</option>';
-                    console.log(data);
                     for(i = 0; i < data.universities.length; i++){
                         html += '<option value='+data.universities[i].id+'>'+data.universities[i].name+'</option>';
                     }
@@ -74,6 +73,14 @@ $(document).on('change','#qualification_form #type',function() {
         })
     }
 });
+
+/* This function loads shows divs based on their ids
+    a: #elementID to show
+    b: #elementID to hide
+    c: #elementID to hide
+    d: if qualification submit button shoulb be disabled on load or not
+    d: true for set it to disabled, false for opposite.
+*/
 
 function loadForm(a,b,c,d){
     if($(b).is(':visible'))
@@ -164,34 +171,16 @@ $(document).on('click',"#qualification_submit",function(){
     event.preventDefault();
     var type = $('#qualification_form #type').val();
     var postData = $('#qualification_form').serializeArray();
-    switch(type){
-        case 'school':
-            postData.push({"name":"table","value":"user_school_qualification"});
-            $.post('partials/functions/addInfo.php', postData, function(data){
-                if(data.status != 0){
-                    if($('#qualification_form_errors').is(':visible'))
-                        $('#qualification_form_errors').hide(250);
-                    $('#add_qualification').slideUp(250, function(){
-                        $('#add_qualification').html('');
-                    });
-                }else{
-                    $('#qualification_form_errors').html(data.error).show(250); 
-                }
-            })
-        break;
-        case 'university':
-            postData.push({"name":"table","value":"user_uni_qualification"});
-            $.post('partials/functions/addInfo.php', postData, function(data){
-                if(data.status != 0){ 
-                    if($('#qualification_form_errors').is(':visible'))
-                        $('#qualification_form_errors').hide(250);
-                    $('#add_qualification').slideUp(250, function(){
-                        $('#add_qualification').html('');
-                    });
-                }else{
-                    $('#qualification_form_errors').html(data.error).show(250); 
-                }
-            })
-        break;
-    }
+    postData.push({"name":"table","value":type});
+    $.post('partials/functions/addInfo.php', postData, function(data){
+        if(data.status != 0){
+            if($('#qualification_form_errors').is(':visible'))
+                $('#qualification_form_errors').hide(250);
+            $('#add_qualification').slideUp(250, function(){
+                $('#add_qualification').html('');
+            });
+        }else{
+            $('#qualification_form_errors').html(data.error).show(250); 
+        }
+    })
 })
