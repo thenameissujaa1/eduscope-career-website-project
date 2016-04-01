@@ -79,7 +79,7 @@ $(document).on('change','#type_university #qual_type', function(){
                 $('#type_university #qualification').html(html);
                 html = '<option selected="true" disabled style="display:none;">field of your qualification</option>'
                 for(i = 0; i < subjects.length; i++){
-                    html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+'</option>';
+                    html += '<option value="'+subjects[i].subject_id+'">'+subjects[i].subject_name+' '+subjects[i].short_title+'</option>';
                 }
                 $('#type_university #subject').html(html);
             }else{
