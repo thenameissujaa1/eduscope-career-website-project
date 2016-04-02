@@ -1,145 +1,127 @@
-<head>
-<style type="text/css">
-.hidden{display:none;}
-</style>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
-
 <div id="resources">
-<br>
-<div class="container">
-  <div class="text-center">
-  <h2>Resources</h2>
-  <h3>View case studies based on an area of study of your interest</h3>
-</div>
-<br>
-     <div class="container">
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-8">
-                <!--Search bar-->
-                <form name="resourcesSearch" id="resourcesSearch" enctype="multipart/form-data">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="query" placeholder="Search by keyword">
-                        <span class="input-group-btn">
-                                <button id="resourceSearch_submit" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button> 
-                        </span>
-                    </input>
-                    </div>
-                </form>                  
-                </div>
+    <br>
+    <div class="container">
+        <div class="text-center">
+            <h2>Resources</h2>
+            <h3>The offical records that powers EDU<i>SCOPE</i></h3>
+        </div>
+        <br>
+    </div>
+    <!--All errors go here after submitting the search-->
+    <div class="well custom-margin-top-20" hidden id="resourcesSearch_validation_errors"></div>
+    <!--Serach results will be displaye here-->
+    <div class="list-group custom-margin-top-20" hidden id="searchResults"></div>
+
+    <div class="container">
+        <br>
+        <ul class="nav nav-tabs nav-justified" id="resource-nav">
+            <li class="active"> <a data-toggle="tab" href="#cases">Case Studies</a></li>
+            <li><a data-toggle="tab" href="#subjects">Subjects</a></li>
+            <li><a data-toggle="tab" href="#jobs">Jobs</a></li>
+            <li><a data-toggle="tab" href="#quals">Qualifications</a></li>
+            <li><a data-toggle="tab" href="#unis">Universities</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="cases" class="tab-pane fade in active">
+                <input type="text" class="form-control" name="query" id="searchc" placeholder="Search by keyword" data-list="#cases tbody">
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <td>ID</td>
+                        <td>Qualification</td>
+                        <td>Job title</td>
+                        <td>Employer</td>
+                    </thead>
+                    <tbody id="casestudies_table">
+                    </tbody>
+                </table>
+
+            </div>
+            <div id="subjects" class="tab-pane fade">
+                <input type="text" class="form-control" name="query" id="searchs" placeholder="Search by keyword" data-list="#subjects tbody">
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <td>Subject ID</td>
+                        <td>Name</td>
+                        <!--td>Description</td-->
+                    </thead>
+                    <tbody id="subjects_table">
+                    </tbody>
+                </table>
+
+            </div>
+            <div id="jobs" class="tab-pane fade">
+                <input type="text" class="form-control" name="query" id="searchj" placeholder="Search by keyword" data-list="#jobs tbody">
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Subject Name</td>
+                        <td>Estimated Salary</td>
+                    </thead>
+                    <tbody id="jobs_table">
+                    </tbody>
+                </table>
+
+            </div>
+            <div id="quals" class="tab-pane fade">
+                <input type="text" class="form-control" name="query" id="searchj" placeholder="Search by keyword" data-list="#quals tbody">
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Short Title</td>
+                        <td>Type</td>
+                    </thead>
+                    <tbody id="quals_table">
+                    </tbody>
+                </table>
+            </div>
+            <div id="unis" class="tab-pane fade">
+                <input type="text" class="form-control" name="query" id="searchq" placeholder="Search by keyword" data-list="#unis tbody">
+                <hr>
+                <table class="table table-hover">
+                    <thead>
+                        <td>Rank</td>
+                        <td>Name</td>
+                        <td>Student Experience</td>
+                    </thead>
+                    <tbody id="unis_table">
+                    </tbody>
+                </table>
             </div>
         </div>
-<!--All errors go here after submitting the search-->
-                <div class="well custom-margin-top-20" hidden id="resourcesSearch_validation_errors"></div>
-                <!--Serach results will be displaye here-->
-                <div class="list-group custom-margin-top-20" hidden id="searchResults"></div>
-
-            <div class="container">
- <ul class="nav nav-tabs">
-    <br>
-    <li class="active"> <a data-toggle="tab" href="#cases">Case Studies</a></li>
-    <li><a data-toggle="tab" href="#subjects">Subjects</a></li>
-    <li><a data-toggle="tab" href="#jobs">Jobs</a></li>
-    <li><a data-toggle="tab" href="#quals">Qualifications</a></li>
-    <li><a data-toggle="tab" href="#unis">Universities</a></li>
-  </ul>
-
-  <div class="tab-content">
-    <div id="cases" class="tab-pane fade in active">
-        <table class="table table-hover">
-    <thead>
-        <td>ID</td>
-        <td>Qualification</td>
-        <td>Job title</td>
-        <td>Employer</td>
-    </thead>
-    <tbody id="casestudies_table">
-    </tbody>
-</table>
- 
     </div>
-    <div id="subjects" class="tab-pane fade">
-             <table class="table table-hover">
-    <thead>
-        <td>Subject ID</td>
-        <td>Name</td>
-        <!--td>Description</td-->
-    </thead>
-    <tbody id="subjects_table">
-    </tbody>
-</table>
-
-    </div>
-    <div id="jobs" class="tab-pane fade">
-             <table class="table table-hover">
-    <thead>
-        <td>ID</td>
-        <td>Title</td>
-        <td>Subject Name</td>
-        <td>Estimated Salary</td>
-    </thead>
-    <tbody id="jobs_table">
-    </tbody>
-</table>
-
-    </div>
-    <div id="quals" class="tab-pane fade">
-     <table class="table table-hover">
-    <thead>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Short Title</td>
-        <td>Type</td>
-    </thead>
-    <tbody id="quals_table">
-    </tbody>
-</table>
-  </div>
-  <div id="unis" class="tab-pane fade">
-         <table class="table table-hover">
-    <thead>
-        <td>Rank</td>
-        <td>Name</td>
-        <td>Student Experience</td>
-    </thead>
-    <tbody id="unis_table">
-    </tbody>
-</table>
-    </div>
-  </div>
-</div>
 
 
-                <!--
+    <!--
                 <input type="hidden" name="search_param" value="all" id="search_param">         
                 <input type="text" class="form-control" name="x" placeholder="Search term...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             -->
-  
 
-<script>
 
-$(document).ready(function (e) {
-    $('.search-panel .dropdown-menu').find('a').click(function (e) {
-        e.preventDefault();
-        var param = $(this).attr("href").replace("#", "");
-        var concept = $(this).text();
-        $('.search-panel span#search_concept').text(concept);
-        $('.input-group #search_param').val(param);
+    <script>
+        var tab_id = '#cases';
+
+// Get the tab id for search
+$(document).on('click','#resource-nav li > a',function(data){
+    tab_id = $(this).attr('href');
+})
+
+$(document).ready(function() {
+    $('#searchs, #searchu, #searchj, #searchc, #searchq').hideseek({
+        nodata: 'Sorry, we couldn\'t find the resource you were looking for'
     });
 });
 
-$(document).ready(function () {
-    initalize_resourcesSearchValidator() ;
-});
-
+// Get all the data
 $.get('partials/functions/getResource.php?type=universities', function (unis){
     $.get('partials/functions/getResource.php?type=qualifications', function (quals) {
         $.get('partials/functions/getResource.php?type=jobs', function (jobs) {
@@ -152,7 +134,7 @@ $.get('partials/functions/getResource.php?type=universities', function (unis){
     });
 });
 
-
+// Render the tables
 function renderTables(u,q,j,s,c){
     var uhtml = '';
     var qhtml = '';
@@ -198,5 +180,4 @@ function renderTables(u,q,j,s,c){
     }
     $('#casestudies_table').html(chtml);
 }
-</script>
-
+    </script>
