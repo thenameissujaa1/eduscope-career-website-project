@@ -214,9 +214,11 @@ if($response['status'] == 1){
                             }
                         }
                     }else{
-                        //echo("Error description: " . mysqli_error($mysqli));
-                        $response['status'] = 0;
-                        $response['error'] = 'Unable to process request (01)';
+                        if($qualification != 1){
+                            //echo("Error description: " . mysqli_error($mysqli));
+                            $response['status'] = 0;
+                            $response['error'] = 'Unable to process request (01)';
+                        }
                     }
                 }//.qualification != 1
             }else{

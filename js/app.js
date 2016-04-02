@@ -117,6 +117,13 @@ $(document).on('click','#open_pathway',function(){
     }
 })
 
+$(document).on('click','#btn_manage_q',function(){
+    var html = '';
+    html += '<h3>View your pathway</h3>';
+    html += '<p>A visualization of your pathway to date, along with future recommendations.</p>';
+    html += '<p><a href="#" class="btn btn-primary" id="open_pathway" role="button">View Graph</a></p>';                
+    $('#pathway_viewer').html(html);           
+})
 /*~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE RENDERS (other than edit profile) ~~~~~~~~~~~~~~~~~~~~~*/
 /*
     On function call
@@ -129,47 +136,50 @@ $(document).on('click','#open_pathway',function(){
 var school,uni,jobs,school_subs;
 
 function updateQualifications(){
-    $.get('partials/functions/getInfo.php?type=myquals', function(data){
-        if(data.status != 0){
-            school = data.school;
-            uni = data.uni;
-            school_subs = data.school_subs;
-            $.get('partials/functions/getInfo.php?type=myjobs',function(data){
+    $.get('partials/functions/getInfo.php?type=myquals', function(dataQ){
+        $.get('partials/functions/getInfo.php?type=myjobs',function(data){
+            if(dataQ.status != 0 && data.status != 0){
+                school = dataQ.school;
+                uni = dataQ.uni;
+                school_subs = dataQ.school_subs;
                 jobs = data.jobs;
                 // render school
                 var html = '';
-                for(i = 0; i < school.length; i++){
-                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
-                    html += '<div class="thumbnail" style="height: 250px">';
-                    html += '<div class="caption text-center">';
-                    html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
-                    html += '<h3>'+school[i].qualification+'</h3><h5>'+school[i].grad_year+'</h5>';
-                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-school="'+i+'">View</button>';
-                    html += '</div></div></div>';
-                }
-                for(i = 0; i < uni.length; i++){
-                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
-                    html += '<div class="thumbnail" style="height: 250px">';
-                    html += '<div class="caption text-center">';
-                    html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
-                    html += '<h3>'+uni[i].short_title+'</h3><h5>'+uni[i].grad_year+'</h5><h4>'+uni[i].subject_name+'</h4>';
-                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-uni="'+i+'">View</button>';
-                    html += '</div></div></div>';
-                }
-                for(i = 0; i < jobs.length; i++){
-                    html += '<div class="col-lg-4 col-md-4 col-sm-6">';
-                    html += '<div class="thumbnail" style="height: 250px">';
-                    html += '<div class="caption text-center">';
-                    html += '<h2><span class="glyphicon glyphicon-briefcase"></span></h2>';
-                    html += '<h3>'+jobs[i].title+'</h3><h5>'+jobs[i].start_year+'-'+jobs[i].end_year+'</h5><h4>'+jobs[i].subject_name+'</h4>';
-                    html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-job="'+i+'">View</button>';
-                    html += '</div></div></div>';
-                }
+                if(school !== undefined)
+                    for(i = 0; i < school.length; i++){
+                        html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                        html += '<div class="thumbnail" style="height: 250px">';
+                        html += '<div class="caption text-center">';
+                        html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
+                        html += '<h3>'+school[i].qualification+'</h3><h5>'+school[i].grad_year+'</h5>';
+                        html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-school="'+i+'">View</button>';
+                        html += '</div></div></div>';
+                    }
+                if(uni !== undefined)
+                    for(i = 0; i < uni.length; i++){
+                        html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                        html += '<div class="thumbnail" style="height: 250px">';
+                        html += '<div class="caption text-center">';
+                        html += '<h2><span class="glyphicon glyphicon-flag"></span></h2>';
+                        html += '<h3>'+uni[i].short_title+'</h3><h5>'+uni[i].grad_year+'</h5><h4>'+uni[i].subject_name+'</h4>';
+                        html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-uni="'+i+'">View</button>';
+                        html += '</div></div></div>';
+                    }
+                if(jobs !== undefined)
+                    for(i = 0; i < jobs.length; i++){
+                        html += '<div class="col-lg-4 col-md-4 col-sm-6">';
+                        html += '<div class="thumbnail" style="height: 250px">';
+                        html += '<div class="caption text-center">';
+                        html += '<h2><span class="glyphicon glyphicon-briefcase"></span></h2>';
+                        html += '<h3>'+jobs[i].title+'</h3><h5>'+jobs[i].start_year+'-'+jobs[i].end_year+'</h5><h4>'+jobs[i].subject_name+'</h4>';
+                        html += '<button class="btn btn-primary btn-lg" id="open_qualification_viewer" data-job="'+i+'">View</button>';
+                        html += '</div></div></div>';
+                    }
                 $('#manage_qualifications #qualification_list').html(html);
-            })
-        }else{
-            $('#manage_qualifications #qualification_error').html(data.error);
-        }
+            }else{
+                $('#manage_qualifications #qualification_error').html(data.error);
+            }    
+        })
     })
 }
 
@@ -198,8 +208,9 @@ $(document).on('click','#open_qualification_viewer',function(){
                 if(school[n].qualification != 'GCSE/S4'){
                     var table = '<br><table class="table table-hover table-bordered">';
                     table += '<thead><td>Subject</td><td>Score</td></thead><tbody>';
-                    for(i = 0; i < school_subs.length; i++)
-                        table += '<tr><td>'+school_subs[i].subject_name+'</td><td>'+school_subs[i].score+'</td></tr>';
+                    if(school_subs !== undefined)
+                        for(i = 0; i < school_subs.length; i++)
+                            table += '<tr><td>'+school_subs[i].subject_name+'</td><td>'+school_subs[i].score+'</td></tr>';
                     table += '</tbody></table>';
                     $('#qv_marksheet').html(table);
                 }
