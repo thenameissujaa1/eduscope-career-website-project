@@ -4,6 +4,9 @@ var currentTitle = $(document).find("title").text();
 // Check if the partial is appropriate to load for this page, we do this by checking the title
 $('#header').load("partials/views/navbar.html");
 $('#profile').load("partials/views/navbar-profile.html");
+$('#cnheader').load("partials/chinese/navbar.html");
+$('#cnabout').load("partials/chinese/aboutus.html");
+$('#cncontactus').load("partials/chinese/contactus.html");
 /* 
 $('#overview').load("partials/views/overview.html"); 
 $('#education').load("partials/views/education.html");
