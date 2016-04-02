@@ -68,7 +68,7 @@
     <thead>
         <td>Subject ID</td>
         <td>Name</td>
-        <td>Description</td>
+        <!--td>Description</td-->
     </thead>
     <tbody id="subjects_table">
     </tbody>
@@ -159,45 +159,44 @@ function renderTables(u,q,j,s,c){
     var jhtml = '';
     var shtml = '';
     var chtml = '';
+    
     for(i = 0; i < u.length; i++){
-        uhtml += '<td>'+u[i].rank+'</td>';
+        uhtml += '<tr><td>'+u[i]['2016 Rank']+'</td>';
         uhtml += '<td>'+u[i].name+'</td>';
-        uhtml += '<td>'+u[i]['Student Experience']+'</td>';
-        // we will take 3 only to make it less squishy
-        $('#unis_table').append(uhtml);
+        uhtml += '<td>'+u[i]['Student Experience']+'</td></tr>';
     }
+    $('#unis_table').html(uhtml);
+    
     for(i = 0; i < q.length; i++){
-        qhtml += '<td>'+q[i].id+'</td>';
+        qhtml += '<tr><td>'+q[i].id+'</td>';
         qhtml += '<td>'+q[i].name+'</td>';
         qhtml += '<td>'+q[i].short_title+'</td>';
-        qhtml += '<td>'+q[i].type+'</td>';
-
-        $('#quals_table').append(qhtml);
-       
+        qhtml += '<td>'+q[i].type+'</td></tr>';
     }
+    $('#quals_table').html(qhtml);
+    
     for(i = 0; i < j.length; i++){
-       jhtml += '<td>'+j[i].id+'</td>';
-       jhtml += '<td>'+j[i].title+'</td>';
+        jhtml += '<tr><td>'+j[i].id+'</td>';
+        jhtml += '<td>'+j[i].title+'</td>';
         jhtml += '<td>'+j[i].subject_name+'</td>';
-        jhtml += '<td>'+j[i].est_salary+'</td>';
-        $('#jobs_table').append(jhtml);
+        jhtml += '<td>'+j[i].est_salary+'</td></tr>';
     }
+    $('#jobs_table').html(jhtml);
+    
     for(i = 0; i < s.length; i++){
-        shtml += '<td>'+s[i].subject_name+'</td>';
-        shtml += '<td>'+s[i].subject_description+'</td>';
-        shtml += '<td>'+s[i].subject_id+'</td>';
-
-        $('#subjects_table').append(shtml);
+        shtml += '<tr><td>'+s[i].subject_id+'</td>';
+        shtml += '<td>'+s[i].subject_name+'</td></tr>';
+        //shtml += '<td>'+s[i].subject_id+'</td></tr>';
     }
+    $('#subjects_table').html(shtml);
+    
     for(i = 0; i < c.length; i++){
-        chtml += '<td>'+c[i].id+'</td>';
+        chtml += '<tr><td>'+c[i].id+'</td>';
         chtml += '<td>'+c[i].qualification+'</td>';
         chtml += '<td>'+c[i].job_title+'</td>';
-        chtml += '<td>'+c[i].employer+'</td>';
-        $('#casestudies_table').append(chtml);
+        chtml += '<td>'+c[i].employer+'</td></tr>';
     }
+    $('#casestudies_table').html(chtml);
 }
-
-
 </script>
 
