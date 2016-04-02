@@ -104,6 +104,19 @@ $(document).on('click','#display_add_qualification',function(){
     })
 })
 
+// Open pathway view
+var pathwayReady = false;
+$(document).on('click','#open_pathway',function(){
+    if(pathwayReady){
+        initializePathway();
+    }else{
+        pathwayReady = true;
+        $.getScript('js/pathway.js', function(){
+            initializePathway();
+        })
+    }
+})
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE RENDERS (other than edit profile) ~~~~~~~~~~~~~~~~~~~~~*/
 /*
     On function call
@@ -321,6 +334,7 @@ $(document).on('click','#nav-profile',function(){
             $.get('partials/functions/getInfo.php',{type: 'user'}, function(data){
                 injectData(data, 'user');
                 $.get('partials/functions/getInfo.php',{type: 'userDetail'}, function(data){
+                    updateQualifications();
                     if(data.userDetail === null){
                         $( "#change_view_editProfile" ).trigger( "click" );
                     }else{
