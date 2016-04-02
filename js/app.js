@@ -118,11 +118,13 @@ $(document).on('click','#open_pathway',function(){
 })
 
 $(document).on('click','#btn_manage_q',function(){
-    var html = '';
-    html += '<h3>View your pathway</h3>';
-    html += '<p>A visualization of your pathway to date, along with future recommendations.</p>';
-    html += '<p><a href="#" class="btn btn-primary" id="open_pathway" role="button">View Graph</a></p>';                
-    $('#pathway_viewer').html(html);           
+    setTimeout(function (){
+        var html = '';
+        html += '<h3>View your pathway</h3>';
+        html += '<p>A visualization of your pathway to date, along with future recommendations.</p>';
+        html += '<p><a href="#" class="btn btn-primary" id="open_pathway" role="button">View Graph</a></p>';                
+        $('#pathway_viewer').html(html);      
+    }, 500);
 })
 /*~~~~~~~~~~~~~~~~~~~~~~~~ PROFILE RENDERS (other than edit profile) ~~~~~~~~~~~~~~~~~~~~~*/
 /*
