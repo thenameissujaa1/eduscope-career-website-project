@@ -340,6 +340,21 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
         break;
         default: 
             $sql = 'SELECT * FROM '.$type.' WHERE fk_user_id = '.$user_id;
+        case 'myhistory':
+            $sql = 'select grad_year as year, qualification as qualification, school_name as name from user_school_qualification where fk_user_id = '.$user_id.' union select grad_year as year,qualifications.name as qualification,universities.name as name from user_uni_qualification,universities,qualifications where qualifications.id = fk_qualification_id and universities.id = fk_uni_id and fk_user_id = '.$user_id.' union select start_year as year,jobs.title as qualification,company_name as name from user_jobs,jobs where jobs.id = fk_job_id and fk_user_id = '.$user_id.' order by year';
+            $result = $mysqli->query($sql);
+            if($result != false){
+                $i = 0;
+                while($row = $result->fetch_assoc()){
+                    $response['history'][$i++] = $row;
+                }
+                $response['status'] = 1;
+                send_response($response);
+            }else{
+                $response['status'] = 0;
+                $response['error'] = 'Error getting user jobs';
+            }
+        break;
     }
 
 }
@@ -355,7 +370,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores|myjobs)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores|myjobs|myhistory)$/", $type, $match)){
         return true;
     }else{
         return false;
