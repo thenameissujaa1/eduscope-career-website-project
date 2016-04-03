@@ -187,6 +187,49 @@ function renderOption_4(title,a,b,c,d,type_a,type_b,type_c,type_d,help_a,help_b,
 
 $(document).on('click','#save_pathway',function(){
     $(this).removeClass('btn-primary').addClass('btn-success').parent().attr('style','background-color: #90EE90').parent().find('button').attr('disabled','disabled');
+    $.get('partials/functions/getInfo.php?type=mybest',function(data){
+        if(data.status == 1){
+            var s = data.subject;
+            var u = data.universities;
+            var q = data.qualifications;
+            var j = data.jobs;
+            var shtml = '';
+            var uhtml = '';
+            var qhtml = '';
+            var jhtml = '';
+            if(s !== undefined){
+                shtml += s;
+                $('#r_subject').html(s);
+            }
+            if(u !== undefined){
+                for(i = 0; i < u.length; i++){
+                    uhtml += '<li class="list-group-item" style="background-color:'+randomColor({luminosity: 'light',format: 'rgba'})+'">';
+                    uhtml += u[i].name+' (Rank: '+u[i].rank+')';
+                    uhtml += '</li>';
+                }
+                $('#r_unis').html(uhtml);
+            }
+            if(q !== undefined){
+                for(i = 0; i < q.length; i++){
+                    qhtml += '<li class="list-group-item" style="background-color:'+randomColor({luminosity: 'light',format: 'rgba'})+'">';
+                    qhtml += q[i].name+' | '+q[i].short_title;
+                    qhtml += '</li>';
+                }
+                $('#r_quals').html(qhtml);
+            }
+            if(j !== undefined){
+                for(i = 0; i < j.length; i++){
+                    jhtml += '<li class="list-group-item" style="background-color:'+randomColor({luminosity: 'light',format: 'rgba'})+'">';
+                    jhtml += j[i].title;
+                    jhtml += '</li>';
+                }
+                $('#r_jobs').html(jhtml);
+            }
+            $('#recommendations').slideDown(500);
+        }else{
+            alert(data.error);
+        }
+    })
 })
 
 var future_pathway = [];
