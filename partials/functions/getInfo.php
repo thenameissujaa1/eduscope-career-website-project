@@ -338,8 +338,6 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 $response['error'] = 'Error getting user jobs';
             }
         break;
-        default: 
-            $sql = 'SELECT * FROM '.$type.' WHERE fk_user_id = '.$user_id;
         case 'myhistory':
             $sql = 'select grad_year as year, qualification as qualification, school_name as name from user_school_qualification where fk_user_id = '.$user_id.' union select grad_year as year,qualifications.name as qualification,universities.name as name from user_uni_qualification,universities,qualifications where qualifications.id = fk_qualification_id and universities.id = fk_uni_id and fk_user_id = '.$user_id.' union select start_year as year,jobs.title as qualification,company_name as name from user_jobs,jobs where jobs.id = fk_job_id and fk_user_id = '.$user_id.' order by year';
             $result = $mysqli->query($sql);
@@ -355,11 +353,71 @@ if(isset($_SESSION['loggedin_user']) == false || checkType($_GET['type']) == fal
                 $response['error'] = 'Error getting user jobs';
             }
         break;
+        case 'mybest':
+            $sql = 'select * from user_subject_score where fk_user_id = '.$user_id;
+            $result = $mysqli->query($sql);
+            $best_subject_id = getBestSubject($result);
+            $result = $mysqli->query($sql);
+            $t_score = getTotalScore($result);
+            $sql_sub = 'select subject_name from subjects where subject_id = '.$best_subject_id;
+            $result_sub = $mysqli->query($sql_sub);
+            $response['subject'] = $result_sub->fetch_assoc()['subject_name'];
+            $sql_quals = 'select name,short_title from qualifications where fk_subject_id = '.$best_subject_id;
+            $result_quals = $mysqli->query($sql_quals);
+            $i = 0;
+            while($row = $result_quals->fetch_assoc()){
+                $response['qualifications'][$i] = $row;
+                $i++;
+            }
+            $sql_jobs = 'select title from jobs where fk_subject_id = '.$best_subject_id;
+            $result_jobs = $mysqli->query($sql_jobs);
+            $i = 0;
+            while($row = $result_jobs->fetch_assoc()){
+                $response['jobs'][$i] = $row;
+                $i++;
+            }
+            $sql_universities = 'select rank,name from universities where entry between '.($t_score-50).' and '.($t_score+50);
+            $result_unis = $mysqli->query($sql_universities);
+            $i = 0;
+            while($row = $result_unis->fetch_assoc()){
+                $response['universities'][$i] = $row;
+                $i++;
+            }
+            send_response($response);
+        default: 
+        $sql = 'SELECT * FROM '.$type.' WHERE fk_user_id = '.$user_id;
     }
 
 }
 
 $mysqli->close();
+
+function getBestSubject($r){
+    $t_score = 0;
+    $best_subject = 0; // for jobs and quals
+    $best_score = 0;
+    $i = 0;
+    while($row = $r->fetch_assoc()){
+        $t_score += $row['score']+($row['universities']*500)+($row['jobs']*750);
+        if ($t_score > $best_score){
+            $best_score = $t_score;
+            $best_subject = $row['fk_subject_id'];
+        }
+        $i++;
+    }
+    return $best_subject;
+}
+
+function getTotalScore($r){
+    $t_score = 0; // for universitie
+    $i = 0;
+    while($row = $r->fetch_assoc()){
+        $t_score += $row['score'];
+        $i++;
+    }
+    return $t_score;
+}
+
 
 /*  This function takes a response and simply echos it for the app.js to read
     $data : Array - array $response from the php file 
@@ -370,7 +428,7 @@ function send_response($data){
 }
 
 function checkType($type){
-    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores|myjobs|myhistory)$/", $type, $match)){
+    if(preg_match("/^(userDetail|user|list|profile|relation|mymentors|myusers|myrequests|myquals|myscores|myjobs|myhistory|mybest)$/", $type, $match)){
         return true;
     }else{
         return false;

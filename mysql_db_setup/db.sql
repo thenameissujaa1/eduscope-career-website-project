@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2016 at 10:55 PM
+-- Generation Time: Apr 03, 2016 at 09:09 AM
 -- Server version: 10.0.17-MariaDB
 -- PHP Version: 5.6.14
 
@@ -760,11 +760,11 @@ INSERT INTO `subjects` (`subject_id`, `subject_name`, `subject_description`) VAL
 CREATE TABLE `universities` (
   `id` int(11) NOT NULL,
   `name` varchar(24) DEFAULT NULL,
-  `2016 Rank` int(3) DEFAULT NULL,
+  `rank` int(3) DEFAULT NULL,
   `Teaching Quality` decimal(3,1) DEFAULT NULL,
   `Student Experience` decimal(3,1) DEFAULT NULL,
   `Research quality` varchar(3) DEFAULT NULL,
-  `Entry standards` int(3) DEFAULT NULL,
+  `entry` int(3) DEFAULT NULL,
   `Graduate prospects` decimal(3,1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -772,7 +772,7 @@ CREATE TABLE `universities` (
 -- Dumping data for table `universities`
 --
 
-INSERT INTO `universities` (`id`, `name`, `2016 Rank`, `Teaching Quality`, `Student Experience`, `Research quality`, `Entry standards`, `Graduate prospects`) VALUES
+INSERT INTO `universities` (`id`, `name`, `rank`, `Teaching Quality`, `Student Experience`, `Research quality`, `entry`, `Graduate prospects`) VALUES
 (1, 'Cambridge', 1, '83.8', '86.3', '57', 602, '89.3'),
 (2, 'Oxford', 2, '83.1', '86.8', '53', 573, '87.1'),
 (3, 'Imperial College', 3, '79.8', '87.8', '56', 568, '91.1'),
@@ -926,7 +926,8 @@ INSERT INTO `user` (`user_id`, `user_username`, `user_password`, `user_email`, `
 (5, 'username3', '$2y$10$kLeethvv8Xq2wYkeokoWv.asoanGrH0zyXicBuGQoaXZawP31sduu', 'username3@gmail.com', 0),
 (6, 'balraj', '$2y$10$hkntwdU7sexv3dYcBrAJFuyltxb93u2UqriU/X3fs6QzJhDhijRcG', 'balraj@gmail.com', 0),
 (7, 'tats', '$2y$10$uljwLiFlbg66CoPl9iUQIeF4yAv6F5ERtsasuLhkFAsr6Vl1WmqBm', 'tats@gmail.com', 0),
-(8, 'hani', '$2y$10$AyP95p0hJoh3alCG7GJepOxQ/8z11IdP3nkT/Y.Kek7cCegyWsMly', 'h.ragabhassen@hw.ac.', 0);
+(8, 'hani', '$2y$10$AyP95p0hJoh3alCG7GJepOxQ/8z11IdP3nkT/Y.Kek7cCegyWsMly', 'h.ragabhassen@hw.ac.', 0),
+(9, 'newuser', '$2y$10$YyxVyHps9AsPZ2MVYfH.9Og2xLgbatb8nfbEFoPMloOg/CHffYQnC', 'newuser@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -940,7 +941,7 @@ CREATE TABLE `userdetail` (
   `userDetail_lastName` varchar(30) NOT NULL,
   `userDetail_profilePicture` varchar(64) NOT NULL,
   `userDetail_DOB` date NOT NULL,
-  `userDetail_minQualification` enum('School','High School','Bachelor','Masters','PhD') NOT NULL,
+  `userDetail_minQualification` enum('GCSE/S4','AS Levels/S5','A Levels/S6','Bachelors','Bachelors with Honours','Masters','PhD') NOT NULL,
   `userDetail_nationality` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -949,11 +950,11 @@ CREATE TABLE `userdetail` (
 --
 
 INSERT INTO `userdetail` (`userDetail_id`, `userDetail_firstName`, `userDetail_lastName`, `userDetail_profilePicture`, `userDetail_DOB`, `userDetail_minQualification`, `userDetail_nationality`) VALUES
-(2, 'user', 'name', '', '2016-03-24', 'Bachelor', 'albanian'),
-(4, 'Von', 'Eric', '', '2016-03-16', 'School', 'french'),
-(5, 'Bart', 'Simpson', '', '2013-06-17', 'Bachelor', 'american'),
-(6, 'Balraj', 'Bains', '', '1994-11-02', 'Bachelor', 'indian'),
-(8, 'Hani', 'Mee', '', '1981-03-27', 'PhD', 'afghan');
+(2, 'user', 'name', '', '1994-12-12', 'GCSE/S4', 'american'),
+(4, 'Von', 'Eric', '', '2016-03-16', '', 'french'),
+(5, 'Bart', 'Simpson', '', '2013-06-17', '', 'american'),
+(6, 'Balraj', 'Bains', '', '1994-11-02', '', 'indian'),
+(8, 'Hani', 'Mee', '', '1981-03-27', '', 'afghan');
 
 -- --------------------------------------------------------
 
@@ -1011,7 +1012,8 @@ CREATE TABLE `user_school_qualification` (
 
 INSERT INTO `user_school_qualification` (`id`, `fk_user_id`, `school_name`, `grad_year`, `qualification`) VALUES
 (28, 2, 'GCSE school', 2010, 'GCSE/S4'),
-(30, 2, 'A level School', 2012, 'A Levels');
+(30, 2, 'A level School', 2012, 'A Levels'),
+(31, 4, 'My GCSE School', 2010, 'GCSE/S4');
 
 -- --------------------------------------------------------
 
@@ -1210,7 +1212,7 @@ ALTER TABLE `universities`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `userdetail`
 --
@@ -1220,7 +1222,7 @@ ALTER TABLE `userdetail`
 -- AUTO_INCREMENT for table `user_school_qualification`
 --
 ALTER TABLE `user_school_qualification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- Constraints for dumped tables
 --

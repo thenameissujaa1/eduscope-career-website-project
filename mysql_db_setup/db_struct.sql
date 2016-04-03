@@ -46,11 +46,11 @@ CREATE TABLE `subjects` (
 CREATE TABLE `universities` (
   `id` int(11) NOT NULL,
   `name` varchar(24) DEFAULT NULL,
-  `2016 Rank` int(3) DEFAULT NULL,
+  `rank` int(3) DEFAULT NULL,
   `Teaching Quality` decimal(3,1) DEFAULT NULL,
   `Student Experience` decimal(3,1) DEFAULT NULL,
   `Research quality` varchar(3) DEFAULT NULL,
-  `Entry standards` int(3) DEFAULT NULL,
+  `entry` int(3) DEFAULT NULL,
   `Graduate prospects` decimal(3,1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -68,7 +68,7 @@ CREATE TABLE `userdetail` (
   `userDetail_lastName` varchar(30) NOT NULL,
   `userDetail_profilePicture` varchar(64) NOT NULL,
   `userDetail_DOB` date NOT NULL,
-  `userDetail_minQualification` enum('School','High School','Bachelor','Masters','PhD') NOT NULL,
+  `userDetail_minQualification` enum('GCSE/S4','AS Levels/S5','A Levels/S6','Bachelors','Bachelors with Honours','Masters','PhD') NOT NULL,
   `userDetail_nationality` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -183,11 +183,11 @@ ALTER TABLE `subjects`
 ALTER TABLE `universities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 ALTER TABLE `userdetail`
   MODIFY `userDetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 ALTER TABLE `user_school_qualification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 ALTER TABLE `case_studies`
   ADD CONSTRAINT `jobs` FOREIGN KEY (`fk_job_id`) REFERENCES `jobs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
