@@ -32,7 +32,7 @@ function initializePathway(){
                                             'foundation_year','s5',
                                             's4');
                                     break;
-                                    case 'AS Level/S5':
+                                    case 'AS Levels/S5':
                                         html = renderOption_4('You could do...',
                                             'Foundation Year','Bachelors','A levels/S6','Bachelors with honours',
                                             'primary','warning','primary','warning',
@@ -40,7 +40,7 @@ function initializePathway(){
                                             'foundation_year','bachelors','s6','bhons',
                                             's5');
                                     break;
-                                    case 'A Level/S6':
+                                    case 'A Levels/S6':
                                         html = renderOption_2('You could do...',
                                             'Bachelors','Bachelors with honours',
                                             'warning','primary',

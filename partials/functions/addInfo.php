@@ -74,9 +74,9 @@ if(array_key_exists('table',$_POST)){
             break;
             case 'university':
                 if(array_key_exists('uni_name',$_POST)
-                    && array_key_exists('grad_year',$_POST)){
+                    && array_key_exists('grad_year_u',$_POST)){
                         $uni_name = $_POST['uni_name'];
-                        $grad_year = $_POST['grad_year'];
+                        $grad_year_u = $_POST['grad_year_u'];
                         if(array_key_exists('qualification',$_POST)){
                             $response['status'] = 1;
                             $qualification = $_POST['qualification'];
@@ -254,7 +254,7 @@ if($response['status'] == 1){
             if($qualification > 1){
                 $stmt_sql = 'INSERT INTO user_uni_qualification (fk_user_id,fk_qualification_id,fk_uni_id,grad_year) VALUES (?,?,?,?)';
                 $stmt_query = $mysqli->prepare($stmt_sql);
-                $stmt_query->bind_param('iiii',$_SESSION['loggedin_user'],$qualification,$uni_name,$grad_year);
+                $stmt_query->bind_param('iiii',$_SESSION['loggedin_user'],$qualification,$uni_name,$grad_year_u);
                 
                 if($stmt_query->execute() == false){
                     $response['status'] = 0;
