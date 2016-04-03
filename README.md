@@ -23,7 +23,9 @@ for further Git guide, check the [Google Document](https://docs.google.com/docum
 1. Once you have your MySQL and apache server running, in your web browser go to "localhost/eduscope/mysql_db_setup/db_initialize.php", this will create the database and all the tables
 
 ####Pending Tasks:
-Visit [here](https://docs.google.com/spreadsheets/d/1Hrt0fGZgkDPiXamk6dQVy9HYFATJuRLJXBcWMy8kaJ4/edit#gid=1626178758) for a complete list of tasks
+Visit [here](https://docs.google.com/spreadsheets/d/1Hrt0fGZgkDPiXamk6dQVy9HYFATJuRLJXBcWMy8kaJ4/edit#gid=1626178758) for a complete list of tasks (old)
+
+**Please use the issue tracker.**
 
 ### Backend API Documentation for getInfo.php
 getInfo is a common service script for all requests that replies with a JSON query based on the arguments provided, this scripts expects the user to be logged in, if the user is not logged in an error is sent to the client.
@@ -170,6 +172,8 @@ This will give score for the user's subjects to know where his acadmeic strength
 
 URL: getInfo.php?type=myscores
 
+Please check the php script if documentation is missing.
+
 RESPONSE:
 
 status: (0|1) | 0 for failure and 1 for success
@@ -216,3 +220,15 @@ Where <type> can be the following:
   status
   
   qualification-types[]:A list of qualification types (eg. bachelors, masters, phD, etc)
+
+Please check the php script if documentation is missing.
+
+###Contributers
+
+This website was created as part of a software engineering coursework at Heriot-Watt University, the team members mainting the repo are:
+- Balraj
+- Habiba
+- Tabindah
+- Khaled
+
+Full website documentation to follow. 
