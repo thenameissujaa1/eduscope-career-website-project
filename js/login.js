@@ -107,7 +107,7 @@ var signup_validator = new FormValidator('signup_form', [{
             
             // If ajax success
             if(data == "success"){
-                $('#signup_validation_errors').html('<b>Signup successful!</b><br>We have sent a verification email, please find the verification link to validate your account');
+                $('#signup_validation_errors').html('<b>Signup successful!</b><br>You can now <a href="#" id="formOption" onclick="formToggle()">login.</a>');
                 $('#signup_validation_errors').addClass('custom-well-success');
             }else{
                 $('#signup_validation_errors').html(data).addClass('custom-well-failure');
